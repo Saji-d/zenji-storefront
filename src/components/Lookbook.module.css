@@ -1,7 +1,20 @@
 .section {
-  padding-block: var(--section-y);
-  border-top: 1px solid var(--line);
+  padding-block: 7.5rem var(--section-y);
   background: var(--panel);
+}
+
+.pageHead {
+  margin-bottom: 2.6rem;
+}
+
+.pageTitle {
+  font-size: var(--fs-hero);
+  margin-block: 0.6rem 1rem;
+}
+
+.pageLede {
+  color: var(--muted);
+  max-width: 34rem;
 }
 
 .leadWrap {
@@ -137,6 +150,44 @@
   background: rgba(10, 10, 11, 0.72);
   padding: 0.3em 0.6em;
   backdrop-filter: blur(4px);
+}
+
+/* alternating editorial rows (lookbook page) */
+.altRows {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 5vw, 3.5rem);
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+}
+
+.altRows .mosaicItem {
+  width: min(72%, 44rem);
+}
+
+.altRows .rowFlip {
+  margin-left: auto;
+}
+
+.rowTitleOverlay {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  writing-mode: vertical-rl;
+}
+
+.rowFlip .rowTitleOverlay {
+  right: auto;
+  left: 1rem;
+}
+
+@media (max-width: 760px) {
+  .altRows .mosaicItem {
+    width: 100%;
+  }
 }
 
 @media (max-width: 860px) {

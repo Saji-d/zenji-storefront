@@ -3,6 +3,9 @@ import { cleanup } from '@testing-library/react'
 import { afterEach, beforeAll } from 'vitest'
 
 beforeAll(() => {
+  // jsdom lacks scrollTo (router scroll restoration)
+  window.scrollTo = (() => {}) as typeof window.scrollTo
+
   // jsdom lacks IntersectionObserver (framer-motion whileInView, section spy)
   class IO {
     observe() {}

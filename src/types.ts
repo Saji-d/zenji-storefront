@@ -14,6 +14,7 @@ export interface ProductImages {
 
 export interface Product {
   id: string
+  slug: string
   name: string
   colorway: string
   /** hex accent used for status chips, focus states and fallback art */
@@ -24,6 +25,8 @@ export interface Product {
   sizes: Size[]
   status: ProductStatus
   tagline: string
+  /** PDP editorial copy */
+  story: string
   images: ProductImages
   /** editorial grid role */
   featured?: boolean

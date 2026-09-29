@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styles from './ProductCard.module.css'
 import type { Product } from '../types'
 import { formatPrice } from '../context/CartContext'
@@ -11,7 +12,8 @@ const STATUS_LABEL: Record<Product['status'], string> = {
 
 interface ProductCardProps {
   product: Product
-  onQuickView: (product: Product) => void
+  /** omitted on PDP-related cards, where navigating is the right action */
+  onQuickView?: (product: Product) => void
   priority?: boolean
   index?: number
 }
@@ -51,14 +53,16 @@ export function ProductCard({ product, onQuickView, priority = false, index }: P
           {discount > 0 && <span className={styles.sale}>−{discount}%</span>}
         </div>
 
-        <button
-          type="button"
-          className={styles.quickView}
-          onClick={() => onQuickView(product)}
-          aria-label={`Quick view — ${product.name}`}
-        >
-          QUICK VIEW
-        </button>
+        {onQuickView && (
+          <button
+            type="button"
+            className={styles.quickView}
+            onClick={() => onQuickView(product)}
+            aria-label={`Quick view — ${product.name}`}
+          >
+            QUICK VIEW
+          </button>
+        )}
       </div>
 
       <div className={styles.meta}>
@@ -71,7 +75,9 @@ export function ProductCard({ product, onQuickView, priority = false, index }: P
           <p className={styles.colorway}>{product.colorway}</p>
         </div>
         <h3 className={styles.name}>
-          <span className={styles.nameText}>{product.name}</span>
+          <Link to={`/drop/${product.slug}`} className={styles.nameLink}>
+            <span className={styles.nameText}>{product.name}</span>
+          </Link>
         </h3>
         <p className={styles.tagline}>{product.tagline}</p>
         <p className={styles.priceRow}>

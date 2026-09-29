@@ -1,5 +1,20 @@
 import { useState, type FormEvent } from 'react'
+import { Link } from 'react-router-dom'
 import styles from './Footer.module.css'
+
+const SOCIALS = [
+  { label: 'Instagram', href: 'https://www.instagram.com/zenji_.shop/' },
+  { label: 'TikTok', href: 'https://www.tiktok.com/@zenji_.shop' },
+  { label: 'Facebook', href: 'https://www.facebook.com/people/ZENJI/61592433253702/' },
+]
+
+const ROUTES = [
+  { to: '/drop', label: 'Shop' },
+  { to: '/collection', label: 'Collections' },
+  { to: '/lookbook', label: 'Lookbook' },
+  { to: '/story', label: 'Story' },
+  { to: '/faq', label: 'FAQ' },
+]
 
 export function Footer() {
   const [email, setEmail] = useState('')
@@ -11,7 +26,6 @@ export function Footer() {
 
   return (
     <footer className={styles.footer}>
-      {/* signal capture */}
       <div className={`container ${styles.signal}`}>
         <div className={styles.signalCopy}>
           <p className={styles.signalKicker}>TRANSMISSIONS <span aria-hidden="true">//</span> 通信</p>
@@ -39,7 +53,6 @@ export function Footer() {
         <p className={styles.signalNote}>Demo only — no email is sent or stored.</p>
       </div>
 
-      {/* oversized wordmark */}
       <div className={`container ${styles.markWrap}`} aria-hidden="true">
         <p className={styles.mark}>
           ZENJI<span className={styles.markKanji}>禅</span>
@@ -47,6 +60,23 @@ export function Footer() {
       </div>
 
       <div className={`container ${styles.bottom}`}>
+        <nav className={styles.routeLinks} aria-label="Footer">
+          {ROUTES.map((r) => (
+            <Link key={r.to} to={r.to} className={styles.routeLink}>
+              {r.label}
+            </Link>
+          ))}
+        </nav>
+        <div className={styles.socials}>
+          {SOCIALS.map((s) => (
+            <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className={styles.social}>
+              {s.label.toUpperCase()} ↗
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div className={`container ${styles.legal}`}>
         <p className={styles.meta}>
           Demo storefront concept for ZENJI · Original design &amp; code · No real payments,
           accounts or orders.
@@ -54,9 +84,6 @@ export function Footer() {
         <p className={styles.meta}>
           Inspired by zenji.shop — not affiliated. Built as a frontend portfolio piece.
         </p>
-        <a href="#top" className={styles.topLink}>
-          BACK TO TOP ↑
-        </a>
       </div>
     </footer>
   )

@@ -10,7 +10,7 @@
 }
 
 .header.solid {
-  background: rgba(10, 10, 11, 0.92);
+  background: rgba(10, 10, 11, 0.94);
   backdrop-filter: blur(12px);
   border-bottom-color: var(--line);
 }
@@ -39,13 +39,14 @@
 
 .nav {
   display: flex;
-  gap: 2rem;
+  gap: 1.9rem;
 }
 
 .nav a {
   position: relative;
   display: inline-flex;
-  align-items: center;
+  align-items: baseline;
+  gap: 0.35em;
   padding: 0.55em 0;
   font-family: var(--font-mono);
   font-size: var(--fs-small);
@@ -54,6 +55,14 @@
   text-decoration: none;
   color: var(--muted);
   transition: color var(--speed) var(--ease);
+}
+
+.navIndex {
+  font-size: 0.62em;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity var(--speed) var(--ease), transform var(--speed) var(--ease);
 }
 
 .nav a::after {
@@ -72,6 +81,12 @@
 .nav a:hover,
 .nav a.active {
   color: var(--text);
+}
+
+.nav a:hover .navIndex,
+.nav a.active .navIndex {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .nav a:hover::after,
@@ -93,11 +108,13 @@
   padding: 0.55em 0.9em;
   background: transparent;
   border: 1px solid var(--line-strong);
-  border-radius: var(--radius);
+  border-radius: 0;
   font-family: var(--font-mono);
   font-size: var(--fs-small);
   font-weight: 700;
   letter-spacing: 0.16em;
+  color: var(--text);
+  text-decoration: none;
   cursor: pointer;
   transition: border-color var(--speed) var(--ease), background var(--speed) var(--ease);
 }
@@ -114,7 +131,7 @@
   color: var(--ink);
   font-size: 0.75rem;
   text-align: center;
-  border-radius: 1px;
+  border-radius: 0;
 }
 
 .burger {
@@ -122,21 +139,19 @@
   padding: 0.55em 0.8em;
   background: transparent;
   border: 1px solid var(--line-strong);
-  border-radius: var(--radius);
   color: var(--text);
   font-size: 1rem;
   cursor: pointer;
 }
 
+/* fullscreen mobile menu */
 .mobileMenu {
   position: fixed;
-  top: 4.4rem;
-  left: 0;
-  right: 0;
+  inset: 4.4rem 0 0 0;
   z-index: 55;
-  background: rgba(10, 10, 11, 0.97);
-  border-bottom: 1px solid var(--line);
-  padding: 1rem var(--gutter) 1.4rem;
+  background: var(--ink);
+  padding: 2.5rem var(--gutter) 3rem;
+  overflow-y: auto;
 }
 
 .mobileMenu nav {
@@ -145,21 +160,26 @@
 }
 
 .mobileMenu a {
-  padding: 0.9em 0;
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 1.1rem 0;
   border-bottom: 1px solid var(--line);
-  font-family: var(--font-mono);
-  font-size: 0.95rem;
-  letter-spacing: 0.18em;
+  font-size: clamp(1.6rem, 7vw, 2.4rem);
+  font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.02em;
   text-decoration: none;
   color: var(--text);
 }
 
-.mobileMenu a:last-child {
-  border-bottom: 0;
+.mobileIndex {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent);
 }
 
-@media (max-width: 860px) {
+@media (max-width: 900px) {
   .nav {
     display: none;
   }
@@ -170,7 +190,7 @@
 }
 
 @media (max-width: 480px) {
-  .iconBtn:first-child {
-    display: none;
+  .iconBtn[aria-label^='Wishlist'] {
+    padding: 0.55em 0.7em;
   }
 }

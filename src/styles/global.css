@@ -86,6 +86,9 @@ a {
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 0.95;
+  /* underscore-joined headings like THE_ORIGIN_DROP are single unbreakable
+     tokens; without this they overflow (and get clipped) on narrow phones */
+  overflow-wrap: anywhere;
 }
 
 .btn {
@@ -168,6 +171,16 @@ a {
   clip: rect(0 0 0 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* route-change accent wipe */
+.route-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: var(--accent);
+  transform-origin: right;
+  pointer-events: none;
 }
 
 .skip-link {

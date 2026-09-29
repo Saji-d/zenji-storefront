@@ -1,5 +1,27 @@
 .section {
-  padding-block: var(--section-y);
+  padding-block: 7.5rem var(--section-y);
+}
+
+.pageHead {
+  margin-bottom: 2rem;
+}
+
+.pageTitle {
+  font-size: var(--fs-hero);
+  margin-block: 0.6rem 1rem;
+}
+
+.pageLede {
+  color: var(--muted);
+  max-width: 34rem;
+}
+
+.storyCta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+  padding-top: 2rem;
   border-top: 1px solid var(--line);
 }
 

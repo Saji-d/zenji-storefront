@@ -73,11 +73,10 @@ describe('cart reducer', () => {
   })
 })
 
-describe('catalog integrity', () => {
-  it('has six unique products with valid prices', () => {
-    expect(PRODUCTS).toHaveLength(6)
+describe('catalog integrity', () => {    it('has nine unique products with valid prices', () => {
+    expect(PRODUCTS).toHaveLength(9)
     const ids = new Set(PRODUCTS.map((p) => p.id))
-    expect(ids.size).toBe(6)
+    expect(ids.size).toBe(9)
     for (const p of PRODUCTS) {
       expect(p.price).toBeGreaterThan(0)
       if (p.compareAt) expect(p.compareAt).toBeGreaterThan(p.price)

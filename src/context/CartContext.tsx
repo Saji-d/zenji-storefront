@@ -4,6 +4,7 @@ import {
   useEffect,
   useMemo,
   useReducer,
+  useState,
   type ReactNode,
 } from 'react'
 import {
@@ -88,6 +89,9 @@ export const reducer = (state: CartItem[], action: CartAction): CartItem[] => {
 interface CartContextValue {
   items: CartItem[]
   totals: CartTotals
+  /** most recent addition — used for spatial add-to-cart feedback */
+  lastAdded: { productId: string; size: Size } | null
+  dismissAdded: () => void
   add: (productId: string, size: Size) => void
   remove: (productId: string, size: Size) => void
   setQty: (productId: string, size: Size, qty: number) => void
@@ -107,6 +111,7 @@ export const formatPrice = (value: number): string =>
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, dispatch] = useReducer(reducer, null, load)
+  const [lastAdded, setLastAdded] = useState<{ productId: string; size: Size } | null>(null)
 
   useEffect(() => {
     try {
@@ -135,13 +140,18 @@ export function CartProvider({ children }: { children: ReactNode }) {
     return {
       items,
       totals,
-      add: (productId, size) => dispatch({ type: 'add', productId, size }),
+      lastAdded,
+      dismissAdded: () => setLastAdded(null),
+      add: (productId, size) => {
+        dispatch({ type: 'add', productId, size })
+        setLastAdded({ productId, size })
+      },
       remove: (productId, size) => dispatch({ type: 'remove', productId, size }),
       setQty: (productId, size, qty) =>
         dispatch({ type: 'set-qty', productId, size, qty }),
       clear: () => dispatch({ type: 'clear' }),
     }
-  }, [items])
+  }, [items, lastAdded])
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }

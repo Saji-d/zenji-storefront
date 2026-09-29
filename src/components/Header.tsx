@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useCart } from '../context/CartContext'
 import { useWishlist } from '../context/WishlistContext'
-import { useSectionSpy } from '../hooks/useSectionSpy'
 import styles from './Header.module.css'
 
 interface HeaderProps {
@@ -10,16 +10,19 @@ interface HeaderProps {
 }
 
 const NAV = [
-  { id: 'drop', label: 'Drop' },
-  { id: 'collection', label: 'Collection' },
-  { id: 'lookbook', label: 'Lookbook' },
-  { id: 'story', label: 'Our Story' },
+  { to: '/drop', label: 'Shop' },
+  { to: '/collection', label: 'Collections' },
+  { to: '/lookbook', label: 'Lookbook' },
+  { to: '/story', label: 'Story' },
+  { to: '/faq', label: 'FAQ' },
 ]
+
+const EASE = [0.22, 1, 0.36, 1] as const
 
 export function Header({ onOpenCart }: HeaderProps) {
   const { totals } = useCart()
   const { ids } = useWishlist()
-  const active = useSectionSpy(NAV.map((n) => n.id))
+  const { pathname } = useLocation()
   const reduce = useReducedMotion()
 
   const [scrolled, setScrolled] = useState(false)
@@ -32,36 +35,38 @@ export function Header({ onOpenCart }: HeaderProps) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // close the mobile menu on route change
+  useEffect(() => {
+    setMenuOpen(false)
+  }, [pathname])
+
   const cartLabel = `Open cart, ${totals.count} item${totals.count === 1 ? '' : 's'}`
 
   return (
     <>
-      <header className={`${styles.header} ${scrolled ? styles.solid : ''}`}>
+      <header className={`${styles.header} ${scrolled || menuOpen ? styles.solid : ''}`}>
         <div className={`container ${styles.inner}`}>
-          <a href="#top" className={styles.wordmark} aria-label="ZENJI — back to top">
+          <Link to="/" className={styles.wordmark} aria-label="ZENJI — home">
             ZENJI<span className={styles.kanji}>禅</span>
-          </a>
+          </Link>
 
           <nav className={styles.nav} aria-label="Primary">
-            {NAV.map((item) => (
-              <a
-                key={item.id}
-                href={`#${item.id}`}
-                className={active === item.id ? styles.active : undefined}
-                aria-current={active === item.id ? 'true' : undefined}
+            {NAV.map((item, i) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                className={({ isActive }) => (isActive ? styles.active : undefined)}
               >
+                <span className={styles.navIndex} aria-hidden="true">
+                  0{i + 1}
+                </span>
                 {item.label}
-              </a>
+              </NavLink>
             ))}
           </nav>
 
           <div className={styles.actions}>
-            <button
-              type="button"
-              className={styles.iconBtn}
-              aria-label={`Wishlist, ${ids.size} item${ids.size === 1 ? '' : 's'}`}
-              onClick={() => document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' })}
-            >
+            <Link to="/wishlist" className={styles.iconBtn} aria-label={`Wishlist, ${ids.size} item${ids.size === 1 ? '' : 's'}`}>
               <span aria-hidden="true">♥</span>
               {ids.size > 0 && (
                 <motion.span
@@ -74,7 +79,7 @@ export function Header({ onOpenCart }: HeaderProps) {
                   {ids.size}
                 </motion.span>
               )}
-            </button>
+            </Link>
 
             <button type="button" className={styles.iconBtn} onClick={onOpenCart} aria-label={cartLabel}>
               <span aria-hidden="true">CART</span>
@@ -106,28 +111,37 @@ export function Header({ onOpenCart }: HeaderProps) {
         </div>
       </header>
 
+      {/* fullscreen mobile navigation */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
             id="mobile-menu"
             className={styles.mobileMenu}
-            initial={reduce ? { opacity: 0 } : { opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={reduce ? { opacity: 0 } : { opacity: 0, y: -12 }}
-            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ clipPath: 'inset(0 0 100% 0)' }}
+            animate={{ clipPath: 'inset(0 0 0% 0)' }}
+            exit={{ clipPath: 'inset(0 0 100% 0)' }}
+            transition={{ duration: 0.45, ease: EASE }}
           >
-            <nav aria-label="Mobile">
-              {NAV.map((item, i) => (
-                <motion.a
-                  key={item.id}
-                  href={`#${item.id}`}
-                  style={{ '--i': i } as React.CSSProperties}
-                  onClick={() => setMenuOpen(false)}
+            <motion.nav
+              aria-label="Mobile"
+              style={{ '--i': 0 } as React.CSSProperties}
+            >
+              {[{ to: '/', label: 'Home' }, ...NAV].map((item, i) => (
+                <motion.div
+                  key={item.to}
+                  initial={{ opacity: 0, y: 26 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.12 + i * 0.06, duration: 0.4, ease: EASE }}
                 >
-                  {item.label}
-                </motion.a>
+                  <Link to={item.to} onClick={() => setMenuOpen(false)}>
+                    <span className={styles.mobileIndex} aria-hidden="true">
+                      0{i + 1}
+                    </span>
+                    {item.label}
+                  </Link>
+                </motion.div>
               ))}
-            </nav>
+            </motion.nav>
           </motion.div>
         )}
       </AnimatePresence>

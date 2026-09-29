@@ -186,6 +186,11 @@
   letter-spacing: 0.02em;
 }
 
+.nameLink {
+  color: inherit;
+  text-decoration: none;
+}
+
 .nameText {
   background-image: linear-gradient(var(--accent), var(--accent));
   background-repeat: no-repeat;

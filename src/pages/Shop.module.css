@@ -1,0 +1,134 @@
+.page {
+  padding-block: 7.5rem var(--section-y);
+  min-height: 70svh;
+}
+
+.title {
+  font-size: var(--fs-hero);
+  margin-block: 0.6rem 1rem;
+}
+
+.lede {
+  color: var(--muted);
+  max-width: 36rem;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-block: 2.4rem 1rem;
+  padding-block: 1.1rem;
+  border-block: 1px solid var(--line);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.filterBtn {
+  padding: 0.5em 0.9em;
+  background: transparent;
+  border: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  cursor: pointer;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%);
+  transition: color var(--speed) var(--ease), border-color var(--speed) var(--ease),
+    background var(--speed) var(--ease);
+}
+
+.filterBtn:hover {
+  color: var(--text);
+  border-color: var(--line-strong);
+}
+
+.filterActive,
+.filterActive:hover {
+  border-color: var(--accent);
+  color: var(--text);
+  background: rgba(255, 61, 61, 0.09);
+}
+
+.sortLabel {
+  display: inline-flex;
+}
+
+.sort {
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  padding: 0.5em 0.7em;
+  cursor: pointer;
+}
+
+.count {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.22em;
+  color: var(--muted);
+  margin-bottom: 1.6rem;
+}
+
+.crumb {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color var(--speed) var(--ease);
+}
+
+.crumb:hover {
+  color: var(--text);
+}
+
+.empty {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding: clamp(2rem, 6vw, 4rem);
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.emptyMark {
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+
+.emptyText {
+  color: var(--muted);
+  max-width: 26rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(2rem, 4vw, 3rem) clamp(1.2rem, 2.5vw, 2rem);
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
