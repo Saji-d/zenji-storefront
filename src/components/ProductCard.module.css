@@ -8,17 +8,27 @@
 }
 
 .card:hover {
-  border-color: var(--line-strong);
   transform: translateY(-3px);
 }
 
 .artPanel {
   position: relative;
-  padding: 1.4rem 1.4rem 0;
+  padding: 1.1rem 1.1rem 0;
   background:
-    radial-gradient(circle at 50% 42%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 62%),
+    radial-gradient(circle at 50% 44%, color-mix(in srgb, var(--accent) 26%, transparent), transparent 68%),
     var(--panel-2);
   border-bottom: 1px solid var(--line);
+  transition: background 240ms var(--ease);
+}
+
+.card:hover .artPanel {
+  background:
+    radial-gradient(circle at 50% 44%, color-mix(in srgb, var(--accent) 38%, transparent), transparent 72%),
+    var(--panel-2);
+}
+
+.card:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
 }
 
 .art {
@@ -123,6 +133,26 @@
   font-weight: 700;
   letter-spacing: 0.1em;
   color: var(--gold);
+}
+
+.specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em 0.55em;
+  align-items: baseline;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+
+.specs::before {
+  content: '//';
+  color: var(--accent);
+}
+
+.specs span {
+  white-space: nowrap;
 }
 
 .add {

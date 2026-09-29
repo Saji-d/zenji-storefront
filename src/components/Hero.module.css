@@ -67,9 +67,33 @@
 }
 
 .frame {
+  position: relative;
   border: 1px solid var(--line-strong);
-  background: var(--panel);
+  background:
+    radial-gradient(circle at 50% 42%, rgba(111, 159, 216, 0.14), transparent 66%),
+    var(--panel);
   padding: clamp(1rem, 3vw, 2rem);
+}
+
+/* registration ticks — classified-transmission framing */
+.frame::before,
+.frame::after {
+  content: '+';
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.frame::before {
+  top: 0.45rem;
+  left: 0.55rem;
+}
+
+.frame::after {
+  bottom: 0.45rem;
+  right: 0.55rem;
 }
 
 .art {
@@ -82,7 +106,7 @@
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
   letter-spacing: 0.22em;
-  color: var(--muted);
+  color: var(--accent);
   text-align: right;
 }
 

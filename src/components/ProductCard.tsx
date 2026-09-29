@@ -55,11 +55,15 @@ export function ProductCard({ product }: ProductCardProps) {
         <p className={styles.priceRow}>
           <span className={styles.price}>{formatPrice(product.price)}</span>
           {product.compareAt && (
-            <>
-              <s className={styles.compare}>{formatPrice(product.compareAt)}</s>
-              <span className={styles.save}>SAVE {formatPrice(product.compareAt - product.price)}</span>
-            </>
+            <s className={styles.compare}>{formatPrice(product.compareAt)}</s>
           )}
+        </p>
+
+        <p className={styles.specs} aria-hidden="true">
+          <span>240GSM</span>
+          <span>OVERSIZED</span>
+          <span>200 UNITS</span>
+          <span>{STATUS_LABEL[product.status]}</span>
         </p>
 
         <SizePicker

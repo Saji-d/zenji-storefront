@@ -69,7 +69,16 @@ a {
 
 .eyebrow::before {
   content: '// ';
-  color: var(--accent);
+  color: var(--gold);
+}
+
+/* chest-print captions inside the SVG artwork */
+.tee-caption {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-anchor: middle;
 }
 
 .display {

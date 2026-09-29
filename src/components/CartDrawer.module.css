@@ -282,8 +282,16 @@
 
 .subtotal {
   font-family: var(--font-mono);
-  font-size: 1.25rem;
+  font-size: 1.7rem;
   font-weight: 700;
+  color: var(--text);
+}
+
+.subtotal::before {
+  content: 'AUD ';
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  color: var(--muted);
 }
 
 .note {
@@ -291,6 +299,17 @@
   font-family: var(--font-mono);
   letter-spacing: 0.06em;
   color: var(--muted);
+}
+
+.demoBtn {
+  background: transparent !important;
+  border: 1px dashed var(--line-strong);
+  color: var(--muted);
+}
+
+.demoBtn:hover:not(:disabled) {
+  border-color: var(--muted);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .clear {

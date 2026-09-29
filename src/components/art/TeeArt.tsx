@@ -56,7 +56,20 @@ export function TeeArt({ productId, accent, className }: TeeArtProps) {
       </defs>
 
       <g clipPath={`url(#${clipId})`}>
-        <circle cx={SIZE / 2} cy={SIZE / 2} r={200} fill={`url(#${glowId})`} />
+        <circle cx={SIZE / 2} cy={SIZE / 2} r={230} fill={`url(#${glowId})`} />
+
+        {/* giant kanji watermark — echo of the ZENJI mark behind each product */}
+        <text
+          x={SIZE / 2}
+          y={SIZE / 2 + 60}
+          textAnchor="middle"
+          fontSize="300"
+          fontFamily="'Hiragino Mincho ProN', 'Yu Mincho', serif"
+          fill={accent}
+          opacity="0.14"
+        >
+          禅
+        </text>
 
         {/* backdrop grid */}
         <g stroke="#1d1d24" strokeWidth="1">
@@ -115,15 +128,15 @@ function Flame({ accent }: MotifProps) {
   return (
     <g>
       <path
-        d="M280 232c-20 26-38 40-38 66 0 26 17 44 38 44s38-18 38-44c0-26-18-40-38-66z"
+        d="M280 196c-28 37-54 57-54 94 0 37 24 63 54 63s54-26 54-63c0-37-26-57-54-94z"
         fill={accent}
         opacity="0.92"
       />
       <path
-        d="M280 268c-9 12-16 19-16 31 0 13 7 22 16 22s16-9 16-22c0-12-7-19-16-31z"
+        d="M280 248c-13 17-23 27-23 44 0 19 10 32 23 32s23-13 23-32c0-17-10-27-23-44z"
         fill="#0e0e12"
       />
-      <text x="280" y="392" className="tee-caption" fill={accent}>
+      <text x="280" y="386" className="tee-caption" fill={accent}>
         BLUE FLAME
       </text>
     </g>
@@ -134,12 +147,13 @@ function Blood({ accent }: MotifProps) {
   return (
     <g>
       <path
-        d="M280 224c-22 30-40 48-40 74 0 26 18 44 40 44s40-18 40-44c0-26-18-44-40-74z"
+        d="M280 188c-31 43-57 69-57 106 0 37 26 63 57 63s57-26 57-63c0-37-26-63-57-106z"
         fill={accent}
       />
-      <circle cx="268" cy="300" r="7" fill="#0e0e12" />
-      <circle cx="292" cy="300" r="7" fill="#0e0e12" />
-      <text x="280" y="392" className="tee-caption" fill={accent}>
+      <circle cx="263" cy="296" r="10" fill="#0e0e12" />
+      <circle cx="297" cy="296" r="10" fill="#0e0e12" />
+      <path d="M280 306l-9 22h18z" fill="#0e0e12" />
+      <text x="280" y="386" className="tee-caption" fill={accent}>
         DEMON BLOOD
       </text>
     </g>
@@ -149,23 +163,23 @@ function Blood({ accent }: MotifProps) {
 function Sun({ accent }: MotifProps) {
   return (
     <g>
-      <circle cx="280" cy="300" r="46" fill={accent} />
+      <circle cx="280" cy="288" r="58" fill={accent} />
       {Array.from({ length: 12 }, (_, i) => {
         const a = (i * Math.PI) / 6
         return (
           <line
             key={i}
-            x1={280 + Math.cos(a) * 56}
-            y1={300 + Math.sin(a) * 56}
-            x2={280 + Math.cos(a) * 72}
-            y2={300 + Math.sin(a) * 72}
+            x1={280 + Math.cos(a) * 70}
+            y1={288 + Math.sin(a) * 70}
+            x2={280 + Math.cos(a) * 94}
+            y2={288 + Math.sin(a) * 94}
             stroke={accent}
-            strokeWidth="6"
+            strokeWidth="8"
             strokeLinecap="round"
           />
         )
       })}
-      <text x="280" y="392" className="tee-caption" fill={accent}>
+      <text x="280" y="386" className="tee-caption" fill={accent}>
         WILL OF THE SUN
       </text>
     </g>
@@ -176,10 +190,10 @@ function Spirit({ accent }: MotifProps) {
   return (
     <g>
       <path
-        d="M280 224l28 46h-20l24 42h-22l26 44h-72l26-44h-22l24-42h-20z"
+        d="M280 178l38 62h-27l32 58h-30l36 62h-98l36-62h-30l32-58h-27z"
         fill={accent}
       />
-      <text x="280" y="392" className="tee-caption" fill={accent}>
+      <text x="280" y="386" className="tee-caption" fill={accent}>
         WARRIOR SPIRIT
       </text>
     </g>
@@ -189,15 +203,15 @@ function Spirit({ accent }: MotifProps) {
 function Vow({ accent }: MotifProps) {
   return (
     <g>
-      <circle cx="280" cy="300" r="44" fill="none" stroke={accent} strokeWidth="7" />
+      <circle cx="280" cy="284" r="62" fill="none" stroke={accent} strokeWidth="10" />
       <path
-        d="M280 262v38l26 18"
+        d="M280 234v50l34 24"
         stroke={accent}
-        strokeWidth="7"
+        strokeWidth="10"
         fill="none"
         strokeLinecap="round"
       />
-      <text x="280" y="392" className="tee-caption" fill={accent}>
+      <text x="280" y="386" className="tee-caption" fill={accent}>
         SHADOW VOW
       </text>
     </g>
@@ -208,13 +222,13 @@ function Vanguard({ accent }: MotifProps) {
   return (
     <g>
       <path
-        d="M280 224l54 34v70l-54 38-54-38v-70z"
+        d="M280 176l76 48v98l-76 54-76-54v-98z"
         fill="none"
         stroke={accent}
-        strokeWidth="8"
+        strokeWidth="11"
       />
-      <circle cx="280" cy="295" r="14" fill={accent} />
-      <text x="280" y="392" className="tee-caption" fill={accent}>
+      <circle cx="280" cy="276" r="20" fill={accent} />
+      <text x="280" y="386" className="tee-caption" fill={accent}>
         EMBER VANGUARD
       </text>
     </g>

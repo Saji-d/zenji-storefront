@@ -162,13 +162,13 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                 </div>
               </dl>
 
+              <button type="button" className={`btn ${styles.demoBtn}`} disabled>
+                Demo mode // checkout disabled
+              </button>
+
               <p className={styles.note}>
                 Demo cart — no real payments. Ships Australia-wide in 1–2 weeks.
               </p>
-
-              <button type="button" className="btn btn--primary" disabled>
-                Checkout — coming soon
-              </button>
 
               <button type="button" className={styles.clear} onClick={clear}>
                 Empty cart
