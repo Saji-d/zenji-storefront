@@ -32,6 +32,7 @@ export function Collection() {
                 product={product}
                 onQuickView={setQuickView}
                 priority={i < 2}
+                index={i}
               />
             </Reveal>
           ))}

@@ -4,9 +4,14 @@
   background: var(--panel);
 }
 
+.leadWrap {
+  overflow: hidden;
+}
+
 .lead {
   position: relative;
   margin: 0;
+  will-change: transform;
 }
 
 .leadImg {

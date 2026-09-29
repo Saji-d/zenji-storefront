@@ -3,7 +3,7 @@ import { formatPrice, useCart } from '../context/CartContext'
 import { FREE_SHIPPING_THRESHOLD } from '../types'
 import { productById } from '../data/products'
 import { useCartDrawer } from '../hooks/useCartDrawer'
-import { TeeArt } from './art/TeeArt'
+import { SmartImage } from './SmartImage'
 import styles from './CartDrawer.module.css'
 
 interface CartDrawerProps {
@@ -75,11 +75,12 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                 if (!product) return null
                 return (
                   <li key={`${item.productId}-${item.size}`} className={styles.line}>
-                    <div
-                      className={styles.thumb}
-                      style={{ ['--accent' as string]: product.accent }}
-                    >
-                      <TeeArt productId={product.id} accent={product.accent} />
+                    <div className={styles.thumb}>
+                      <SmartImage
+                        src={product.images.front}
+                        alt=""
+                        className={styles.thumbImg}
+                      />
                     </div>
 
                     <div className={styles.lineInfo}>

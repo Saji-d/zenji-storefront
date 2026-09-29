@@ -2,13 +2,13 @@
   overflow: hidden;
   border-block: 1px solid var(--line);
   background: var(--ink);
-  padding: 1.1rem 0;
+  padding: 0.9rem 0;
 }
 
 .track {
   display: flex;
   width: max-content;
-  animation: scroll 30s linear infinite;
+  animation: scroll 26s linear infinite;
 }
 
 .band:hover .track {
@@ -22,16 +22,18 @@
 .item {
   display: inline-flex;
   align-items: baseline;
-  gap: 1.6rem;
-  padding-inline: 1.6rem;
-  font-size: clamp(1.5rem, 3.4vw, 2.6rem);
+  gap: 1.1rem;
+  padding-inline: 1.1rem;
+  font-size: clamp(1.6rem, 3.8vw, 2.9rem);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
   color: var(--text);
   white-space: nowrap;
 }
 
+/* alternating outlined type — editorial rhythm without extra color */
 .item:nth-child(even) {
   color: transparent;
   -webkit-text-stroke: 1px var(--line-strong);
@@ -39,8 +41,9 @@
 
 .sep {
   color: var(--accent);
-  font-size: 0.55em;
-  transform: translateY(-0.12em);
+  font-size: 0.5em;
+  font-weight: 400;
+  transform: translateY(-0.2em);
 }
 
 @keyframes scroll {

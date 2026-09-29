@@ -1,6 +1,6 @@
 .hero {
   position: relative;
-  min-height: min(92svh, 56rem);
+  min-height: min(94svh, 58rem);
   display: flex;
   align-items: flex-end;
   overflow: hidden;
@@ -9,7 +9,7 @@
 
 .media {
   position: absolute;
-  inset: -6% 0;
+  inset: -8% 0;
   z-index: -1;
 }
 
@@ -17,21 +17,32 @@
   position: absolute;
   inset: 0;
   background-size: cover;
-  background-position: center 22%;
+  background-position: center 20%;
   will-change: opacity, transform;
-  animation: kenburns 26s ease-in-out infinite alternate;
+  animation: panA 34s ease-in-out infinite alternate;
 }
 
-.shot:nth-child(2) {
-  animation-delay: -13s;
+/* second shot pans the other way for a subtle two-camera feel */
+.shotAlt {
+  animation-name: panB;
+  animation-delay: -17s;
 }
 
-@keyframes kenburns {
+@keyframes panA {
   from {
-    transform: scale(1.02) translateY(0);
+    transform: scale(1.04) translateX(0.6%);
   }
   to {
-    transform: scale(1.14) translateY(-1.5%);
+    transform: scale(1.16) translateX(-1.2%);
+  }
+}
+
+@keyframes panB {
+  from {
+    transform: scale(1.14) translateX(-1%);
+  }
+  to {
+    transform: scale(1.05) translateX(1%);
   }
 }
 
@@ -39,8 +50,14 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(10, 10, 11, 0.55) 0%, rgba(10, 10, 11, 0.25) 38%, rgba(10, 10, 11, 0.9) 100%),
-    radial-gradient(ellipse 90% 70% at 30% 40%, rgba(10, 10, 11, 0.35), transparent 70%);
+    linear-gradient(180deg, rgba(10, 10, 11, 0.62) 0%, rgba(10, 10, 11, 0.28) 40%, rgba(10, 10, 11, 0.93) 100%),
+    linear-gradient(90deg, rgba(10, 10, 11, 0.42) 0%, transparent 45%);
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 120% 90% at 50% 42%, transparent 55%, rgba(5, 5, 6, 0.55) 100%);
 }
 
 .scanlines {
@@ -48,7 +65,7 @@
   inset: 0;
   background: repeating-linear-gradient(
     to bottom,
-    rgba(255, 255, 255, 0.025) 0 1px,
+    rgba(255, 255, 255, 0.02) 0 1px,
     transparent 1px 3px
   );
   opacity: 0.5;
@@ -56,21 +73,50 @@
 
 .content {
   position: relative;
-  padding-block: clamp(6rem, 14vh, 10rem) clamp(3rem, 8vh, 5.5rem);
+  padding-block: clamp(6rem, 15vh, 11rem) clamp(3rem, 9vh, 6rem);
+}
+
+/* meta row with hairline leader */
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.3rem;
+}
+
+.metaRule {
+  width: clamp(2rem, 6vw, 4.5rem);
+  height: 1px;
+  background: var(--accent);
 }
 
 .meta {
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
-  letter-spacing: 0.3em;
+  letter-spacing: 0.32em;
   color: var(--gold);
-  margin-bottom: 1.1rem;
 }
 
+/* editorial split headline */
 .title {
-  font-size: clamp(2.9rem, 8.5vw, 7rem);
-  max-width: 14ch;
-  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  font-size: var(--fs-hero);
+  line-height: 0.92;
+}
+
+.titleKicker {
+  font-size: clamp(1.1rem, 2.6vw, 2rem);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+
+.titleMain {
+  font-size: clamp(3.4rem, 11.5vw, 9.5rem);
+  letter-spacing: -0.015em;
+  text-shadow: 0 2px 44px rgba(0, 0, 0, 0.5);
 }
 
 .accent {
@@ -78,10 +124,10 @@
 }
 
 .lede {
-  margin-top: 1.2rem;
-  max-width: 36rem;
-  font-size: 1.05rem;
-  color: #d9d9df;
+  margin-top: 1.3rem;
+  max-width: 34rem;
+  font-size: 1.02rem;
+  color: #d6d6dd;
   text-shadow: 0 1px 18px rgba(0, 0, 0, 0.55);
 }
 
@@ -89,24 +135,29 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.9rem;
-  margin-top: 1.7rem;
+  margin-top: 1.8rem;
 }
 
 .dropMeta {
-  margin-top: 1.9rem;
+  margin-top: 2rem;
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
-  letter-spacing: 0.24em;
+  letter-spacing: 0.26em;
   color: var(--muted);
 }
 
-@media (max-width: 640px) {
-  .title {
-    max-width: 12ch;
-  }
+.dropMeta [aria-hidden] {
+  color: var(--accent);
+}
 
+@media (max-width: 640px) {
   .lede {
     font-size: 0.95rem;
+  }
+
+  .dropMeta {
+    letter-spacing: 0.18em;
+    line-height: 1.8;
   }
 }
 

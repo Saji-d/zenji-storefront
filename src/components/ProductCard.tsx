@@ -13,9 +13,10 @@ interface ProductCardProps {
   product: Product
   onQuickView: (product: Product) => void
   priority?: boolean
+  index?: number
 }
 
-export function ProductCard({ product, onQuickView, priority = false }: ProductCardProps) {
+export function ProductCard({ product, onQuickView, priority = false, index }: ProductCardProps) {
   const hasBack = product.images.back !== product.images.front
   const discount = product.compareAt
     ? Math.round((1 - product.price / product.compareAt) * 100)
@@ -61,8 +62,17 @@ export function ProductCard({ product, onQuickView, priority = false }: ProductC
       </div>
 
       <div className={styles.meta}>
-        <p className={styles.colorway}>{product.colorway}</p>
-        <h3 className={styles.name}>{product.name}</h3>
+        <div className={styles.metaTop}>
+          {index !== undefined && (
+            <span className={styles.index} aria-hidden="true">
+              {String(index + 1).padStart(2, '0')}
+            </span>
+          )}
+          <p className={styles.colorway}>{product.colorway}</p>
+        </div>
+        <h3 className={styles.name}>
+          <span className={styles.nameText}>{product.name}</span>
+        </h3>
         <p className={styles.tagline}>{product.tagline}</p>
         <p className={styles.priceRow}>
           <span className={styles.price}>{formatPrice(product.price)}</span>

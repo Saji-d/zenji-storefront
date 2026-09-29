@@ -32,30 +32,31 @@
 
 .imgBack {
   opacity: 0;
-  transform: scale(1.04);
-  transition: opacity 420ms var(--ease), transform 700ms var(--ease);
+  transform: scale(1.05);
+  transition: opacity 460ms var(--ease), transform 800ms var(--ease);
 }
 
 .card:hover .imgBack,
 .card:focus-within .imgBack {
   opacity: 1;
-  transform: scale(1);
+  transform: scale(1.01);
 }
 
 .imgFront {
-  transition: transform 700ms var(--ease);
+  transition: transform 800ms var(--ease), filter 460ms var(--ease);
 }
 
 .card:hover .imgFront {
-  transform: scale(1.045);
+  transform: scale(1.04);
+  filter: saturate(1.06);
 }
 
 .shade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 45%, rgba(10, 10, 11, 0.72) 100%);
+  background: linear-gradient(180deg, transparent 48%, rgba(10, 10, 11, 0.66) 100%);
   opacity: 0;
-  transition: opacity 320ms var(--ease);
+  transition: opacity 340ms var(--ease);
 }
 
 .card:hover .shade,
@@ -63,11 +64,12 @@
   opacity: 1;
 }
 
+/* angular system chips — clipped corner, mono, translucent */
 .chips {
   position: absolute;
-  top: 0.7rem;
-  left: 0.7rem;
-  right: 0.7rem;
+  top: 0.75rem;
+  left: 0.75rem;
+  right: 0.75rem;
   display: flex;
   justify-content: space-between;
   gap: 0.5rem;
@@ -75,57 +77,55 @@
   pointer-events: none;
 }
 
-.chip {
-  padding: 0.32em 0.62em;
+.chip,
+.sale {
+  padding: 0.34em 0.7em 0.34em 0.55em;
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
   font-weight: 700;
-  letter-spacing: 0.14em;
-  border: 1px solid var(--line-strong);
-  color: var(--muted);
-  background: rgba(10, 10, 11, 0.78);
+  letter-spacing: 0.16em;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%);
+}
+
+.chip {
+  border: 0;
+  color: var(--text);
+  background: rgba(10, 10, 11, 0.82);
   backdrop-filter: blur(4px);
 }
 
 .chip--last-units {
-  border-color: var(--accent);
   color: var(--accent);
 }
 
 .chip--selling-fast {
-  border-color: var(--gold);
   color: var(--gold);
 }
 
 .sale {
-  padding: 0.32em 0.62em;
   background: var(--accent);
   color: var(--ink);
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  font-weight: 700;
-  letter-spacing: 0.1em;
 }
 
 .quickView {
   position: absolute;
-  left: 0.7rem;
-  right: 0.7rem;
-  bottom: 0.7rem;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.75rem;
   z-index: 3;
-  padding: 0.85em 1em;
-  background: rgba(10, 10, 11, 0.82);
+  padding: 0.9em 1em;
+  background: rgba(10, 10, 11, 0.85);
   backdrop-filter: blur(6px);
   border: 1px solid var(--text);
   color: var(--text);
   font-family: var(--font-mono);
   font-size: var(--fs-small);
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   cursor: pointer;
   opacity: 0;
   transform: translateY(8px);
-  transition: opacity 280ms var(--ease), transform 280ms var(--ease),
+  transition: opacity 300ms var(--ease), transform 300ms var(--ease),
     background var(--speed) var(--ease), color var(--speed) var(--ease);
 }
 
@@ -141,7 +141,6 @@
   transform: translateY(0);
 }
 
-/* touch devices: always show the affordance */
 @media (hover: none) {
   .quickView {
     opacity: 1;
@@ -149,30 +148,59 @@
   }
 }
 
+/* metadata below the frame — index, colorway, name, price */
 .meta {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  padding: 0.95rem 0.2rem 0;
+  gap: 0.3rem;
+  padding: 1rem 0.15rem 0;
+}
+
+.metaTop {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+}
+
+.index {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--accent);
 }
 
 .colorway {
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
-  letter-spacing: 0.24em;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
   color: var(--muted);
+  transition: color var(--speed) var(--ease);
 }
 
 .name {
-  font-size: 1.02rem;
+  font-size: 1.06rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.02em;
 }
 
+.nameText {
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size 340ms var(--ease);
+  padding-bottom: 2px;
+}
+
+.card:hover .nameText {
+  background-size: 100% 1px;
+}
+
 .tagline {
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   color: var(--muted);
 }
 
@@ -180,7 +208,7 @@
   display: flex;
   align-items: baseline;
   gap: 0.6rem;
-  margin-top: 0.2rem;
+  margin-top: 0.35rem;
 }
 
 .price {
@@ -191,7 +219,7 @@
 
 .compare {
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--muted);
 }
 
@@ -199,7 +227,9 @@
   .imgFront,
   .imgBack,
   .quickView,
-  .shade {
+  .shade,
+  .nameText,
+  .colorway {
     transition: none;
   }
 }

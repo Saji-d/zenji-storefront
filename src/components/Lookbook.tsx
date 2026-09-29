@@ -1,10 +1,28 @@
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { useRef } from 'react'
 import styles from './Lookbook.module.css'
 import { SmartImage } from './SmartImage'
 import { Reveal } from './motion/Reveal'
 
-const CAPTIONS = ['LOOK 03 // NEON DISTRICT', 'LOOK 05 // TRAINING GROUNDS']
+/* unique editorial captions — consistent LOOK numbering system */
+const LOOKS: Record<string, string> = {
+  'look-1': 'LOOK 01 // AFTER HOURS',
+  'look-2': 'LOOK 02 // FIRST LIGHT',
+  'look-3': 'LOOK 03 // NEON DISTRICT',
+  'look-4': 'LOOK 04 // STATIC BLOOM',
+  'look-5': 'LOOK 05 // TRAINING GROUNDS',
+  'look-6': 'LOOK 06 // LAST SIGNAL',
+}
 
 export function Lookbook() {
+  const reduce = useReducedMotion()
+  const leadRef = useRef<HTMLDivElement | null>(null)
+  const { scrollYProgress } = useScroll({
+    target: leadRef,
+    offset: ['start end', 'end start'],
+  })
+  const leadY = useTransform(scrollYProgress, [0, 1], ['-6%', '6%'])
+
   return (
     <section id="lookbook" className={styles.section} aria-labelledby="lookbook-title">
       <div className="container">
@@ -16,23 +34,25 @@ export function Lookbook() {
             <p className="eyebrow">The Origin Drop // AW26 campaign</p>
           </div>
         </Reveal>
+      </div>
 
-        {/* lead editorial image */}
-        <Reveal>
-          <figure className={styles.lead}>
-            <SmartImage
-              src="/lookbook/look-1.webp"
-              alt="Model wearing the Blue Flame tee in a night city setting"
-              className={styles.leadImg}
-              loading="lazy"
-            />
-            <figcaption className={styles.leadCaption}>
-              <span className={styles.lookNo}>LOOK 01</span>
-              <span className={styles.lookName}>Blue Flame — after hours</span>
-            </figcaption>
-          </figure>
-        </Reveal>
+      {/* full-bleed lead with parallax */}
+      <div ref={leadRef} className={styles.leadWrap}>
+        <motion.figure className={styles.lead} style={{ y: reduce ? 0 : leadY }}>
+          <SmartImage
+            src="/lookbook/look-1.webp"
+            alt="Model wearing the Blue Flame tee in a night city setting"
+            className={styles.leadImg}
+            loading="lazy"
+          />
+          <figcaption className={styles.leadCaption}>
+            <span className={styles.lookNo}>{LOOKS['look-1']}</span>
+            <span className={styles.lookName}>Blue Flame — after hours</span>
+          </figcaption>
+        </motion.figure>
+      </div>
 
+      <div className="container">
         {/* headline + story row */}
         <div className={styles.storyRow}>
           <Reveal>
@@ -57,7 +77,7 @@ export function Lookbook() {
           </Reveal>
         </div>
 
-        {/* large + two small composition */}
+        {/* asymmetric mosaic: large + stacked pair */}
         <div className={styles.mosaic}>
           <Reveal className={styles.mosaicLarge}>
             <figure className={styles.mosaicItem}>
@@ -67,20 +87,20 @@ export function Lookbook() {
                 className={styles.mosaicImg}
                 loading="lazy"
               />
-              <figcaption className={styles.mosaicCaption}>{CAPTIONS[0]}</figcaption>
+              <figcaption className={styles.mosaicCaption}>{LOOKS['look-2']}</figcaption>
             </figure>
           </Reveal>
           <div className={styles.mosaicStack}>
-            {['look-3', 'look-4'].map((look, i) => (
+            {(['look-3', 'look-4'] as const).map((look, i) => (
               <Reveal key={look} delay={0.08 + i * 0.1}>
                 <figure className={styles.mosaicItem}>
                   <SmartImage
                     src={`/lookbook/${look}.webp`}
-                    alt={`Lookbook view ${i + 2} — ZENJI streetwear on location`}
+                    alt={`Lookbook — ${LOOKS[look]}`}
                     className={styles.mosaicImg}
                     loading="lazy"
                   />
-                  <figcaption className={styles.mosaicCaption}>{CAPTIONS[1]}</figcaption>
+                  <figcaption className={styles.mosaicCaption}>{LOOKS[look]}</figcaption>
                 </figure>
               </Reveal>
             ))}

@@ -5,6 +5,7 @@ import { Reveal } from './motion/Reveal'
 const CHAPTERS = [
   {
     no: '01',
+    jp: '第一章',
     title: 'ORIGIN',
     body: 'ZENJI began with one belief: what you wear should tell a story. Built in Australia for the dreamers, fighters, creators and outsiders who move on their own terms.',
     img: '/lookbook/look-5.webp',
@@ -12,6 +13,7 @@ const CHAPTERS = [
   },
   {
     no: '02',
+    jp: '第二章',
     title: 'THE DROP',
     body: 'Six designs, one run, 200 units each. Every piece is pressed once in 240gsm heavyweight cotton — then the file is closed. What sells out stays gone.',
     img: '/lookbook/look-6.webp',
@@ -43,12 +45,15 @@ export function Story() {
             <Reveal className={styles.chapterMedia}>
               <SmartImage src={ch.img} alt={ch.alt} className={styles.chapterImg} loading="lazy" />
               <span className={styles.verticalLabel} aria-hidden="true">
-                CHAPTER {ch.no}
+                CHAPTER {ch.no} — {ch.jp}
               </span>
             </Reveal>
             <Reveal delay={0.1} className={styles.chapterCopy}>
-              <p className={styles.chapterNo}>
-                {ch.no} <span aria-hidden="true">/</span> {ch.title}
+              <span className={styles.chapterNo} aria-hidden="true">
+                {ch.no}
+              </span>
+              <p className={styles.chapterKicker}>
+                {ch.jp} <span aria-hidden="true">//</span> CHAPTER {ch.no}
               </p>
               <h3 className={styles.chapterTitle}>{ch.title}</h3>
               <p className={styles.chapterBody}>{ch.body}</p>
@@ -56,18 +61,19 @@ export function Story() {
           </div>
         ))}
 
+        {/* rules as manifesto rows, not cards */}
         <div id="rules" className={styles.rules}>
           <Reveal>
-            <p className={styles.rulesKicker}>03 / THE RULES</p>
+            <p className={styles.rulesKicker}>03 / THE RULES <span aria-hidden="true">//</span> 禅</p>
           </Reveal>
-          <ol className={styles.ruleGrid}>
+          <ol className={styles.ruleList}>
             {RULES.map((rule, i) => (
-              <Reveal key={rule.n} delay={i * 0.08} as="li" className={styles.rule}>
+              <Reveal key={rule.n} as="li" delay={i * 0.06} className={styles.ruleRow}>
                 <span className={styles.ruleN} aria-hidden="true">
                   {rule.n}
                 </span>
-                <h4>{rule.title}</h4>
-                <p>{rule.body}</p>
+                <h4 className={styles.ruleTitle}>{rule.title}</h4>
+                <p className={styles.ruleBody}>{rule.body}</p>
               </Reveal>
             ))}
           </ol>

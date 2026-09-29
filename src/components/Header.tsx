@@ -78,14 +78,14 @@ export function Header({ onOpenCart }: HeaderProps) {
 
             <button type="button" className={styles.iconBtn} onClick={onOpenCart} aria-label={cartLabel}>
               <span aria-hidden="true">CART</span>
-              <AnimatePresence mode="popLayout">
+              <AnimatePresence mode="wait" initial={false}>
                 <motion.span
                   key={totals.count}
                   className={styles.badge}
-                  initial={reduce ? false : { scale: 0.4, opacity: 0 }}
+                  initial={reduce ? false : { scale: 0.55, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0.4, opacity: 0 }}
-                  transition={{ type: 'spring', stiffness: 500, damping: 24 }}
+                  exit={{ scale: 0.55, opacity: 0, position: 'absolute' }}
+                  transition={{ duration: 0.16, ease: 'easeOut' }}
                 >
                   {totals.count}
                 </motion.span>
