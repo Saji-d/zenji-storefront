@@ -76,13 +76,15 @@ for (const width of VIEWPORTS) {
       const cs = getComputedStyle(el)
       if (cs.display === 'none' || cs.visibility === 'hidden') continue
       if (r.right > window.innerWidth + 1 || r.left < -1) {
-        // ignore if a visible ancestor actually clips it
-        const clipped = [...el.parentElement ? ancestors(el) : []].some((a) => {
+        // contained if a visible ancestor clips its overflow box over the
+        // portion of the element that intersects the viewport
+        const clipped = el.parentElement ? ancestors(el).some((a) => {
           const acs = getComputedStyle(a)
-          return /hidden|clip|auto|scroll/.test(acs.overflowX + acs.overflowY) &&
-            a.getBoundingClientRect().right >= r.right - 1 &&
-            a.getBoundingClientRect().left <= r.left + 1
-        })
+          if (!/hidden|clip|auto|scroll/.test(acs.overflowX + acs.overflowY)) return false
+          const ar = a.getBoundingClientRect()
+          return ar.right >= Math.min(r.right, window.innerWidth) - 1 &&
+            ar.left <= Math.max(r.left, 0) + 1
+        }) : false
         if (!clipped) {
           offenders.push({
             tag: el.tagName.toLowerCase(),
@@ -178,19 +180,23 @@ for (const width of [1440, 375]) {
   const R = {}
   await page.goto(url, { waitUntil: 'networkidle' })
 
-  // size radio keyboard support (arrow key moves selection)
-  await page.locator('article button[role="radio"]').first().focus()
+  // quick view: size radio keyboard support (arrow key moves selection)
+  await page.locator('article button:has-text("QUICK VIEW")').first().click()
+  await page.waitForTimeout(500)
+  await page.locator('[role="dialog"] [role="radio"]').first().focus()
   await page.keyboard.press('ArrowRight')
   R.arrowKeyMovesSelection = await page.evaluate(() => {
-    const checked = [...document.querySelectorAll('article [role="radio"]')].filter(
+    const checked = [...document.querySelectorAll('[role="dialog"] [role="radio"]')].filter(
       (r) => r.getAttribute('aria-checked') === 'true',
     )
     return checked.length === 1 && checked[0].textContent.trim() === 'S'
   })
 
-  // add to cart
-  await page.locator('article [role="radio"]').first().click()
-  await page.locator('article button:has-text("Add to cart")').first().click()
+  // add to cart from quick view, then close via ESC
+  await page.locator('[role="dialog"] button:has-text("Add to cart")').click()
+  await page.waitForTimeout(300)
+  await page.keyboard.press('Escape')
+  await page.waitForTimeout(400)
 
   // open drawer
   await page.locator('header button[aria-label*="Open cart"]').click()

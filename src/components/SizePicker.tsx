@@ -1,5 +1,5 @@
-import { useRef, type KeyboardEvent } from 'react'
 import type { Size } from '../types'
+import { useRadioGroupKeys } from '../hooks/useRadioGroupKeys'
 import styles from './SizePicker.module.css'
 
 interface SizePickerProps {
@@ -11,40 +11,18 @@ interface SizePickerProps {
 
 const ALL_SIZES: Size[] = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
 
-/**
- * Keyboard-friendly radio group: arrow keys move between sizes,
- * Space/Enter selects. Roving tabindex per WAI-ARIA radiogroup pattern.
- */
+/** Keyboard-friendly radio group for card-level size selection. */
 export function SizePicker({ sizes, selected, onSelect, name }: SizePickerProps) {
-  const refs = useRef<(HTMLButtonElement | null)[]>([])
-
-  const onKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
-    const idx = sizes.indexOf(selected ?? sizes[0])
-    let next = -1
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (idx + 1) % sizes.length
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (idx - 1 + sizes.length) % sizes.length
-    if (e.key === 'Home') next = 0
-    if (e.key === 'End') next = sizes.length - 1
-    if (next === -1) return
-    e.preventDefault()
-    onSelect(sizes[next])
-    refs.current[next]?.focus()
-  }
+  const { setRef, onKeyDown } = useRadioGroupKeys(sizes, selected, onSelect)
 
   return (
-    <div
-      role="radiogroup"
-      aria-label={`Select a size for ${name}`}
-      className={styles.group}
-    >
+    <div role="radiogroup" aria-label={`Select a size for ${name}`} className={styles.group}>
       {ALL_SIZES.filter((s) => sizes.includes(s)).map((size, i) => {
         const active = selected === size
         return (
           <button
             key={size}
-            ref={(el) => {
-              refs.current[i] = el
-            }}
+            ref={setRef(i)}
             type="button"
             role="radio"
             aria-checked={active}

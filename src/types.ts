@@ -2,11 +2,21 @@ export type Size = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL'
 
 export type ProductStatus = 'last-units' | 'selling-fast' | 'limited'
 
+/** shot kinds mapped to files in public/products/<slug>-<n>.webp */
+export interface ProductImages {
+  /** primary (front/flat) shot */
+  front: string
+  /** alternate/back shot used for hover + gallery; may equal front when missing */
+  back: string
+  /** extra gallery shots for quick view (may be empty) */
+  gallery: string[]
+}
+
 export interface Product {
   id: string
   name: string
   colorway: string
-  /** hex accent used across card + artwork */
+  /** hex accent used for status chips, focus states and fallback art */
   accent: string
   price: number
   /** undefined = not on sale */
@@ -14,6 +24,9 @@ export interface Product {
   sizes: Size[]
   status: ProductStatus
   tagline: string
+  images: ProductImages
+  /** editorial grid role */
+  featured?: boolean
 }
 
 export interface CartItem {
