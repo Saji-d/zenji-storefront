@@ -1,0 +1,72 @@
+.footer {
+  border-top: 1px solid var(--line);
+  background: var(--ink);
+}
+
+.newsletter {
+  padding-block: var(--section-y) calc(var(--section-y) * 0.7);
+  max-width: 40rem;
+}
+
+.newsTitle {
+  font-size: var(--fs-h2);
+  margin: 0.5rem 0 0.7rem;
+}
+
+.newsText {
+  color: var(--muted);
+  margin-bottom: 1.4rem;
+}
+
+.form {
+  display: flex;
+  gap: 0.7rem;
+  max-width: 30rem;
+}
+
+.form input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.85em 1em;
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  transition: border-color var(--speed) var(--ease);
+}
+
+.newsNote {
+  margin-top: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.8rem 2.5rem;
+  padding-block: 1.6rem;
+  border-top: 1px solid var(--line);
+}
+
+.wordmark {
+  font-weight: 700;
+  letter-spacing: 0.34em;
+  font-size: 1.1rem;
+}
+
+.kanji {
+  color: var(--accent);
+  margin-left: 0.4em;
+}
+
+.meta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}

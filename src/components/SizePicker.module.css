@@ -1,0 +1,33 @@
+.group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.size {
+  min-width: 2.7rem;
+  padding: 0.42em 0.5em;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  cursor: pointer;
+  transition: border-color var(--speed) var(--ease), color var(--speed) var(--ease),
+    background var(--speed) var(--ease);
+}
+
+.size:hover {
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+.active,
+.active:hover {
+  border-color: var(--accent);
+  background: rgba(255, 61, 61, 0.1);
+  color: var(--text);
+}

@@ -1,0 +1,42 @@
+.band {
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+  background: var(--panel);
+  padding: 0.8rem 0;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: scroll 28s linear infinite;
+}
+
+.band:hover .track {
+  animation-play-state: paused;
+}
+
+.group {
+  display: flex;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.sep {
+  margin-inline: 1.6rem;
+  color: var(--accent);
+}
+
+@keyframes scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
