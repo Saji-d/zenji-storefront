@@ -14,7 +14,7 @@ export const FAQS: { q: string; a: string }[] = [
   },
   {
     q: 'Do designs come back?',
-    a: 'No. Every design is printed in a single run and never reprinted — when a size sells through, it is gone.',
+    a: 'No. Every design is printed in a single run and never reprinted. When a size sells through, it is gone.',
   },
   {
     q: 'Can I return a tee?',
@@ -30,6 +30,6 @@ export const FAQS: { q: string; a: string }[] = [
   },
   {
     q: 'Is this the official ZENJI store?',
-    a: 'No. This is an independent frontend portfolio concept inspired by zenji.shop — not affiliated, and no real payments or orders are processed.',
+    a: 'No. This is an independent frontend portfolio concept inspired by zenji.shop. Not affiliated, and no real payments or orders are processed.',
   },
 ]

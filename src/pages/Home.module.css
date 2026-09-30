@@ -1,138 +1,87 @@
-/* ---------- 2. showcase: the clothing is the headline ---------- */
+/* ---------- 1. drop wall: the ten, one screen ---------- */
 
-.showcase {
+.drop {
   padding-block: var(--space-wide);
   background: var(--ink);
 }
 
-.showcaseGrid {
+.dropHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.dropEyebrow {
+  margin-bottom: 0.75rem;
+}
+
+.dropTitle {
+  font-size: var(--fs-h2);
+}
+
+.dropGrid {
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
-  align-items: center;
-  gap: clamp(1.75rem, 4vw, 3.5rem);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
 }
 
-.showcaseMedia {
-  min-width: 0;
+/* the last row is designed rather than leftover: cards 9 and 10 each span
+   two columns, so the wall closes on a deliberate asymmetric pair instead of
+   one awkward stretched card */
+.dropGrid > :nth-child(9),
+.dropGrid > :nth-child(10) {
+  grid-column: span 2;
 }
 
-.showcaseLink {
-  display: block;
+/* ---------- 3. kinetic statement ---------- */
+
+.statement {
+  padding-block: var(--space-vast);
+  border-block: 1px solid var(--line);
+  background: var(--ink-raised);
   overflow: hidden;
 }
 
-/* Portrait source, near-native crop — the tee fills the frame rather than
-   sitting in it. */
-.showcaseImg {
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  object-position: center 28%;
-  transition: transform 900ms var(--ease);
+.statementInner {
+  max-width: 62rem;
 }
 
-.showcaseLink:hover .showcaseImg {
-  transform: scale(1.03);
-}
-
-.showcaseBody {
-  min-width: 0;
-}
-
-.showcaseTitle {
-  font-size: var(--fs-h2);
-  margin-block: 0.7rem 0.5rem;
-}
-
-.showcasePrice {
-  font-family: var(--font-mono);
-  font-size: var(--fs-body);
-  letter-spacing: 0.04em;
-  margin-bottom: 1rem;
-}
-
-.compare {
-  margin-left: 0.7rem;
-  color: var(--faint);
-  text-decoration: line-through;
-}
-
-.showcaseText {
-  color: var(--muted);
-  max-width: 30rem;
-  margin-bottom: 1rem;
-  text-wrap: pretty;
-}
-
-.showcaseMeta {
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  letter-spacing: 0.1em;
+.statementType {
+  font-family: var(--font-brand);
+  font-weight: 400;
   text-transform: uppercase;
-  color: var(--faint);
-  margin-bottom: 1.6rem;
+  font-size: clamp(2.6rem, 7.5vw, 6.5rem);
+  line-height: 1.02;
+  letter-spacing: 0.005em;
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
 }
 
-.showcaseActions {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.75rem 1.75rem;
+.word {
+  display: inline-block;
+  will-change: transform;
 }
 
-/* ---------- 3. product discovery ---------- */
-
-.drop {
-  padding-block: var(--space-calm) var(--space-wide);
-  border-top: 1px solid var(--line);
-  background: var(--ink-raised);
+/* outlined words: stroke carries the letters, fill stays ink */
+.wordOutline {
+  color: var(--ink);
+  -webkit-text-stroke: 1.5px var(--text);
 }
 
-.dropHead {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.75rem 1.5rem;
-  margin-bottom: clamp(1.25rem, 2.5vw, 2rem);
+.wordAccent {
+  color: var(--accent);
 }
 
-.dropHeading {
-  font-size: var(--fs-h2);
-}
-
-.cardGrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(0.75rem, 1.6vw, 1.25rem);
-}
-
-/* ---------- 4. why: statement and evidence, not three equal columns ---------- */
-
-.why {
-  padding-block: var(--space-wide);
-}
-
-.whyGrid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  align-items: start;
-  gap: clamp(2rem, 5vw, 4.5rem);
-}
-
-.whyLead {
-  min-width: 0;
-}
-
-.whyStatement {
-  font-size: clamp(1.3rem, 2.4vw, 2rem);
-  max-width: 26ch;
-  margin-block: 0.9rem 1.5rem;
-  color: var(--text);
+.statementText {
+  color: var(--muted);
+  max-width: 46ch;
+  margin-bottom: 1.75rem;
   text-wrap: pretty;
 }
 
-.whyCta {
+.statementCta {
   display: inline-flex;
   align-items: center;
   min-height: 2.75rem;
@@ -141,71 +90,150 @@
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  /* the red background bar is the only underline; the global anchor reset
+     would otherwise add a second, white one on top of it */
   text-decoration: none;
   color: var(--text);
-  background-image: linear-gradient(var(--line-strong), var(--line-strong));
+  background-image: linear-gradient(var(--accent), var(--accent));
   background-repeat: no-repeat;
   background-position: 0 100%;
-  background-size: 100% 1px;
-  transition: background-size var(--speed-slow) var(--ease), color var(--speed) var(--ease);
+  background-size: 100% 2px;
+  transition: color var(--speed) var(--ease);
 }
 
-.whyCta:hover {
-  background-size: 100% 2px;
+.statementCta:hover {
   color: var(--accent);
 }
 
-.whyList {
+/* ---------- 5. the chapters: three tees as lore ---------- */
+
+.chapters {
+  padding-block: var(--space-wide);
+}
+
+.chaptersTitle {
+  font-size: var(--fs-h2);
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.chaptersRow {
   display: grid;
-  gap: 1.4rem;
-  min-width: 0;
-  padding-top: 0.25rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.6vw, 1.25rem);
 }
 
-.whyItem {
-  padding-top: 0.9rem;
-  border-top: 1px solid var(--line-strong);
+.chapter {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--text);
+  border: 1px solid var(--line);
+  background: var(--panel);
+  overflow: hidden;
+  transition: border-color var(--speed-slow) var(--ease);
 }
 
-.whyKey {
-  font-size: var(--fs-body);
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  margin-bottom: 0.35rem;
+.chapter:hover {
+  border-color: var(--line-strong);
 }
 
-.whyText {
+.chapterNum {
+  position: absolute;
+  top: 0.9rem;
+  left: 1rem;
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.22em;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.chapterMedia {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+}
+
+.chapterImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+  transition: transform 900ms var(--ease);
+}
+
+.chapter:hover .chapterImg {
+  transform: scale(1.045);
+}
+
+/* a single wash of the design's accent, at low opacity over the photo */
+.chapterWash {
+  position: absolute;
+  inset: 0;
+  opacity: 0.16;
+  mix-blend-mode: overlay;
+  transition: opacity var(--speed-slow) var(--ease);
+}
+
+.chapter:hover .chapterWash {
+  opacity: 0.3;
+}
+
+.chapterName {
+  font-family: var(--font-brand);
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+  padding: 1.1rem 1.1rem 0.35rem;
+}
+
+.chapterDesc {
   color: var(--muted);
   font-size: var(--fs-small);
-  line-height: 1.6;
+  line-height: 1.55;
+  padding-inline: 1.1rem;
   text-wrap: pretty;
 }
 
-/* ---------- 5. editorial lookbook moment ---------- */
+.chapterCta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-inline: 1.1rem;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
 
-/* Given its own viewport rather than the ~0.6 it inherited from padding
-   alone — this is the frame that has to sell the photography. */
-.editorial {
+/* ---------- 6. campaign band ---------- */
+
+.campaign {
   position: relative;
-  min-height: min(74svh, 42rem);
+  min-height: min(78svh, 44rem);
   display: flex;
   align-items: center;
 }
 
-.editorialLink {
+.campaignLink {
   position: relative;
   display: block;
+  width: 100%;
   text-decoration: none;
   color: var(--text);
   overflow: hidden;
 }
 
-.editorialMedia {
+.campaignMedia {
   position: absolute;
   inset: 0;
 }
 
-.editorialImg {
+.campaignImg {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -213,44 +241,53 @@
   transition: transform 1400ms var(--ease);
 }
 
-.editorialLink:hover .editorialImg {
+.campaignLink:hover .campaignImg {
   transform: scale(1.03);
 }
 
-.editorialShade {
+/* Darkened on the RIGHT, where the copy now sits; the photograph stays clear
+   on the left so the frame still reads as an image first. */
+.campaignShade {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    90deg,
-    rgba(8, 8, 10, 0.9) 0%,
-    rgba(8, 8, 10, 0.62) 40%,
-    rgba(8, 8, 10, 0.22) 100%
+    270deg,
+    rgba(8, 8, 10, 0.92) 0%,
+    rgba(8, 8, 10, 0.64) 42%,
+    rgba(8, 8, 10, 0.2) 100%
   );
 }
 
-.editorialContent {
+/* Copy is pushed to the right edge of the container instead of hugging the
+   left, so it sits over the darkened half of the frame. */
+.campaignContent {
   position: relative;
   width: 100%;
+  display: flex;
+  justify-content: flex-end;
   padding-block: clamp(3.5rem, 9vw, 7rem);
 }
 
-.editorialTitle {
+.campaignContent > * {
+  max-width: 30rem;
+}
+
+.campaignTitle {
   font-size: var(--fs-hero);
   margin-bottom: 1rem;
 }
 
-.editorialText {
-  max-width: 26rem;
+.campaignText {
+  max-width: 27rem;
   color: #cfcac4;
   margin-bottom: 1.5rem;
   text-wrap: pretty;
 }
 
-.editorialCta {
+.campaignCta {
   display: inline-flex;
   align-items: center;
   min-height: 2.75rem;
-  font-family: var(--font-display);
   font-size: var(--fs-small);
   font-weight: 600;
   letter-spacing: 0.1em;
@@ -262,90 +299,87 @@
   transition: color var(--speed) var(--ease);
 }
 
-.editorialLink:hover .editorialCta {
+.campaignLink:hover .campaignCta {
   color: var(--accent);
 }
 
-/* ---------- 6. closing CTA ---------- */
+/* ---------- 7. transmission ---------- */
 
-/* The old version of this block ran on --space-vast and held only a heading,
-   two lines and two links — roughly a full screen of ink for a fraction of a
-   screen of content. It is now capped just above half a viewport and centred. */
-.lore {
-  display: flex;
-  align-items: center;
-  min-height: min(58svh, 34rem);
-  padding-block: var(--space-calm);
+.signal {
+  padding-block: var(--space-vast);
   border-top: 1px solid var(--line);
-  background: var(--ink-raised);
-  text-align: center;
+  background: var(--ink);
 }
 
-.loreInner {
-  max-width: 42rem;
-  margin-inline: auto;
+.signalInner {
+  max-width: 44rem;
 }
 
-.loreTitle {
+.signalTitle {
   font-size: clamp(2.1rem, 5.5vw, 3.75rem);
-  margin-bottom: 1rem;
+  margin-block: 0.9rem 1.25rem;
 }
 
-.loreText {
+.signalText {
   color: var(--muted);
-  max-width: 36ch;
-  margin: 0 auto 1.85rem;
+  max-width: 38ch;
+  margin-bottom: 1.85rem;
   text-wrap: pretty;
 }
 
-.loreActions {
+.signalActions {
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-wrap: wrap;
   gap: 0.75rem 1.75rem;
 }
 
+/* ---------- responsive ---------- */
+
+@media (max-width: 1080px) {
+  .dropGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .dropGrid > :nth-child(9),
+  .dropGrid > :nth-child(10) {
+    grid-column: auto;
+  }
+}
+
 @media (max-width: 900px) {
-  .showcaseGrid,
-  .whyGrid {
-    grid-template-columns: 1fr;
-  }
-
-  /* Both grids stack image-first / statement-first because the media column is
-     earlier in the DOM. */
-  .whyGrid {
-    gap: 2rem;
-  }
-
-  .cardGrid {
+  .dropGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .chaptersRow {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 560px) {
-  .cardGrid {
+  .dropGrid {
     grid-template-columns: 1fr;
   }
 
-  .editorialShade {
+  .campaignShade {
     background: linear-gradient(
       to top,
-      rgba(8, 8, 10, 0.9) 0%,
+      rgba(8, 8, 10, 0.92) 0%,
       rgba(8, 8, 10, 0.55) 45%,
       rgba(8, 8, 10, 0.3) 100%
     );
   }
 
-  .lore {
-    min-height: auto;
-    padding-block: var(--space-wide);
+  /* stacked: right-alignment would leave orphan text at odd widths */
+  .campaignContent {
+    justify-content: flex-start;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .showcaseImg,
-  .editorialImg {
+  .chapterImg,
+  .campaignImg {
     transition: none;
   }
 }

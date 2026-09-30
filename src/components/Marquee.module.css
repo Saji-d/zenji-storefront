@@ -1,0 +1,105 @@
+.tape {
+  overflow: hidden;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* Row 1: solid brand red, ink type. The loudest note on the page, spent once. */
+.accent {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-block: 1px solid rgba(8, 8, 10, 0.4);
+}
+
+/* Row 2: outlined type on ink. Quiet between the two loud rows. */
+.ghost {
+  background: var(--ink);
+  color: transparent;
+  border-block: 1px solid var(--line);
+  -webkit-text-stroke: 1px var(--line-strong);
+}
+
+/* Row 3: white band, ink type. Closes the red/white/black stack. */
+.light {
+  background: var(--text);
+  color: var(--ink);
+  border-block: 1px solid rgba(8, 8, 10, 0.25);
+}
+
+.track {
+  display: inline-flex;
+  width: max-content;
+  animation: tape-scroll var(--tape-duration, 28s) linear infinite;
+}
+
+.track[data-reverse='true'] {
+  animation-direction: reverse;
+}
+
+/* Hold the frame still and keep the first copy visible when the visitor asked
+   for reduced motion. No travel, no jitter, still fully readable. */
+.tape[data-static] .track {
+  animation: none;
+}
+
+.tape[data-static] .copy:not(:first-child) {
+  visibility: hidden;
+}
+
+.copy {
+  display: inline-flex;
+  align-items: center;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-brand);
+  font-size: clamp(1.5rem, 3.2vw, 2.5rem);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding-block: 0.5em;
+}
+
+/* The 禅 mark closes every beat: the same glyph as the logotype, set large
+   relative to the type so it reads as a stamp rather than as punctuation. */
+.sep {
+  margin-inline: 1em 0;
+  font-family: var(--font-brand);
+  font-size: 0.62em;
+  line-height: 1;
+  transform: translateY(0.04em);
+  -webkit-text-stroke: 0;
+}
+
+/* ink stamp on the red band */
+.accent .sep {
+  color: var(--accent-ink);
+  opacity: 0.9;
+}
+
+/* red stamp on the ghost band: the one colour in the outlined row */
+.ghost .sep {
+  color: var(--accent);
+}
+
+/* red stamp on the white band */
+.light .sep {
+  color: var(--accent);
+}
+
+@keyframes tape-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-33.3333%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+}

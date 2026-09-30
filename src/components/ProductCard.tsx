@@ -17,7 +17,7 @@ interface ProductCardProps {
  * Deliberately restrained: no ordinal index, no tagline on every tile, and at
  * most one accent chip. Stock is a real constraint for this label, so
  * "Last units" earns the red; "Limited" on a run that is limited by definition
- * does not, and saying it on all nine just adds noise.
+ * does not, and saying it on all ten just adds noise.
  */
 export function ProductCard({ product, onQuickView, priority = false }: ProductCardProps) {
   const hasBack = product.images.back !== product.images.front
@@ -51,12 +51,21 @@ export function ProductCard({ product, onQuickView, priority = false }: ProductC
           <p className={styles.stock}>Last units</p>
         )}
 
+        {/* The sale flag, top-right — mirrored against the stock chip. The price
+            row below already announces the percentage, so this stays out of the
+            accessibility tree rather than saying it twice. */}
+        {discount > 0 && (
+          <p className={styles.sale} aria-hidden="true">
+            Sale −{discount}%
+          </p>
+        )}
+
         {onQuickView && (
           <button
             type="button"
             className={styles.quickView}
             onClick={() => onQuickView(product)}
-            aria-label={`Quick view — ${product.name}`}
+            aria-label={`Quick view: ${product.name}`}
           >
             Quick view
           </button>

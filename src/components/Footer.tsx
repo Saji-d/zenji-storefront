@@ -139,7 +139,7 @@ export function Footer() {
           accounts or orders.
         </p>
         <p className={styles.meta}>
-          Inspired by zenji.shop — not affiliated. Built as a frontend portfolio piece.
+          Inspired by zenji.shop. Not affiliated. Built as a frontend portfolio piece.
         </p>
         <p className={styles.copyright}>
           <span className={styles.copyrightMark}>ZENJI</span> © {year}

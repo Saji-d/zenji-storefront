@@ -96,7 +96,7 @@ export default function Collections() {
           <div className={styles.previewHead}>
             <h2 className={`display ${styles.previewTitle}`}>In the Origin Drop</h2>
             <Link to="/drop" className="link-line">
-              Shop all nine
+              Shop all ten
             </Link>
           </div>
         </Reveal>

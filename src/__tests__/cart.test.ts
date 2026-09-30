@@ -95,10 +95,10 @@ describe('shipping policy', () => {
 })
 
 describe('catalog integrity', () => {
-    it('has nine unique products with valid prices', () => {
-    expect(PRODUCTS).toHaveLength(9)
+    it('has ten unique products with valid prices', () => {
+    expect(PRODUCTS).toHaveLength(10)
     const ids = new Set(PRODUCTS.map((p) => p.id))
-    expect(ids.size).toBe(9)
+    expect(ids.size).toBe(10)
     for (const p of PRODUCTS) {
       expect(p.price).toBeGreaterThan(0)
       if (p.compareAt) expect(p.compareAt).toBeGreaterThan(p.price)

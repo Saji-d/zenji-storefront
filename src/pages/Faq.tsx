@@ -17,7 +17,7 @@ export default function Faq() {
           <p className="eyebrow">Before you email</p>
           <h1 id="faq-title" className={`display ${styles.title}`}>FAQ</h1>
           <p className={styles.lede}>
-            Fabric, fit, shipping and the no-restock policy — answered.
+            Fabric, fit, shipping and the no-restock policy, answered.
           </p>
         </Reveal>
 

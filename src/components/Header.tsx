@@ -69,7 +69,7 @@ export function Header({ onOpenCart }: HeaderProps) {
     <>
       <header className={styles.header} data-scrolled={scrolled}>
         <div className={`container ${styles.inner}`}>
-          <Link to="/" className={styles.wordmark} aria-label="ZENJI — home">
+          <Link to="/" className={styles.wordmark} aria-label="ZENJI home">
             <Wordmark />
           </Link>
 

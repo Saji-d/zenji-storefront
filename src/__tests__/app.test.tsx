@@ -32,7 +32,7 @@ describe('storefront integration', () => {
     renderApp('/')
     expect(screen.getByRole('banner')).toBeInTheDocument()
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/wear your\s*story/i)
-    expect(screen.getByRole('heading', { name: /the drop/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /ten designs/i })).toBeInTheDocument()
     expect(screen.getAllByRole('article').length).toBeGreaterThanOrEqual(3)
   })
 
@@ -57,7 +57,7 @@ describe('storefront integration', () => {
     renderApp('/drop/blue-flame')
     expect(screen.getByRole('heading', { level: 1, name: /blue flame tee/i })).toBeInTheDocument()
     expect(screen.getByRole('tablist', { name: /product views/i })).toBeInTheDocument()
-    expect(screen.getByRole('radiogroup', { name: /size — blue flame tee/i })).toBeInTheDocument()
+    expect(screen.getByRole('radiogroup', { name: /size: blue flame tee/i })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: /you may also like/i })).toBeInTheDocument()
     expect(screen.getAllByRole('article').length).toBeGreaterThanOrEqual(3)
   })

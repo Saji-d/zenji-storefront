@@ -84,7 +84,7 @@ export function QuickView({ product, onClose }: QuickViewProps) {
             ref={panelRef}
             role="dialog"
             aria-modal="true"
-            aria-label={`${product.name} — quick view`}
+            aria-label={`Quick view: ${product.name}`}
             className={styles.panel}
             initial={reduce ? { opacity: 0 } : { opacity: 0, y: 46, scale: 0.985 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -113,7 +113,7 @@ export function QuickView({ product, onClose }: QuickViewProps) {
                   <motion.img
                     key={images[imageIdx]}
                     src={images[imageIdx]}
-                    alt={`${product.name} — view ${imageIdx + 1} of ${images.length}`}
+                    alt={`${product.name}, view ${imageIdx + 1} of ${images.length}`}
                     className={styles.stageImg}
                     initial={reduce ? false : { opacity: 0, scale: 1.02 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -161,7 +161,7 @@ export function QuickView({ product, onClose }: QuickViewProps) {
                 )}
               </p>
 
-              <div className={styles.sizes} role="radiogroup" aria-label={`Size — ${product.name}`}>
+              <div className={styles.sizes} role="radiogroup" aria-label={`Size: ${product.name}`}>
                 {product.sizes.map((s, i) => (
                   <button
                     key={s}

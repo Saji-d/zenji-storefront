@@ -73,6 +73,23 @@
   text-transform: uppercase;
 }
 
+/* the sale flag: the one solid red chip on the card, mirroring the stock note
+   from the opposite corner so the pair reads as deliberate, not accidental */
+.sale {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 2;
+  padding: 0.3em 0.6em;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
 .quickView {
   position: absolute;
   left: 0.75rem;

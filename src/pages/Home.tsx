@@ -1,27 +1,71 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import { PRODUCTS } from '../data/products'
 import type { Product } from '../types'
 import { Hero } from '../components/Hero'
+import { Marquee } from '../components/Marquee'
 import { ProductCard } from '../components/ProductCard'
 import { QuickView } from '../components/QuickView'
 import { Reveal } from '../components/motion/Reveal'
 import { SmartImage } from '../components/SmartImage'
 import styles from './Home.module.css'
 
-/** The featured tee leads the showcase; the rest carry the discovery grid. */
-const LEAD = PRODUCTS[0]
-const REST = PRODUCTS.slice(1, 4)
+/** One of each. The wall IS the drop. */
+const DROP = PRODUCTS
 
-/** Only verifiable brand facts are stated. */
-const PILLARS = [
+/** Design names, kept to the mythic register the brand actually uses. */
+const CHAPTERS = [
   {
-    k: '240gsm heavyweight cotton',
-    v: 'Garment washed so it keeps its shape through the wash.',
+    n: 'I',
+    t: 'The Flame',
+    d: 'Blue Flame. Steel blue, drawn from the burn that does not waver.',
+    slug: 'blue-flame',
+    accent: '#6f9fd8',
+    img: '/products/blue-flame-1.webp',
   },
-  { k: 'Original artwork', v: 'Drawn for the design it appears on. No stock templates.' },
-  { k: 'Shipped Australia-wide', v: 'Dispatched from Australia. Free over A$100.' },
+  {
+    n: 'II',
+    t: 'The Blood',
+    d: 'Demon Blood. Crimson ink for the ones who fight past their limit.',
+    slug: 'demon-blood',
+    accent: '#e23d3d',
+    img: '/products/demon-blood-1.webp',
+  },
+  {
+    n: 'III',
+    t: 'The Sun',
+    d: 'Will of the Sun. Sun gold, the resolve that outlasts the season.',
+    slug: 'will-of-the-sun',
+    accent: '#ffb02e',
+    img: '/products/will-of-the-sun-1.webp',
+  },
 ]
+
+const EASE = [0.22, 1, 0.36, 1] as const
+
+/** One word of the kinetic brand statement. */
+function Word({
+  children,
+  delay = 0,
+  accent = false,
+}: {
+  children: string
+  delay?: number
+  accent?: boolean
+}) {
+  const reduce = useReducedMotion()
+  return (
+    <motion.span
+      className={[styles.word, accent ? styles.wordAccent : ''].join(' ')}
+      initial={reduce ? false : { opacity: 0, y: '0.5em' }}
+      animate={reduce ? undefined : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay, ease: EASE }}
+    >
+      {children}
+    </motion.span>
+  )
+}
 
 export default function Home() {
   const [quickView, setQuickView] = useState<Product | null>(null)
@@ -30,154 +74,147 @@ export default function Home() {
     <>
       <Hero />
 
-      {/* ---------- 2. the drop, led by an image rather than a paragraph ---------- */}
-      <section className={styles.showcase} aria-labelledby="showcase-title">
-        <div className={`container ${styles.showcaseGrid}`}>
-          <Reveal className={styles.showcaseMedia}>
-            <Link to={`/drop/${LEAD.slug}`} className={styles.showcaseLink}>
-              <SmartImage
-                src={LEAD.images.front}
-                alt={`${LEAD.name} tee in ${LEAD.colorway}`}
-                className={styles.showcaseImg}
-                /* Eager, but never high priority: the preloaded hero frame is the
-                   only high-priority image on the page. Two competing LCP
-                   candidates would slow both. */
-                loading="eager"
-              />
-            </Link>
-          </Reveal>
+      {/* ---------- 1. tickertape stack: red / ghost / white ---------- */}
+      <Marquee
+        phrase="No restocks. Ever. ◆ Limited runs only ◆ Wear your story ◆ "
+        tone="accent"
+      />
+      <Marquee
+        phrase="The Origin Drop ◆ Ten designs ◆ One run ◆ Drawn for the story ◆ "
+        tone="ghost"
+        duration={34}
+      />
+      <Marquee
+        phrase="240gsm heavyweight cotton ◆ Oversized fit ◆ XS–XXL ◆ Shot in Australia ◆ "
+        tone="light"
+        duration={38}
+        reverse
+      />
 
-          <Reveal delay={0.08} className={styles.showcaseBody}>
-            <p className="eyebrow">From the Origin Drop</p>
-            <h2 id="showcase-title" className={`display ${styles.showcaseTitle}`}>
-              {LEAD.name}
-            </h2>
-            <p className={styles.showcasePrice}>
-              <span className="sr-only">Price </span>
-              A${LEAD.price.toFixed(2)}
-              {LEAD.compareAt && (
-                <span className={styles.compare}>
-                  <span className="sr-only">Original price </span>A${LEAD.compareAt.toFixed(2)}
-                </span>
-              )}
-            </p>
-            <p className={styles.showcaseText}>{LEAD.story}</p>
-            <p className={styles.showcaseMeta}>
-              240gsm cotton · oversized fit · {LEAD.sizes[0]}–{LEAD.sizes[LEAD.sizes.length - 1]}
-            </p>
-            <div className={styles.showcaseActions}>
-              <Link to={`/drop/${LEAD.slug}`} className="btn btn--primary">
-                View the tee
-              </Link>
-              <Link to="/drop" className="link-line">
-                All nine designs
-              </Link>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ---------- 3. product discovery ---------- */}
+      {/* ---------- 2. the drop wall: every tee, one screen ---------- */}
       <section className={styles.drop} aria-labelledby="drop-title">
         <div className="container">
           <Reveal>
             <div className={styles.dropHead}>
-              <h2 id="drop-title" className={`display ${styles.dropHeading}`}>
-                More from the drop
-              </h2>
+              <div>
+                <p className={`eyebrow ${styles.dropEyebrow}`}>The Origin Drop // 全十柄</p>
+                <h2 id="drop-title" className={`display ${styles.dropTitle}`}>
+                  Ten designs. One run.
+                </h2>
+              </div>
               <Link to="/drop" className="link-line">
-                Shop all
+                Shop all ten
               </Link>
             </div>
           </Reveal>
-          <div className={styles.cardGrid}>
-            {REST.map((p) => (
-              <Reveal key={p.id}>
-                {/* The discovery grid sits a full viewport below the fold, so
-                    every card lazy-loads. */}
-                <ProductCard product={p} onQuickView={setQuickView} />
+
+          <div className={styles.dropGrid}>
+            {DROP.map((p, i) => (
+              <Reveal key={p.id} delay={(i % 4) * 0.06}>
+                <ProductCard product={p} onQuickView={setQuickView} priority={i < 2} />
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <QuickView product={quickView} onClose={() => setQuickView(null)} />
-
-      {/* ---------- 4. why ZENJI: statement left, facts right ---------- */}
-      <section className={styles.why} aria-labelledby="why-title">
-        <div className={`container ${styles.whyGrid}`}>
-          <Reveal className={styles.whyLead}>
-            <p className="eyebrow">Why ZENJI</p>
-            <h2 id="why-title" className={`display--prose ${styles.whyStatement}`}>
-              Heavyweight cotton, muted colourways, one strong graphic — the pieces take
-              their subjects from the anime we actually watch.
-            </h2>
-            <Link to="/story" className={styles.whyCta}>
+      {/* ---------- 3. kinetic brand statement ---------- */}
+      <section className={styles.statement} aria-labelledby="statement-title">
+        <div className={`container ${styles.statementInner}`}>
+          <h2 id="statement-title" className={styles.statementType}>
+            <Word delay={0.05}>Anime</Word> <Word delay={0.12}>is</Word>{' '}
+            <Word delay={0.19}>not</Word> <Word delay={0.26}>a</Word>{' '}
+            <Word delay={0.33}>phase.</Word>
+            <br />
+            <Word delay={0.44} accent>
+              It
+            </Word>{' '}
+            <Word delay={0.51} accent>
+              is
+            </Word>{' '}
+            <Word delay={0.58} accent>
+              the
+            </Word>{' '}
+            <Word delay={0.65} accent>
+              plot.
+            </Word>
+          </h2>
+          <Reveal delay={0.2}>
+            <p className={styles.statementText}>
+              ZENJI makes heavyweight tees for people who actually watch the shows. The
+              reference reads as design first. Drawn for the story it belongs to. No stock
+              templates, no restocks, ever.
+            </p>
+            <Link to="/story" className={styles.statementCta}>
               Read our story
             </Link>
-          </Reveal>
-
-          <Reveal delay={0.1} className={styles.whyList}>
-            {PILLARS.map((pillar) => (
-              <div key={pillar.k} className={styles.whyItem}>
-                <h3 className={styles.whyKey}>{pillar.k}</h3>
-                <p className={styles.whyText}>{pillar.v}</p>
-              </div>
-            ))}
           </Reveal>
         </div>
       </section>
 
-      {/* ---------- 5. editorial moment ---------- */}
-      <section className={styles.editorial} aria-labelledby="editorial-title">
-        <Link to="/lookbook" className={styles.editorialLink}>
-          <div className={styles.editorialMedia}>
+      {/* ---------- 5. the chapters: three tees as brand lore ---------- */}
+      <section className={styles.chapters} aria-labelledby="chapters-title">
+        <div className="container">
+          <Reveal>
+            <p className={`eyebrow ${styles.dropEyebrow}`}>The lore // 伝説</p>
+            <h2 id="chapters-title" className={`display ${styles.chaptersTitle}`}>
+              Wear the arc
+            </h2>
+          </Reveal>
+          <div className={styles.chaptersRow}>
+            {CHAPTERS.map((c, i) => (
+              <Reveal key={c.slug} delay={i * 0.1}>
+                <Link to={`/drop/${c.slug}`} className={styles.chapter}>
+                  <span className={styles.chapterNum}>{c.n}</span>
+                  <span className={styles.chapterMedia}>
+                    <SmartImage
+                      src={c.img}
+                      alt=""
+                      className={styles.chapterImg}
+                      loading="lazy"
+                    />
+                    <span className={styles.chapterWash} style={{ background: c.accent }} />
+                  </span>
+                  <span className={styles.chapterName}>{c.t}</span>
+                  <span className={styles.chapterDesc}>{c.d}</span>
+                  <span className={styles.chapterCta} style={{ color: c.accent }}>
+                    View the tee
+                  </span>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- 6. campaign band: the lookbook as a film still ---------- */}
+      <section className={styles.campaign} aria-labelledby="campaign-title">
+        <Link to="/lookbook" className={styles.campaignLink}>
+          <div className={styles.campaignMedia}>
             <SmartImage
               src="/lookbook/look-6.webp"
               alt=""
-              className={styles.editorialImg}
+              className={styles.campaignImg}
               loading="lazy"
             />
-            <div className={styles.editorialShade} aria-hidden="true" />
+            <div className={styles.campaignShade} aria-hidden="true" />
           </div>
-          <div className={`container ${styles.editorialContent}`}>
+          <div className={`container ${styles.campaignContent}`}>
             <Reveal>
-              <h2 id="editorial-title" className={`statement ${styles.editorialTitle}`}>
+              <h2 id="campaign-title" className={`statement ${styles.campaignTitle}`}>
                 The lookbook
               </h2>
-              <p className={styles.editorialText}>
-                Eight frames from the Origin Drop campaign, shot on the same heavyweight
-                cotton the drop ships in.
+              <p className={styles.campaignText}>
+                Eight frames from the Origin Drop campaign. The cotton, shot on the bodies
+                it was cut for.
               </p>
-              <span className={styles.editorialCta}>View the lookbook</span>
+              <span className={styles.campaignCta}>View the lookbook</span>
             </Reveal>
           </div>
         </Link>
       </section>
 
-      {/* ---------- 6. closing CTA, held to roughly half a screen ---------- */}
-      <section className={styles.lore} aria-labelledby="lore-title">
-        <div className={`container ${styles.loreInner}`}>
-          <Reveal>
-            <h2 id="lore-title" className={`statement ${styles.loreTitle}`}>
-              Follow the lore
-            </h2>
-            <p className={styles.loreText}>
-              New drops are announced once and not again. Every drop is a limited run —
-              once it sells out it is not reprinted.
-            </p>
-            <div className={styles.loreActions}>
-              <Link to="/drop" className="btn btn--primary">
-                Shop the drop
-              </Link>
-              <Link to="/faq" className="link-line">
-                Read the FAQ
-              </Link>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <QuickView product={quickView} onClose={() => setQuickView(null)} />
     </>
   )
 }

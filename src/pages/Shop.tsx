@@ -60,7 +60,7 @@ export default function Shop() {
             The drop
           </h1>
           <p className={styles.lede}>
-            Every design from the Origin Drop. Each one is printed once — when a size
+            Every design from the Origin Drop. Each one is printed once. When a size
             sells through, it is not reprinted.
           </p>
         </Reveal>

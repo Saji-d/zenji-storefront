@@ -9,7 +9,7 @@
 
 .pageTitle {
   font-size: var(--fs-hero);
-  margin-bottom: 0.9rem;
+  margin-block: 0.75rem 0.9rem;
 }
 
 .pageLede {
@@ -18,24 +18,18 @@
   text-wrap: pretty;
 }
 
-/* ---------- immersive lead ---------- */
+/* ---------- full-bleed lead with poster statement ---------- */
 
-/* Bleeds past the container on purpose: the lookbook is the photography page,
-   and the lead frame is not an inset card. */
 .leadWrap {
   position: relative;
   overflow: hidden;
   margin-block: clamp(1.5rem, 3vw, 2.5rem);
 }
 
-/* The lead is deliberately tall. Every campaign file in the project is
-   portrait, so a short full-bleed band would crop roughly 30% of the frame's
-   height and slice through the subject. Running nearer 1.9:1 keeps about a
-   third of the source visible instead of a quarter. */
 .lead {
   position: relative;
   margin: 0;
-  height: clamp(26rem, 82svh, 50rem);
+  height: clamp(30rem, 92svh, 56rem);
   will-change: transform;
 }
 
@@ -46,21 +40,77 @@
   object-position: center 26%;
 }
 
-/* Caption sits on the photograph, integrated with it rather than boxed
-   underneath. The gradient is a legibility aid, not a frame. */
+/* The statement sits on a corner veil, poster-scale, mirroring the hero's
+   composition so the two pages read as one system. */
 .leadCaption {
   position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: clamp(4rem, 8vw, 6rem) var(--gutter) clamp(1.75rem, 4vw, 3rem);
+  background: linear-gradient(
+    to top,
+    rgba(8, 8, 10, 0.88) 0%,
+    rgba(8, 8, 10, 0.45) 45%,
+    transparent 100%
+  );
+}
+
+.leadStatement {
+  font-size: clamp(2.4rem, 6.5vw, 4.75rem);
+  color: var(--text);
+}
+
+/* ---------- synchronized gallery ---------- */
+
+/* Duo rows: two frames, shared height, hairline gap. The tight, aligned
+   pairing is the spine of the page. */
+.duo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.6rem, 1.2vw, 1rem);
+  margin-bottom: clamp(0.6rem, 1.2vw, 1rem);
+}
+
+.duoCell {
+  min-width: 0;
+}
+
+.frameInner {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  background: var(--panel);
+}
+
+.frameImg {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center 24%;
+  transition: transform 1100ms var(--ease);
+}
+
+.frameInner:hover .frameImg {
+  transform: scale(1.03);
+}
+
+/* Captions are always present. A look with no caption is a bare photograph,
+   and hiding them on hover would hide them from touch and keyboard. */
+.frameCaption {
+  position: absolute;
   left: 0;
+  right: 0;
   bottom: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  max-width: 24rem;
-  padding: clamp(1.25rem, 3vw, 2.25rem) clamp(1.25rem, 6vw, 4rem)
-    clamp(1.5rem, 3vw, 2.25rem) clamp(1.25rem, 4vw, var(--gutter));
+  gap: 0.3rem;
+  padding: 2.75rem 1.25rem 1.15rem;
   background: linear-gradient(
     to top,
-    rgba(8, 8, 10, 0.86) 0%,
+    rgba(8, 8, 10, 0.88) 0%,
     rgba(8, 8, 10, 0.5) 55%,
     transparent 100%
   );
@@ -76,7 +126,7 @@
 
 .lookTitle {
   font-family: var(--font-brand);
-  font-size: clamp(1.5rem, 3.2vw, 2.35rem);
+  font-size: clamp(1.3rem, 2.4vw, 1.85rem);
   line-height: 1;
   text-transform: uppercase;
   letter-spacing: 0.01em;
@@ -90,114 +140,76 @@
   text-wrap: pretty;
 }
 
-/* ---------- statement ---------- */
+/* ---------- the closer: one full-width frame ---------- */
 
-.statementRow {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  align-items: end;
-  gap: clamp(1.5rem, 4vw, 3.5rem);
-  padding-block: clamp(1.5rem, 4vw, 3rem) clamp(2rem, 5vw, 3.5rem);
+.closerWrap {
+  margin-bottom: clamp(0.6rem, 1.2vw, 1rem);
 }
 
-.statementTitle {
-  font-size: clamp(1.9rem, 4.6vw, 3.25rem);
+.closer {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  background: var(--panel);
 }
 
-.statementCopy {
-  color: var(--muted);
+.closerImg {
+  display: block;
+  width: 100%;
+  height: clamp(26rem, 70svh, 44rem);
+  object-fit: cover;
+  object-position: center 30%;
+  transition: transform 1300ms var(--ease);
+}
+
+.closerWrap:hover .closerImg {
+  transform: scale(1.02);
+}
+
+/* ---------- outro ---------- */
+
+.outro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  padding-top: clamp(2.25rem, 5vw, 3.75rem);
+}
+
+.outroNote {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--faint);
   max-width: 30rem;
   text-wrap: pretty;
 }
 
-/* ---------- asymmetric sequence ---------- */
-
-/* Twelve tracks so each frame can take a different measure. A uniform two- or
-   three-up grid is what made this page read like the Collections page. */
-.sequence {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: clamp(1.25rem, 2.5vw, 2.25rem) clamp(1rem, 2vw, 1.75rem);
-}
-
-.frame {
-  grid-column: var(--col-start) / var(--col-end);
-  margin-top: var(--shift);
-  min-width: 0;
-}
-
-.frameInner {
-  position: relative;
-  margin: 0;
-  overflow: hidden;
-}
-
-.frameImg {
-  width: 100%;
-  aspect-ratio: var(--ratio);
-  object-fit: cover;
-  object-position: center 24%;
-  transition: transform 1100ms var(--ease);
-}
-
-.frameInner:hover .frameImg {
-  transform: scale(1.035);
-}
-
-/* Captions are always present. They are the point of this pass — a look with
-   no caption is a bare photograph. Revealing them on hover would hide them from
-   touch, keyboard and anyone who simply scrolls past. */
-.frameCaption {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  padding: 2.5rem 1.15rem 1.1rem;
-  background: linear-gradient(
-    to top,
-    rgba(8, 8, 10, 0.88) 0%,
-    rgba(8, 8, 10, 0.55) 50%,
-    transparent 100%
-  );
-}
-
-.outro {
-  display: flex;
-  justify-content: center;
-  padding-top: clamp(2.5rem, 6vw, 4.5rem);
-}
-
 @media (max-width: 900px) {
-  .statementRow {
+  .duo {
     grid-template-columns: 1fr;
-    align-items: start;
-  }
-
-  /* Below the tablet breakpoint the asymmetry stops being legible and starts
-     being noise, so it collapses to one clean column with even rhythm. */
-  .sequence {
-    grid-template-columns: 1fr;
-    gap: clamp(1.5rem, 5vw, 2.5rem);
-  }
-
-  .frame {
-    grid-column: 1;
-    margin-top: 0;
-  }
-
-  .frameImg {
-    aspect-ratio: 4 / 5;
+    margin-bottom: clamp(1.25rem, 5vw, 2rem);
   }
 
   .lead {
-    height: clamp(22rem, 66svh, 34rem);
-  }}
+    height: clamp(24rem, 70svh, 38rem);
+  }
+
+  .closerImg {
+    height: clamp(20rem, 52svh, 30rem);
+  }
+
+  .outro {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .frameImg {
+  .frameImg,
+  .closerImg {
     transition: none;
   }
 }

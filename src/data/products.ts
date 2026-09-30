@@ -3,7 +3,7 @@ import type { Product } from '../types'
 const SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL'] as const
 
 /**
- * The nine ZENJI Origin Drop designs, self-hosted photography
+ * The ten ZENJI Origin Drop designs, self-hosted photography
  * (public/products/*.webp). Shot 1 = front, shot 2 = back (hover),
  * 3+ = gallery.
  *
@@ -109,6 +109,24 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
+    id: 'water-breathing-tee',
+    slug: 'water-breathing',
+    name: 'Water Breathing Tee',
+    colorway: 'Deep Ocean',
+    accent: '#3b6ea5',
+    price: 39.99,
+    sizes: [...SIZES],
+    status: 'in-stock',
+    tagline: 'Deep ocean blue, heavyweight cotton.',
+    story:
+      'Deep ocean blue on heavyweight 240gsm cotton. Dropped shoulder, oversized body, screen-printed artwork. Fits XS to XXL.',
+    images: {
+      front: '/products/water-breathing-1.webp',
+      back: '/products/water-breathing-2.webp',
+      gallery: ['/products/water-breathing-3.webp', '/products/water-breathing-4.webp'],
+    },
+  },
+  {
     id: 'paradise-spirit-tee',
     slug: 'paradise-spirit',
     name: 'Paradise Spirit Tee',
@@ -201,7 +219,7 @@ export const COLLECTIONS = [
   {
     slug: 'the-origin-drop',
     title: 'The Origin Drop',
-    subtitle: 'The full run — all nine designs from the first drop.',
+    subtitle: 'The full run. All ten designs from the first drop.',
     count: PRODUCTS.length,
   },
   {

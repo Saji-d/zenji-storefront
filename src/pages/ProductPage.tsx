@@ -98,7 +98,7 @@ export default function ProductPage() {
     {
       key: 'drop',
       title: 'Drop notes',
-      body: 'Original artwork drawn for this drop and printed once. Runs are small and finite — once a size sells through it is never reprinted.',
+      body: 'Original artwork drawn for this drop and printed once. Runs are small and finite. Once a size sells through it is never reprinted.',
     },
   ]
 
@@ -176,7 +176,7 @@ export default function ProductPage() {
             ref={sizeGroupRef}
             className={styles.sizes}
             role="radiogroup"
-            aria-label={`Size — ${product.name}`}
+            aria-label={`Size: ${product.name}`}
           >
             {product.sizes.map((s, i) => (
               <button

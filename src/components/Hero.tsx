@@ -157,7 +157,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
         >
-          Nine original designs, cut from heavyweight 240gsm cotton. One run, never
+          Ten original designs, cut from heavyweight 240gsm cotton. One run, never
           reprinted.
         </motion.p>
 

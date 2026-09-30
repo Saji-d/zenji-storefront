@@ -42,30 +42,46 @@
   transition: color var(--speed) var(--ease), border-color var(--speed) var(--ease);
 }
 
+/* Hover tints the chip red — the grey hover read as disabled rather than as
+   an affordance, and red is the brand's action colour. The pressed/active
+   state goes full maroon fill so the selected filter is unmistakable. */
 .filterBtn:hover {
-  color: var(--text);
-  border-color: var(--line-strong);
+  color: var(--accent);
+  border-color: rgba(255, 61, 61, 0.55);
 }
 
 .filterActive,
 .filterActive:hover {
   color: var(--text);
-  border-color: var(--line-strong);
-  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--accent);
+  background: rgba(255, 61, 61, 0.14);
 }
 
 .sortLabel {
   display: inline-flex;
 }
 
+/* Solid panel background: a transparent select paints its popup in browser
+   default white, which was unreadable against the dark page. The popup, its
+   options and the closed state all inherit this surface and stay in-palette. */
 .sort {
   min-height: 2.75rem;
-  background: transparent;
-  border: 1px solid var(--line-strong);
+  background: var(--panel);
   color: var(--text);
+  border: 1px solid var(--line-strong);
   font-size: 0.8125rem;
   padding: 0.45em 0.6em;
   cursor: pointer;
+}
+
+.sort:hover {
+  border-color: var(--accent);
+}
+
+.sort option,
+.sort optgroup {
+  background: var(--panel);
+  color: var(--text);
 }
 
 .count {

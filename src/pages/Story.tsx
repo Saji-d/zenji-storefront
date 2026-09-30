@@ -10,7 +10,7 @@ import { Reveal } from '../components/motion/Reveal'
 const CHAPTERS = [
   {
     title: 'Origin',
-    body: 'ZENJI was founded in Australia in 2024 for dreamers, fighters, creators and outsiders — people who move through the world on their own terms. What you wear should tell a story.',
+    body: 'ZENJI was founded in Australia in 2024 for dreamers, fighters, creators and outsiders. People who move through the world on their own terms. What you wear should tell a story.',
     img: '/lookbook/look-5.webp',
     alt: 'ZENJI campaign photograph',
   },
@@ -22,7 +22,7 @@ const CHAPTERS = [
   },
   {
     title: 'The arc',
-    body: 'Anime-inspired, gamer-built, community-owned. Each drop is a chapter of the same story, and the story only moves forward — nothing is reprinted once it sells through.',
+    body: 'Anime-inspired, gamer-built, community-owned. Each drop is a chapter of the same story, and the story only moves forward. Nothing is reprinted once it sells through.',
     img: '/lookbook/look-3.webp',
     alt: 'ZENJI campaign photograph',
   },

@@ -175,7 +175,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
               </button>
 
               <p className={styles.note}>
-                Demonstration storefront — no payment is taken. Real orders ship from
+                Demonstration storefront. No payment is taken. Real orders ship from
                 Australia in 1–2 weeks.
               </p>
 
