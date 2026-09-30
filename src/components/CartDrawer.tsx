@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { formatPrice, useCart } from '../context/CartContext'
 import { FREE_SHIPPING_THRESHOLD } from '../types'
 import { productById } from '../data/products'
@@ -11,19 +10,11 @@ interface CartDrawerProps {
   onClose: () => void
 }
 
+const MAX_QTY = 9
+
 export function CartDrawer({ open, onClose }: CartDrawerProps) {
   const { items, totals, setQty, remove, clear } = useCart()
   const { panelRef } = useCartDrawer({ open, onClose })
-
-  // lock body scroll while open
-  useEffect(() => {
-    if (!open) return
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = prev
-    }
-  }, [open])
 
   const remaining = Math.max(0, FREE_SHIPPING_THRESHOLD - totals.subtotal)
   const progress = Math.min(100, (totals.subtotal / FREE_SHIPPING_THRESHOLD) * 100)
@@ -34,7 +25,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
       aria-hidden={!open}
       inert={!open}
     >
-      <div className={styles.overlay} onClick={onClose} />
+      <div className={styles.overlay} onClick={onClose} aria-hidden="true" />
 
       <div
         ref={panelRef}
@@ -45,7 +36,8 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
       >
         <header className={styles.head}>
           <h2 className={styles.title}>
-            Your cart <span className={styles.count}>[{totals.count}]</span>
+            Your cart
+            {totals.count > 0 && <span className={styles.count}>{totals.count}</span>}
           </h2>
           <button
             type="button"
@@ -53,18 +45,26 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
             onClick={onClose}
             aria-label="Close cart"
           >
-            ✕
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path
+                d="M3 3l10 10M13 3L3 13"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.4"
+                strokeLinecap="round"
+              />
+            </svg>
           </button>
         </header>
 
         {items.length === 0 ? (
           <div className={styles.empty}>
-            <p className={styles.emptyTitle}>_EMPTY</p>
+            <p className={styles.emptyTitle}>Your cart is empty</p>
             <p className={styles.emptyText}>
-              Nothing claimed yet. Units move fast — don&apos;t sleep on the drop.
+              The Origin Drop is a limited run, so pieces do not wait around.
             </p>
             <button type="button" className="btn btn--ghost" onClick={onClose}>
-              Browse the collection →
+              Browse the drop
             </button>
           </div>
         ) : (
@@ -86,7 +86,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                     <div className={styles.lineInfo}>
                       <p className={styles.lineName}>{product.name}</p>
                       <p className={styles.lineMeta}>
-                        {product.colorway} // {item.size}
+                        {product.colorway} · Size {item.size}
                       </p>
                       <div className={styles.qty}>
                         <button
@@ -94,14 +94,14 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                           onClick={() => setQty(item.productId, item.size, item.qty - 1)}
                           aria-label={`Decrease quantity of ${product.name}, size ${item.size}`}
                         >
-                          −
+                          &minus;
                         </button>
                         <span aria-live="polite">{item.qty}</span>
                         <button
                           type="button"
                           onClick={() => setQty(item.productId, item.size, item.qty + 1)}
                           aria-label={`Increase quantity of ${product.name}, size ${item.size}`}
-                          disabled={item.qty >= 9}
+                          disabled={item.qty >= MAX_QTY}
                         >
                           +
                         </button>
@@ -131,11 +131,10 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                 <p className={styles.shipMsg}>
                   {remaining > 0 ? (
                     <>
-                      <strong>{formatPrice(remaining)}</strong> away from free
-                      Australia-wide shipping
+                      <strong>{formatPrice(remaining)}</strong> away from free shipping
                     </>
                   ) : (
-                    <>✦ Free Australia-wide shipping unlocked</>
+                    'Free Australia-wide shipping unlocked'
                   )}
                 </p>
                 <div
@@ -159,16 +158,25 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                 )}
                 <div className={styles.totalRow}>
                   <dt>Subtotal</dt>
-                  <dd className={styles.subtotal}>{formatPrice(totals.subtotal)}</dd>
+                  <dd>{formatPrice(totals.subtotal)}</dd>
+                </div>
+                <div className={styles.totalRow}>
+                  <dt>Shipping</dt>
+                  <dd>{totals.shipping === 0 ? 'Free' : formatPrice(totals.shipping)}</dd>
+                </div>
+                <div className={`${styles.totalRow} ${styles.grand}`}>
+                  <dt>Total</dt>
+                  <dd>{formatPrice(totals.total)}</dd>
                 </div>
               </dl>
 
-              <button type="button" className={`btn ${styles.demoBtn}`} disabled>
-                Demo mode // checkout disabled
+              <button type="button" className="btn btn--primary btn--block" disabled>
+                Checkout unavailable
               </button>
 
               <p className={styles.note}>
-                Demo cart — no real payments. Ships Australia-wide in 1–2 weeks.
+                Demonstration storefront — no payment is taken. Real orders ship from
+                Australia in 1–2 weeks.
               </p>
 
               <button type="button" className={styles.clear} onClick={clear}>

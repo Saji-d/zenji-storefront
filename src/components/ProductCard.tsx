@@ -4,33 +4,34 @@ import type { Product } from '../types'
 import { formatPrice } from '../context/CartContext'
 import { SmartImage } from './SmartImage'
 
-const STATUS_LABEL: Record<Product['status'], string> = {
-  'last-units': 'LAST UNITS',
-  'selling-fast': 'SELLING FAST',
-  limited: 'LIMITED',
-}
-
 interface ProductCardProps {
   product: Product
   /** omitted on PDP-related cards, where navigating is the right action */
   onQuickView?: (product: Product) => void
   priority?: boolean
-  index?: number
 }
 
-export function ProductCard({ product, onQuickView, priority = false, index }: ProductCardProps) {
+/**
+ * Discovery card.
+ *
+ * Deliberately restrained: no ordinal index, no tagline on every tile, and at
+ * most one accent chip. Stock is a real constraint for this label, so
+ * "Last units" earns the red; "Limited" on a run that is limited by definition
+ * does not, and saying it on all nine just adds noise.
+ */
+export function ProductCard({ product, onQuickView, priority = false }: ProductCardProps) {
   const hasBack = product.images.back !== product.images.front
   const discount = product.compareAt
     ? Math.round((1 - product.price / product.compareAt) * 100)
     : 0
 
   return (
-    <article className={styles.card} aria-label={`${product.name} — ${product.colorway}`}>
+    <article className={styles.card}>
       <div className={styles.media}>
         <div className={styles.frame}>
           <SmartImage
             src={product.images.front}
-            alt={`${product.name} — ${product.colorway}, front`}
+            alt={`${product.name} tee in ${product.colorway}`}
             className={styles.imgFront}
             loading={priority ? 'eager' : 'lazy'}
             fetchPriority={priority ? 'high' : 'auto'}
@@ -46,12 +47,9 @@ export function ProductCard({ product, onQuickView, priority = false, index }: P
           <div className={styles.shade} aria-hidden="true" />
         </div>
 
-        <div className={styles.chips}>
-          <span className={`${styles.chip} ${styles[`chip--${product.status}`]}`}>
-            {STATUS_LABEL[product.status]}
-          </span>
-          {discount > 0 && <span className={styles.sale}>−{discount}%</span>}
-        </div>
+        {product.status === 'last-units' && (
+          <p className={styles.stock}>Last units</p>
+        )}
 
         {onQuickView && (
           <button
@@ -60,32 +58,27 @@ export function ProductCard({ product, onQuickView, priority = false, index }: P
             onClick={() => onQuickView(product)}
             aria-label={`Quick view — ${product.name}`}
           >
-            QUICK VIEW
+            Quick view
           </button>
         )}
       </div>
 
       <div className={styles.meta}>
-        <div className={styles.metaTop}>
-          {index !== undefined && (
-            <span className={styles.index} aria-hidden="true">
-              {String(index + 1).padStart(2, '0')}
-            </span>
-          )}
-          <p className={styles.colorway}>{product.colorway}</p>
-        </div>
         <h3 className={styles.name}>
           <Link to={`/drop/${product.slug}`} className={styles.nameLink}>
-            <span className={styles.nameText}>{product.name}</span>
+            {product.name}
           </Link>
         </h3>
-        <p className={styles.tagline}>{product.tagline}</p>
+
         <p className={styles.priceRow}>
-          <span className={styles.price}>{formatPrice(product.price)}</span>
-          {product.compareAt && (
-            <s className={styles.compare}>{formatPrice(product.compareAt)}</s>
-          )}
+          <span className={discount ? styles.priceSale : styles.price}>
+            {formatPrice(product.price)}
+          </span>
+          {product.compareAt && <s className={styles.compare}>{formatPrice(product.compareAt)}</s>}
+          {discount > 0 && <span className={styles.off}>{discount}% off</span>}
         </p>
+
+        <p className={styles.colorway}>{product.colorway}</p>
       </div>
     </article>
   )

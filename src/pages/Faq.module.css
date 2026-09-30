@@ -1,6 +1,5 @@
 .page {
-  padding-block: 7.5rem var(--section-y);
-  min-height: 70svh;
+  padding-block: calc(var(--header-h) + clamp(1.5rem, 4vw, 3rem)) var(--space-wide);
 }
 
 .title {
@@ -28,7 +27,7 @@
 .q {
   width: 100%;
   display: grid;
-  grid-template-columns: 3rem minmax(0, 1fr) 2rem;
+  grid-template-columns: minmax(0, 1fr) 1.5rem;
   align-items: baseline;
   gap: 1rem;
   padding: 1.2rem 0;
@@ -37,13 +36,6 @@
   text-align: left;
   cursor: pointer;
   color: var(--text);
-}
-
-.qIndex {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--accent);
 }
 
 .qText {

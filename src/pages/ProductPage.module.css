@@ -1,18 +1,18 @@
 .page {
-  padding-block: 7.5rem var(--section-y);
+  padding-block: calc(var(--header-h) + clamp(1.5rem, 4vw, 3rem)) var(--space-wide);
   min-height: 70svh;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   gap: clamp(2rem, 5vw, 4.5rem);
   align-items: start;
 }
 
 .gallery {
   position: sticky;
-  top: 5.5rem;
+  top: calc(var(--header-h) + 1.5rem);
 }
 
 .stage {
@@ -20,7 +20,6 @@
   aspect-ratio: 4 / 5;
   overflow: hidden;
   background: var(--panel);
-  border: 1px solid var(--line-strong);
 }
 
 .stageImg {
@@ -33,33 +32,33 @@
 
 .sale {
   position: absolute;
-  top: 0.8rem;
-  left: 0.8rem;
-  padding: 0.34em 0.7em 0.34em 0.55em;
+  top: 0.85rem;
+  left: 0.85rem;
+  padding: 0.32em 0.65em;
   background: var(--accent);
-  color: var(--ink);
+  color: var(--accent-ink);
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
   font-weight: 700;
-  letter-spacing: 0.12em;
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .thumbs {
   display: flex;
-  gap: 0.6rem;
-  margin-top: 0.7rem;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
 }
 
 .thumb {
-  width: 4.2rem;
+  width: 3.75rem;
   aspect-ratio: 4 / 5;
   padding: 0;
   overflow: hidden;
   background: var(--panel);
-  border: 1px solid var(--line);
+  border: 1px solid transparent;
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.55;
   transition: opacity var(--speed) var(--ease), border-color var(--speed) var(--ease);
 }
 
@@ -70,98 +69,89 @@
 }
 
 .thumb:hover {
-  opacity: 1;
+  opacity: 0.85;
 }
 
 .thumbActive,
 .thumbActive:hover {
   opacity: 1;
-  border-color: var(--accent);
+  border-color: var(--text);
 }
 
 .info {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-}
-
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  letter-spacing: 0.24em;
-  color: var(--gold);
-}
-
-.eyebrow [aria-hidden] {
-  color: var(--accent);
+  gap: 0.7rem;
 }
 
 .title {
-  font-size: clamp(2rem, 4.5vw, 3.2rem);
-  font-weight: 700;
-  text-transform: uppercase;
-  line-height: 0.98;
-  letter-spacing: -0.01em;
+  font-size: clamp(1.9rem, 3.6vw, 2.75rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
 }
 
-.tagline {
-  color: var(--muted);
+.stock {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
 }
 
 .priceRow {
   display: flex;
   align-items: baseline;
-  gap: 0.8rem;
-  margin-top: 0.4rem;
+  gap: 0.7rem;
+  margin-top: 0.2rem;
 }
 
-.price {
-  font-family: var(--font-mono);
-  font-size: 1.6rem;
-  font-weight: 700;
+.price,
+.priceSale {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.priceSale {
+  color: var(--accent);
 }
 
 .compare {
-  font-family: var(--font-mono);
-  color: var(--muted);
+  font-size: 0.9375rem;
+  color: var(--faint);
 }
 
 .sizeHead {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-top: 1rem;
+  gap: 1rem;
+  margin-top: 1.1rem;
 }
 
 .sizeLabel {
-  font-family: var(--font-mono);
   font-size: var(--fs-small);
-  font-weight: 700;
-  letter-spacing: 0.2em;
+  font-weight: 500;
 }
 
 .sizeHint {
-  font-family: var(--font-mono);
   font-size: var(--fs-micro);
-  letter-spacing: 0.14em;
-  color: var(--muted);
+  color: var(--faint);
 }
 
 .sizes {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.45rem;
+  gap: 0.4rem;
 }
 
 .size {
-  min-width: 3rem;
-  padding: 0.55em 0.6em;
+  min-width: 2.9rem;
+  min-height: 2.6rem;
+  padding: 0.5em 0.6em;
   background: transparent;
-  border: 1px solid var(--line);
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  border: 1px solid var(--line-strong);
+  font-size: 0.8125rem;
   color: var(--muted);
   cursor: pointer;
   transition: border-color var(--speed) var(--ease), color var(--speed) var(--ease),
@@ -169,22 +159,22 @@
 }
 
 .size:hover {
-  border-color: var(--line-strong);
+  border-color: var(--muted);
   color: var(--text);
 }
 
 .sizeActive,
 .sizeActive:hover {
-  border-color: var(--accent);
-  background: rgba(255, 61, 61, 0.1);
-  color: var(--text);
+  border-color: var(--text);
+  background: var(--text);
+  color: var(--ink);
 }
 
 .actionsRow {
   display: flex;
   align-items: stretch;
-  gap: 0.6rem;
-  margin-top: 0.9rem;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
 }
 
 .qty {
@@ -194,20 +184,20 @@
 }
 
 .qty span {
-  min-width: 2.2rem;
+  min-width: 2.1rem;
   text-align: center;
-  font-family: var(--font-mono);
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-size: 0.875rem;
 }
 
 .qty button {
-  width: 2.4rem;
-  height: 2.7rem;
+  width: 2.3rem;
+  height: 100%;
+  min-height: 2.75rem;
   background: transparent;
   border: 0;
-  font-size: 1.05rem;
+  font-size: 1rem;
   cursor: pointer;
+  transition: background var(--speed) var(--ease);
 }
 
 .qty button:hover:not(:disabled) {
@@ -230,27 +220,33 @@
   background: transparent;
   border: 1px solid var(--line-strong);
   color: var(--muted);
-  font-size: 1.1rem;
   cursor: pointer;
-  transition: border-color var(--speed) var(--ease), color var(--speed) var(--ease),
-    background var(--speed) var(--ease);
+  transition: border-color var(--speed) var(--ease), color var(--speed) var(--ease);
+}
+
+.wish svg {
+  width: 1.125rem;
+  height: 1.125rem;
 }
 
 .wish:hover {
-  border-color: var(--accent);
   color: var(--accent);
 }
 
-.wishActive,
-.wishActive:hover {
-  border-color: var(--accent);
+.wishActive {
   color: var(--accent);
-  background: rgba(255, 61, 61, 0.1);
+  border-color: var(--accent);
+}
+
+.reassure {
+  margin-top: 0.15rem;
+  font-size: var(--fs-micro);
+  color: var(--faint);
 }
 
 /* accordions */
 .panels {
-  margin-top: 1.6rem;
+  margin-top: 1.75rem;
   border-top: 1px solid var(--line);
 }
 
@@ -263,21 +259,21 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 0;
+  gap: 1rem;
+  min-height: 3rem;
+  padding: 0.9rem 0;
   background: transparent;
   border: 0;
-  font-family: var(--font-mono);
-  font-size: var(--fs-small);
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  font-size: 0.875rem;
+  font-weight: 500;
   color: var(--text);
   cursor: pointer;
   text-align: left;
 }
 
 .panelIcon {
-  color: var(--accent);
-  font-size: 1.1rem;
+  color: var(--muted);
+  font-size: 1.05rem;
 }
 
 .panelBody {
@@ -287,34 +283,52 @@
 .panelBody p {
   padding-bottom: 1.1rem;
   color: var(--muted);
-  font-size: 0.92rem;
+  font-size: 0.875rem;
+  line-height: 1.65;
   max-width: 34rem;
+  text-wrap: pretty;
+}
+
+/* mobile-only sticky add to bag */
+.stickyBar {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 45;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem var(--gutter) calc(0.7rem + env(safe-area-inset-bottom));
+  background: rgba(10, 10, 12, 0.94);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--line);
+}
+
+.stickyInfo {
+  min-width: 0;
+}
+
+.stickyName {
+  font-size: 0.8125rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stickyPrice {
+  font-size: 0.8125rem;
+  color: var(--muted);
 }
 
 /* related */
 .related {
-  margin-top: var(--section-y);
-}
-
-.relatedLink {
-  font-family: var(--font-mono);
-  font-size: var(--fs-small);
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  color: var(--text);
-  text-decoration: none;
-  padding: 0.55em 0;
-  transition: color var(--speed) var(--ease);
-}
-
-.relatedLink:hover {
-  color: var(--accent);
+  margin-top: var(--space-wide);
 }
 
 .relatedGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(1.2rem, 3vw, 2.2rem);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.75rem, 2vw, 1.5rem);
 }
 
 @media (max-width: 980px) {
@@ -326,6 +340,21 @@
     position: static;
   }
 
+  .relatedGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* leave room so the bar never covers the last row of content */
+  .page {
+    padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+  }
+
+  .stickyBar {
+    display: flex;
+  }
+}
+
+@media (max-width: 560px) {
   .relatedGrid {
     grid-template-columns: 1fr;
   }

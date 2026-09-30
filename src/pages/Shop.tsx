@@ -1,35 +1,42 @@
 import { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { PRODUCTS } from '../data/products'
-import type { Product, ProductStatus } from '../types'
+import type { Product } from '../types'
 import { ProductCard } from '../components/ProductCard'
 import { QuickView } from '../components/QuickView'
 import { Reveal } from '../components/motion/Reveal'
 import styles from './Shop.module.css'
 
-const STATUS_FILTERS: { key: ProductStatus | 'all'; label: string }[] = [
-  { key: 'all', label: 'ALL' },
-  { key: 'last-units', label: 'LAST UNITS' },
-  { key: 'selling-fast', label: 'SELLING FAST' },
-  { key: 'limited', label: 'LIMITED' },
-]
+const EASE = [0.22, 1, 0.36, 1] as const
+
+/** Availability filters map to how the brand actually talks about stock. */
+const FILTERS = [
+  { key: 'all', label: 'All designs' },
+  { key: 'sale', label: 'On sale' },
+  { key: 'last-units', label: 'Last units' },
+] as const
+
+type FilterKey = (typeof FILTERS)[number]['key']
 
 const SORTS = [
-  { key: 'featured', label: 'FEATURED' },
-  { key: 'price-asc', label: 'PRICE ↑' },
-  { key: 'price-desc', label: 'PRICE ↓' },
-  { key: 'name', label: 'A–Z' },
+  { key: 'featured', label: 'Featured' },
+  { key: 'price-asc', label: 'Price, low to high' },
+  { key: 'price-desc', label: 'Price, high to low' },
+  { key: 'name', label: 'Alphabetical' },
 ] as const
 
 type SortKey = (typeof SORTS)[number]['key']
 
 export default function Shop() {
-  const [filter, setFilter] = useState<ProductStatus | 'all'>('all')
+  const [filter, setFilter] = useState<FilterKey>('all')
   const [sort, setSort] = useState<SortKey>('featured')
   const [quickView, setQuickView] = useState<Product | null>(null)
 
   const items = useMemo(() => {
-    const list = PRODUCTS.filter((p) => filter === 'all' || p.status === filter)
+    let list = PRODUCTS
+    if (filter === 'sale') list = list.filter((p) => p.compareAt)
+    if (filter === 'last-units') list = list.filter((p) => p.status === 'last-units')
+
     switch (sort) {
       case 'price-asc':
         return [...list].sort((a, b) => a.price - b.price)
@@ -38,7 +45,9 @@ export default function Shop() {
       case 'name':
         return [...list].sort((a, b) => a.name.localeCompare(b.name))
       default:
-        return [...list].sort((a, b) => Number(b.featured ?? false) - Number(a.featured ?? false))
+        return [...list].sort(
+          (a, b) => Number(b.featured ?? false) - Number(a.featured ?? false),
+        )
     }
   }, [filter, sort])
 
@@ -46,17 +55,19 @@ export default function Shop() {
     <section className={styles.page} aria-labelledby="shop-title">
       <div className="container">
         <Reveal>
-          <p className="eyebrow">The archive // full index</p>
-          <h1 id="shop-title" className={`display ${styles.title}`}>THE_DROP</h1>
+          <p className="eyebrow">The Origin Drop</p>
+          <h1 id="shop-title" className={`display ${styles.title}`}>
+            The drop
+          </h1>
           <p className={styles.lede}>
-            Every design from the Origin Drop. Nine files, one run each —
-            when a size is gone, the file closes.
+            Every design from the Origin Drop. Each one is printed once — when a size
+            sells through, it is not reprinted.
           </p>
         </Reveal>
 
         <div className={styles.controls}>
-          <div className={styles.filters} role="group" aria-label="Filter by availability">
-            {STATUS_FILTERS.map((f) => (
+          <div className={styles.filters} role="group" aria-label="Filter designs">
+            {FILTERS.map((f) => (
               <button
                 key={f.key}
                 type="button"
@@ -68,22 +79,25 @@ export default function Shop() {
               </button>
             ))}
           </div>
+
           <label className={styles.sortLabel}>
-            <span className="sr-only">Sort products</span>
+            <span className="sr-only">Sort designs</span>
             <select
               className={styles.sort}
               value={sort}
               onChange={(e) => setSort(e.target.value as SortKey)}
             >
               {SORTS.map((s) => (
-                <option key={s.key} value={s.key}>{s.label}</option>
+                <option key={s.key} value={s.key}>
+                  {s.label}
+                </option>
               ))}
             </select>
           </label>
         </div>
 
         <p className={styles.count} aria-live="polite">
-          {items.length} DESIGN{items.length === 1 ? '' : 'S'}
+          {items.length} design{items.length === 1 ? '' : 's'}
         </p>
 
         <motion.div layout className={styles.grid}>
@@ -92,12 +106,12 @@ export default function Shop() {
               <motion.div
                 key={p.id}
                 layout
-                initial={{ opacity: 0, y: 22 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.97 }}
-                transition={{ duration: 0.4, delay: i * 0.04, ease: [0.22, 1, 0.36, 1] }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35, delay: i * 0.03, ease: EASE }}
               >
-                <ProductCard product={p} onQuickView={setQuickView} priority={i < 3} index={i} />
+                <ProductCard product={p} onQuickView={setQuickView} priority={i < 3} />
               </motion.div>
             ))}
           </AnimatePresence>

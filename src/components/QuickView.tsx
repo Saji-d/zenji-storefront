@@ -14,9 +14,8 @@ interface QuickViewProps {
 }
 
 const STATUS_LABEL: Record<Product['status'], string> = {
-  'last-units': 'LAST UNITS',
-  'selling-fast': 'SELLING FAST',
-  limited: 'LIMITED',
+  'in-stock': 'In stock',
+  'last-units': 'Last units',
 }
 
 export function QuickView({ product, onClose }: QuickViewProps) {
@@ -92,14 +91,21 @@ export function QuickView({ product, onClose }: QuickViewProps) {
             exit={reduce ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.99 }}
             transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
           >
-            <button
-              type="button"
-              className={styles.close}
-              onClick={onClose}
-              aria-label="Close quick view"
-            >
-              ✕
-            </button>
+              <button
+                type="button"
+                className={styles.close}
+                onClick={onClose}
+                aria-label="Close quick view"
+              >
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                  <path
+                    d="M5 5l10 10M15 5L5 15"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.4"
+                  />
+                </svg>
+              </button>
 
             <div className={styles.gallery}>
               <div className={styles.stage}>
@@ -118,7 +124,7 @@ export function QuickView({ product, onClose }: QuickViewProps) {
                     draggable={false}
                   />
                 </AnimatePresence>
-                {discount > 0 && <span className={styles.sale}>−{discount}%</span>}
+                {discount > 0 && <span className={styles.sale}>{discount}% off</span>}
               </div>
 
               {images.length > 1 && (
@@ -141,7 +147,9 @@ export function QuickView({ product, onClose }: QuickViewProps) {
             </div>
 
             <div className={styles.info}>
-              <p className={styles.eyebrow}>THE_ORIGIN_DROP // {STATUS_LABEL[product.status]}</p>
+              <p className={styles.eyebrow}>
+                {product.status === 'last-units' ? STATUS_LABEL['last-units'] : 'Origin Drop'}
+              </p>
               <h3 className={styles.title}>{product.name}</h3>
               <p className={styles.colorway}>{product.colorway}</p>
               <p className={styles.tagline}>{product.tagline}</p>
@@ -201,7 +209,7 @@ export function QuickView({ product, onClose }: QuickViewProps) {
                   onClick={handleAdd}
                   disabled={!size}
                 >
-                  {added ? 'Added ✓' : size ? 'Add to cart' : 'Select a size'}
+                  {added ? 'Added to cart' : size ? 'Add to cart' : 'Select a size'}
                 </button>
 
                 <button
@@ -209,14 +217,25 @@ export function QuickView({ product, onClose }: QuickViewProps) {
                   className={`${styles.wish} ${has(product.id) ? styles.wishActive : ''}`}
                   onClick={() => toggle(product.id)}
                   aria-pressed={has(product.id)}
-                  aria-label={has(product.id) ? `Remove ${product.name} from wishlist` : `Save ${product.name} to wishlist`}
+                  aria-label={
+                    has(product.id)
+                      ? `Remove ${product.name} from wishlist`
+                      : `Save ${product.name} to wishlist`
+                  }
                 >
-                  ♥
+                  <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                    <path
+                      d="M10 16.5 3.9 10.6a4 4 0 1 1 5.7-5.6l.4.4.4-.4a4 4 0 1 1 5.7 5.6Z"
+                      fill={has(product.id) ? 'currentColor' : 'none'}
+                      stroke="currentColor"
+                      strokeWidth="1.35"
+                    />
+                  </svg>
                 </button>
               </div>
 
               <p className={styles.note}>
-                240GSM HEAVYWEIGHT // OVERSIZED // SHIPS AU-WIDE // NO RESTOCKS
+                240gsm heavyweight cotton · oversized fit · ships AU-wide · no restocks
               </p>
             </div>
           </motion.div>

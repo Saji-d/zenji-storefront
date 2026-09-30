@@ -1,17 +1,25 @@
 :root {
-  /* ---- color ---- */
-  --ink: #0a0a0b;
-  --panel: #121216;
-  --panel-2: #17171c;
-  --line: #26262e;
-  --line-strong: #3a3a44;
-  --text: #f4f4f5;
-  --muted: #b6b6c2;
+  /* ---- color ----
+     Restrained three-note palette. Red is deliberately scarce: it is spent on
+     primary actions, sale pricing and the one active nav item — nothing else. */
+  --ink: #08080a;
+  --ink-raised: #0e0e11;
+  --panel: #131317;
+  --panel-2: #18181d;
+  --line: #232329;
+  --line-strong: #35353e;
+  --text: #f6f5f3;
+  --muted: #9a9aa4;
+  /* Sits at ~5.5:1 on --ink and ~5.1:1 on --panel. The previous #6a6a74 only
+     reached 3.74:1, so every element using it failed WCAG AA for small text. */
+  --faint: #86868f;
   --accent: #ff3d3d;
-  --accent-dim: #c22c2c;
-  --gold: #ffc247;
+  --accent-ink: #0a0a0b;
+  /* warm bone — the neutral used for progress/gradient accents. This token was
+     referenced in 12 stylesheets but never defined, so those rules were dead. */
+  --gold: #ded4c1;
 
-  /* product accents (also used as JS values via data-* lookups) */
+  /* product accents — used for a single hairline per product, not fills */
   --ember: #ff7a1a;
   --indigo: #7fa8e8;
   --steel: #6f9fd8;
@@ -19,24 +27,62 @@
   --sun: #ffb02e;
   --blood: #e23d3d;
 
-  /* ---- type ---- */
-  --font-display: 'Space Grotesk', 'Arial Black', sans-serif;
-  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  /* ---- type ----
+     Three faces, each with one job.
+     brand  = Anton, condensed poster cut. Wordmarks and campaign statements only.
+     display= Space Grotesk. Section headings, UI, body.
+     mono   = JetBrains Mono. Genuine data (prices, sizes) and nothing else —
+              it is the fastest way to make a shop look like a dev tool, so it
+              is rationed rather than used as a default label style. */
+  --font-brand: 'Anton', 'Arial Narrow', 'Helvetica Neue', sans-serif;
+  --font-display: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Courier New', monospace;
 
-  --fs-hero: clamp(2.6rem, 9vw, 6.5rem);
-  --fs-h2: clamp(1.9rem, 5vw, 3.4rem);
-  --fs-h3: clamp(1.1rem, 2.4vw, 1.35rem);
-  --fs-body: 1rem;
-  --fs-small: 0.8rem;
-  --fs-micro: 0.72rem;
+  /* Anton is a single condensed weight, so it is scaled optically rather than
+     sharing the proportional steps below. */
+  --fs-brand: clamp(1.35rem, 1.1vw + 1.1rem, 1.75rem);
+  --fs-brand-lg: clamp(3.75rem, 17.5vw, 16rem);
 
-  /* ---- space ---- */
-  --gutter: clamp(1.1rem, 4vw, 3rem);
-  --section-y: clamp(4rem, 10vw, 7.5rem);
-  --maxw: 78rem;
+  /* Display steps are deliberately fewer and calmer than a typical
+     "hero everything" scale — some surfaces are quiet, some are loud. */
+  --fs-mega: clamp(3.25rem, 12.5vw, 9.5rem);
+  --fs-hero: clamp(2.2rem, 5.8vw, 4.25rem);
+  --fs-h2: clamp(1.6rem, 3.2vw, 2.5rem);
+  --fs-h3: clamp(1.05rem, 1.5vw, 1.25rem);
+  --fs-body: clamp(0.95rem, 0.4vw + 0.86rem, 1.05rem);
+  --fs-small: 0.8125rem;
+  --fs-micro: 0.6875rem;
+
+  /* ---- space ----
+     Sections draw from a small set of *named* rhythms rather than one uniform
+     value, so consecutive sections never share identical vertical spacing. The
+     ceiling is deliberately modest: generous black space with little in it is
+     what made the first pass read as unfinished rather than premium. */
+  --gutter: clamp(1.15rem, 4.5vw, 3.25rem);
+  --maxw: 82rem;
+  --maxw-prose: 38rem;
+
+  --space-tight: clamp(1.75rem, 4vw, 3rem);
+  --space-calm: clamp(2.5rem, 6vw, 4.5rem);
+  --space-wide: clamp(3.25rem, 8vw, 6.5rem);
+  --space-vast: clamp(3.75rem, 10vw, 8.5rem);
+
+  /* Default section rhythm. The named steps above exist so consecutive
+     sections are not forced onto an identical interval. */
+  --section-y: var(--space-calm);
 
   /* ---- misc ---- */
-  --radius: 2px;
-  --speed: 180ms;
+  --radius: 0px;
+  --speed: 200ms;
+  --speed-slow: 420ms;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --header-h: 4.75rem;
+}
+
+@media (max-width: 900px) {
+  :root {
+    --header-h: 4.25rem;
+  }
 }

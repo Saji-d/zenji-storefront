@@ -1,0 +1,41 @@
+/* One brand signature, two sizes (navbar and footer footer-signature scale).
+   Space Grotesk at 700 with wide tracking is the logotype as it first
+   shipped — the letters breathe, and the red 禅 closes the mark. */
+.mark {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  line-height: 1;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text);
+  white-space: nowrap;
+  /* the logotype is not a text link inside a sentence, so the browser default
+     blue/underline never applies — but keep the reset explicit */
+  transition: color var(--speed) var(--ease);
+}
+
+.mark:hover {
+  color: var(--text);
+}
+
+/* The Japanese half of the mark, set beside the English word. It carries the
+   accent so the two scripts read as one lockup rather than as a translation. */
+.kanji {
+  margin-left: 0.45em;
+  color: var(--accent);
+  letter-spacing: 0;
+}
+
+.lg {
+  font-size: clamp(4.5rem, 18vw, 17rem);
+  letter-spacing: 0.06em;
+  line-height: 1.02;
+}
+
+/* At signature scale the nav's 0.45em gap would open up into a canyon. */
+.lg .kanji {
+  margin-left: 0.1em;
+}

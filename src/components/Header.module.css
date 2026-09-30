@@ -1,196 +1,259 @@
 .header {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  inset: 0 0 auto;
   z-index: 60;
-  background: linear-gradient(180deg, rgba(10, 10, 11, 0.72), transparent);
-  transition: background 320ms var(--ease), border-color 320ms var(--ease);
-  border-bottom: 1px solid transparent;
+  transition: height var(--speed-slow) var(--ease),
+    background var(--speed-slow) var(--ease);
+  border-bottom: 1px solid var(--line);
+  /* Always an opaque bar. The campaign hero now *starts below* the navbar
+     rather than running underneath it, so there is no state where a
+     transparent header has to carry contrast over photography. */
+  background: var(--ink);
 }
 
-.header.solid {
-  background: rgba(10, 10, 11, 0.94);
-  backdrop-filter: blur(12px);
-  border-bottom-color: var(--line);
+/* compact the bar once the page scrolls */
+.header[data-scrolled='true'] {
+  background: rgba(8, 8, 10, 0.88);
+  backdrop-filter: blur(14px) saturate(140%);
 }
 
 .inner {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1.5rem;
-  height: 4.4rem;
+  height: var(--header-h);
+  transition: height var(--speed-slow) var(--ease);
+}
+
+.header[data-scrolled='true'] .inner {
+  height: calc(var(--header-h) - 0.75rem);
 }
 
 .wordmark {
-  font-weight: 700;
-  font-size: 1.3rem;
-  letter-spacing: 0.34em;
-  text-transform: uppercase;
   text-decoration: none;
-  margin-right: auto;
-}
-
-.kanji {
-  margin-left: 0.45em;
-  color: var(--accent);
-  letter-spacing: 0;
+  flex: none;
 }
 
 .nav {
-  display: flex;
-  gap: 1.9rem;
+  display: none;
+  align-items: center;
+  gap: clamp(1.25rem, 2.2vw, 2rem);
 }
 
-.nav a {
+.navLink {
   position: relative;
   display: inline-flex;
-  align-items: baseline;
-  gap: 0.35em;
-  padding: 0.55em 0;
-  font-family: var(--font-mono);
+  align-items: center;
+  min-height: 2.75rem;
+  font-family: var(--font-display);
   font-size: var(--fs-small);
-  letter-spacing: 0.16em;
+  font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
   color: var(--muted);
   transition: color var(--speed) var(--ease);
 }
 
-.navIndex {
-  font-size: 0.62em;
-  color: var(--accent);
-  opacity: 0;
-  transform: translateX(-4px);
-  transition: opacity var(--speed) var(--ease), transform var(--speed) var(--ease);
-}
-
-.nav a::after {
+.navLink::after {
   content: '';
   position: absolute;
   left: 0;
-  bottom: 0.2em;
+  bottom: 0;
   width: 100%;
   height: 1px;
-  background: var(--accent);
+  background: currentColor;
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 240ms var(--ease);
+  transition: transform var(--speed-slow) var(--ease);
 }
 
-.nav a:hover,
-.nav a.active {
+.navLink:hover {
   color: var(--text);
 }
 
-.nav a:hover .navIndex,
-.nav a.active .navIndex {
-  opacity: 1;
-  transform: translateX(0);
+.navLink:hover::after {
+  transform: scaleX(1);
 }
 
-.nav a:hover::after,
-.nav a.active::after {
+.active {
+  color: var(--text);
+}
+
+.active::after {
   transform: scaleX(1);
 }
 
 .actions {
   display: flex;
   align-items: center;
-  gap: 0.7rem;
+  gap: 0.35rem;
 }
 
 .iconBtn {
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
-  padding: 0.55em 0.9em;
-  background: transparent;
-  border: 1px solid var(--line-strong);
-  border-radius: 0;
-  font-family: var(--font-mono);
-  font-size: var(--fs-small);
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
   color: var(--text);
-  text-decoration: none;
+  background: none;
+  border: 0;
+  border-radius: 50%;
   cursor: pointer;
-  transition: border-color var(--speed) var(--ease), background var(--speed) var(--ease);
+  text-decoration: none;
+  transition: background var(--speed) var(--ease);
 }
 
+/* A quiet lift and a slight lift of opacity — no colour switch. Tinting the
+   glyph red on hover read as a notification, which these two are not. */
 .iconBtn:hover {
-  border-color: var(--accent);
-  background: rgba(255, 61, 61, 0.08);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.iconBtn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  opacity: 0.82;
+  transition: transform var(--speed) var(--ease), opacity var(--speed) var(--ease);
+}
+
+.iconBtn:hover svg,
+.iconBtn:focus-visible svg {
+  transform: scale(1.09);
+  opacity: 1;
 }
 
 .badge {
-  min-width: 1.5em;
-  padding: 0.08em 0.35em;
+  position: absolute;
+  top: 0.1rem;
+  right: 0.05rem;
+  min-width: 1.05rem;
+  height: 1.05rem;
+  padding-inline: 0.25rem;
+  display: grid;
+  place-items: center;
   background: var(--accent);
-  color: var(--ink);
-  font-size: 0.75rem;
-  text-align: center;
-  border-radius: 0;
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  font-weight: 700;
+  line-height: 1;
+  border-radius: 999px;
 }
 
 .burger {
-  display: none;
-  padding: 0.55em 0.8em;
-  background: transparent;
-  border: 1px solid var(--line-strong);
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  background: none;
+  border: 0;
   color: var(--text);
-  font-size: 1rem;
   cursor: pointer;
 }
 
-/* fullscreen mobile menu */
+.burgerIcon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 1.125rem;
+}
+
+.burgerLine {
+  display: block;
+  height: 1.5px;
+  width: 100%;
+  background: currentColor;
+  transition: transform var(--speed-slow) var(--ease);
+}
+
+/* the toggle becomes an X while the panel is open */
+.burger[aria-expanded='true'] .burgerLine:first-child {
+  transform: translateY(3.25px) rotate(45deg);
+}
+
+.burger[aria-expanded='true'] .burgerLine:last-child {
+  transform: translateY(-3.25px) rotate(-45deg);
+}
+
+/* ---------- full-screen mobile panel ---------- */
+
 .mobileMenu {
   position: fixed;
-  inset: 4.4rem 0 0 0;
+  inset: 0;
   z-index: 55;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2.5rem;
+  padding: calc(var(--header-h) + 2rem) var(--gutter) calc(2rem + env(safe-area-inset-bottom));
   background: var(--ink);
-  padding: 2.5rem var(--gutter) 3rem;
   overflow-y: auto;
 }
 
-.mobileMenu nav {
+.mobileNav {
   display: flex;
   flex-direction: column;
+  gap: 0.35rem;
 }
 
-.mobileMenu a {
-  display: flex;
-  align-items: baseline;
-  gap: 1rem;
-  padding: 1.1rem 0;
-  border-bottom: 1px solid var(--line);
-  font-size: clamp(1.6rem, 7vw, 2.4rem);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
+.mobileLink {
+  display: inline-block;
+  font-family: var(--font-brand);
+  font-size: clamp(2.1rem, 9vw, 2.9rem);
+  font-weight: 400;
+  letter-spacing: 0.01em;
   text-decoration: none;
-  color: var(--text);
+  line-height: 1.24;
+  transition: color var(--speed) var(--ease);
 }
 
-.mobileIndex {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
+.mobileLink:hover {
   color: var(--accent);
 }
 
-@media (max-width: 900px) {
-  .nav {
-    display: none;
-  }
+.mobileFoot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
 
-  .burger {
-    display: inline-flex;
+.mobileFoot .mobileLink {
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.mobileNote {
+  margin-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iconBtn svg {
+    transition: none;
   }
 }
 
-@media (max-width: 480px) {
-  .iconBtn[aria-label^='Wishlist'] {
-    padding: 0.55em 0.7em;
+@media (min-width: 900px) {
+  .nav {
+    display: flex;
+  }
+
+  .burger {
+    display: none;
   }
 }

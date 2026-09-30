@@ -3,37 +3,44 @@ import styles from '../components/Story.module.css'
 import { SmartImage } from '../components/SmartImage'
 import { Reveal } from '../components/motion/Reveal'
 
+/**
+ * Every line here is either the brand's own published copy or a verified
+ * product fact. No invented run sizes, seasons or production details.
+ */
 const CHAPTERS = [
   {
-    no: '01',
-    jp: '第一章',
-    title: 'ORIGIN',
-    body: 'ZENJI began with one belief: what you wear should tell a story. Founded in Australia in 2024, the label exists for the dreamers, fighters, creators and outsiders who move through the world on their own terms.',
+    title: 'Origin',
+    body: 'ZENJI was founded in Australia in 2024 for dreamers, fighters, creators and outsiders — people who move through the world on their own terms. What you wear should tell a story.',
     img: '/lookbook/look-5.webp',
-    alt: 'ZENJI tee photographed against concrete',
+    alt: 'ZENJI campaign photograph',
   },
   {
-    no: '02',
-    jp: '第二章',
-    title: 'THE CRAFT',
-    body: 'Every piece is 100% heavyweight 240gsm cotton, cut oversized from XS to XXL, with original artwork pressed once. The garment is built to outlast the hype cycle that produced it.',
+    title: 'The craft',
+    body: 'Every piece is 100% heavyweight 240gsm cotton, garment washed and screen-printed, cut oversized from XS to XXL. The build is deliberately plain so the artwork carries the weight.',
     img: '/lookbook/look-6.webp',
-    alt: 'Detail view of heavyweight ZENJI cotton',
+    alt: 'ZENJI campaign photograph',
   },
   {
-    no: '03',
-    jp: '第三章',
-    title: 'THE ARC',
-    body: 'Samurai discipline, anime lineage, modern street culture. Each drop is a chapter of the same story — and the story only moves forward. Nothing is reprinted. Nothing repeats.',
+    title: 'The arc',
+    body: 'Anime-inspired, gamer-built, community-owned. Each drop is a chapter of the same story, and the story only moves forward — nothing is reprinted once it sells through.',
     img: '/lookbook/look-3.webp',
-    alt: 'Model in a neon-lit district wearing ZENJI',
+    alt: 'ZENJI campaign photograph',
   },
 ]
 
 const RULES = [
-  { n: 'R.01', title: 'One run. Never again.', body: 'Every design is pressed once, in one run of 200 units. Sold out means sold out.' },
-  { n: 'R.02', title: 'Heavyweight only.', body: '240gsm cotton, oversized cut, sizes XS–XXL. Holds shape wash after wash.' },
-  { n: 'R.03', title: 'Story first.', body: 'Each drop is a chapter. Wear the arc, not a logo.' },
+  {
+    title: 'No restocks',
+    body: 'Every design is printed in a single run. When a size is gone, it stays gone.',
+  },
+  {
+    title: 'Heavyweight only',
+    body: '240gsm cotton, oversized cut, XS to XXL. Built to outlast the hype cycle.',
+  },
+  {
+    title: 'Story first',
+    body: 'Wear the story, not a logo.',
+  },
 ]
 
 export default function Story() {
@@ -42,27 +49,29 @@ export default function Story() {
       <div className="container">
         <Reveal>
           <div className={styles.pageHead}>
-            <p className="eyebrow">Manifesto // wear the arc</p>
-            <h1 id="story-title" className={`display ${styles.pageTitle}`}>OUR STORY</h1>
+            <p className="eyebrow">Since 2024</p>
+            <h1 id="story-title" className={`display ${styles.pageTitle}`}>
+              Our story
+            </h1>
             <p className={styles.pageLede}>
-              What you wear should tell a story. This is ours.
+              Anime-inspired. Gamer-built. Community-owned.
             </p>
           </div>
         </Reveal>
 
         {CHAPTERS.map((ch, i) => (
-          <div key={ch.no} className={`${styles.chapter} ${i % 2 === 1 ? styles.flip : ''}`}>
+          <div key={ch.title} className={`${styles.chapter} ${i % 2 === 1 ? styles.flip : ''}`}>
             <Reveal className={styles.chapterMedia}>
-              <SmartImage src={ch.img} alt={ch.alt} className={styles.chapterImg} loading="lazy" />
-              <span className={styles.verticalLabel} aria-hidden="true">
-                CHAPTER {ch.no} — {ch.jp}
-              </span>
+              <SmartImage
+                src={ch.img}
+                alt={ch.alt}
+                className={styles.chapterImg}
+                loading="lazy"
+                width={900}
+                height={1350}
+              />
             </Reveal>
             <Reveal delay={0.1} className={styles.chapterCopy}>
-              <span className={styles.chapterNo} aria-hidden="true">{ch.no}</span>
-              <p className={styles.chapterKicker}>
-                {ch.jp} <span aria-hidden="true">//</span> CHAPTER {ch.no}
-              </p>
               <h2 className={styles.chapterTitle}>{ch.title}</h2>
               <p className={styles.chapterBody}>{ch.body}</p>
             </Reveal>
@@ -71,12 +80,11 @@ export default function Story() {
 
         <div className={styles.rules}>
           <Reveal>
-            <p className={styles.rulesKicker}>THE RULES <span aria-hidden="true">//</span> 禅</p>
+            <p className={styles.rulesKicker}>The rules</p>
           </Reveal>
           <ol className={styles.ruleList}>
             {RULES.map((rule, i) => (
-              <Reveal key={rule.n} as="li" delay={i * 0.06} className={styles.ruleRow}>
-                <span className={styles.ruleN} aria-hidden="true">{rule.n}</span>
+              <Reveal key={rule.title} as="li" delay={i * 0.06} className={styles.ruleRow}>
                 <h3 className={styles.ruleTitle}>{rule.title}</h3>
                 <p className={styles.ruleBody}>{rule.body}</p>
               </Reveal>
@@ -86,8 +94,8 @@ export default function Story() {
 
         <Reveal>
           <div className={styles.storyCta}>
-            <Link to="/drop" className="btn btn--primary">Shop the drop →</Link>
-            <Link to="/lookbook" className="btn btn--ghost">View the campaign →</Link>
+            <Link to="/drop" className="btn btn--primary">Shop the drop</Link>
+            <Link to="/lookbook" className="btn btn--ghost">View the campaign</Link>
           </div>
         </Reveal>
       </div>

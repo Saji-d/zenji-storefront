@@ -1,16 +1,17 @@
 .page {
-  padding-block: 7.5rem var(--section-y);
+  padding-block: calc(var(--header-h) + clamp(2rem, 6vw, 4.5rem)) var(--space-wide);
   min-height: 70svh;
 }
 
 .title {
-  font-size: var(--fs-hero);
+  font-size: var(--fs-h2);
   margin-block: 0.6rem 1rem;
 }
 
 .lede {
   color: var(--muted);
-  max-width: 36rem;
+  max-width: 36ch;
+  text-wrap: pretty;
 }
 
 .controls {
@@ -19,8 +20,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  margin-block: 2.4rem 1rem;
-  padding-block: 1.1rem;
+  margin-block: clamp(2rem, 5vw, 3rem) 1rem;
+  padding-block: 1rem;
   border-block: 1px solid var(--line);
 }
 
@@ -31,18 +32,14 @@
 }
 
 .filterBtn {
-  padding: 0.5em 0.9em;
+  min-height: 2.75rem;
+  padding: 0.5em 0.95em;
   background: transparent;
-  border: 1px solid var(--line);
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  border: 1px solid transparent;
+  font-size: 0.8125rem;
   color: var(--muted);
   cursor: pointer;
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%);
-  transition: color var(--speed) var(--ease), border-color var(--speed) var(--ease),
-    background var(--speed) var(--ease);
+  transition: color var(--speed) var(--ease), border-color var(--speed) var(--ease);
 }
 
 .filterBtn:hover {
@@ -52,9 +49,9 @@
 
 .filterActive,
 .filterActive:hover {
-  border-color: var(--accent);
   color: var(--text);
-  background: rgba(255, 61, 61, 0.09);
+  border-color: var(--line-strong);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .sortLabel {
@@ -62,23 +59,22 @@
 }
 
 .sort {
+  min-height: 2.75rem;
   background: transparent;
   border: 1px solid var(--line-strong);
   color: var(--text);
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  padding: 0.5em 0.7em;
+  font-size: 0.8125rem;
+  padding: 0.45em 0.6em;
   cursor: pointer;
 }
 
 .count {
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
-  letter-spacing: 0.22em;
-  color: var(--muted);
-  margin-bottom: 1.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: clamp(1.25rem, 3vw, 2rem);
 }
 
 .crumb {
@@ -92,38 +88,36 @@
 }
 
 .empty {
-  margin-top: 2.5rem;
+  margin-top: clamp(2rem, 6vw, 4rem);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.9rem;
-  padding: clamp(2rem, 6vw, 4rem);
+  gap: 1rem;
+  max-width: 34rem;
+  padding: clamp(2rem, 6vw, 3.5rem);
   border: 1px solid var(--line);
-  background: var(--panel);
-}
-
-.emptyMark {
-  font-family: var(--font-mono);
-  font-size: 1.3rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  color: var(--muted);
 }
 
 .emptyText {
   color: var(--muted);
-  max-width: 26rem;
+  text-wrap: pretty;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(2rem, 4vw, 3rem) clamp(1.2rem, 2.5vw, 2rem);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem) clamp(0.75rem, 2vw, 1.5rem);
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

@@ -3,10 +3,14 @@ import type { Product } from '../types'
 const SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL'] as const
 
 /**
- * THE_ORIGIN_DROP — the nine real ZENJI Origin Drop designs, self-hosted
- * photography (public/products/*.webp). Shot 1 = front, shot 2 = back/alt
- * (hover), 3+ = gallery/details. Facts (240gsm, A$39.99/A$33.99, AU shipping,
- * no restocks) mirror the brand's public material.
+ * The nine ZENJI Origin Drop designs, self-hosted photography
+ * (public/products/*.webp). Shot 1 = front, shot 2 = back (hover),
+ * 3+ = gallery.
+ *
+ * Only verifiable facts are stored here: heavyweight 240gsm cotton, oversized
+ * fit, XS–XXL, A$39.99 standard / A$33.99 marked down, AU-wide shipping, no
+ * restocks. Marketing lines are deliberately plain — no invented scarcity,
+ * fictional run counts or urgency claims.
  */
 export const PRODUCTS: Product[] = [
   {
@@ -19,8 +23,9 @@ export const PRODUCTS: Product[] = [
     compareAt: 39.99,
     sizes: [...SIZES],
     status: 'last-units',
-    tagline: 'Burn cold. Burn twice as bright.',
-    story: 'The first transmission of the drop. Blue Flame burns at the moment control becomes power — printed once, never pressed again.',
+    tagline: 'Heavyweight cotton, oversized cut.',
+    story:
+      'A steel-blue tee from the Origin Drop, printed on heavyweight 240gsm cotton. Oversized through the body with a dropped shoulder, made to sit heavy rather than thin.',
     images: {
       front: '/products/blue-flame-1.webp',
       back: '/products/blue-flame-2.webp',
@@ -37,9 +42,10 @@ export const PRODUCTS: Product[] = [
     price: 33.99,
     compareAt: 39.99,
     sizes: [...SIZES],
-    status: 'selling-fast',
-    tagline: 'The mark you cannot wash out.',
-    story: 'A lineage mark in crimson. Demon Blood carries the inheritance theme — power that arrives whether you asked for it or not.',
+    status: 'in-stock',
+    tagline: 'Screen-printed on garment-washed cotton.',
+    story:
+      'Crimson pink on heavyweight 240gsm cotton, garment washed for a softer hand and screen-printed to hold up through the wash cycle. Oversized fit, XS to XXL.',
     images: {
       front: '/products/demon-blood-1.webp',
       back: '/products/demon-blood-2.webp',
@@ -55,9 +61,10 @@ export const PRODUCTS: Product[] = [
     price: 33.99,
     compareAt: 39.99,
     sizes: ['S', 'M', 'L', 'XL'],
-    status: 'limited',
-    tagline: 'Rise before the world wakes up.',
-    story: 'Discipline before daylight. Will of the Sun is for the ones already moving while the city is still dark.',
+    status: 'in-stock',
+    tagline: 'Marked down while units last.',
+    story:
+      'Sun gold on heavyweight 240gsm cotton. Currently marked down from A$39.99 while units remain. Oversized fit; this colourway runs S to XL.',
     images: {
       front: '/products/will-of-the-sun-1.webp',
       back: '/products/will-of-the-sun-2.webp',
@@ -70,11 +77,13 @@ export const PRODUCTS: Product[] = [
     name: 'Warrior Spirit Tee',
     colorway: 'Bone White',
     accent: '#e8e4da',
-    price: 39.99,
+    price: 33.99,
+    compareAt: 39.99,
     sizes: [...SIZES],
-    status: 'selling-fast',
-    tagline: 'Discipline is a quiet flex.',
-    story: 'The bushido chapter. Warrior Spirit strips the arc back to its spine — training, repetition, refusal to fade.',
+    status: 'in-stock',
+    tagline: 'Bone white, heavyweight cotton.',
+    story:
+      'Bone white heavyweight tee, screen-printed on garment-washed 240gsm cotton. Marked down from A$39.99 while units last. Oversized fit, XS to XXL.',
     images: {
       front: '/products/warrior-spirit-1.webp',
       back: '/products/warrior-spirit-2.webp',
@@ -89,9 +98,10 @@ export const PRODUCTS: Product[] = [
     accent: '#9a9aa5',
     price: 39.99,
     sizes: [...SIZES],
-    status: 'limited',
-    tagline: 'The way of the warrior, worn quiet.',
-    story: 'The code, printed. Bushido is the quiet half of the arc — the part nobody sees on stage.',
+    status: 'in-stock',
+    tagline: 'Ink black, the standard price.',
+    story:
+      'Ink black on heavyweight 240gsm cotton with a dropped shoulder and an oversized body. Screen-printed artwork, garment washed. XS to XXL.',
     images: {
       front: '/products/bushido-1.webp',
       back: '/products/bushido-2.webp',
@@ -107,8 +117,9 @@ export const PRODUCTS: Product[] = [
     price: 39.99,
     sizes: [...SIZES],
     status: 'last-units',
-    tagline: 'Peace is also a position.',
-    story: 'The exhale after the arc. Paradise Spirit holds the stillness at the end of the fight.',
+    tagline: 'Pale sky blue, last units in some sizes.',
+    story:
+      'Pale sky on heavyweight 240gsm cotton. Oversized fit from XS to XXL, garment washed and screen-printed. This run is not restocked once sizes sell through.',
     images: {
       front: '/products/paradise-spirit-1.webp',
       back: '/products/paradise-spirit-2.webp',
@@ -124,9 +135,10 @@ export const PRODUCTS: Product[] = [
     accent: '#8b5cf6',
     price: 39.99,
     sizes: [...SIZES],
-    status: 'limited',
-    tagline: 'Claim the space around you.',
-    story: 'Territory as a statement. Domain Expansion is the moment the world rearranges itself around you.',
+    status: 'in-stock',
+    tagline: 'Void purple, heavyweight cotton.',
+    story:
+      'Void purple on heavyweight 240gsm cotton. Dropped shoulder, oversized body, screen-printed artwork. Fits XS to XXL.',
     images: {
       front: '/products/domain-expansion-1.webp',
       back: '/products/domain-expansion-2.webp',
@@ -141,9 +153,10 @@ export const PRODUCTS: Product[] = [
     accent: '#7fa8e8',
     price: 39.99,
     sizes: [...SIZES],
-    status: 'selling-fast',
-    tagline: 'Unbound by design.',
-    story: 'The loose chapter. Free Soul is movement without permission — the arc off the leash.',
+    status: 'in-stock',
+    tagline: 'Washed indigo, oversized fit.',
+    story:
+      'Washed indigo on garment-washed 240gsm cotton. Loose oversized cut with a dropped shoulder, screen-printed graphic. XS to XXL.',
     images: {
       front: '/products/free-soul-1.webp',
       back: '/products/free-soul-2.webp',
@@ -159,8 +172,9 @@ export const PRODUCTS: Product[] = [
     price: 39.99,
     sizes: [...SIZES],
     status: 'last-units',
-    tagline: 'No ceiling. No permission slip.',
-    story: 'The closing frame of the drop. Limitless is the promise the whole arc makes: the ceiling was never real.',
+    tagline: 'Monochrome, last units in some sizes.',
+    story:
+      'Monochrome heavyweight tee on 240gsm cotton. Oversized fit from XS to XXL, screen-printed and garment washed. Sizes are not restocked.',
     images: {
       front: '/products/limitless-1.webp',
       back: '/products/limitless-2.webp',
@@ -175,7 +189,7 @@ export const productById = (id: string): Product | undefined =>
 export const productBySlug = (slug: string): Product | undefined =>
   PRODUCTS.find((p) => p.slug === slug)
 
-/** PDP "next in the arc" — the products that follow, wrapping around */
+/** PDP "you may also like" — the products that follow, wrapping around */
 export const relatedProducts = (slug: string, count = 3): Product[] => {
   const i = PRODUCTS.findIndex((p) => p.slug === slug)
   if (i === -1) return []
@@ -186,20 +200,20 @@ export const relatedProducts = (slug: string, count = 3): Product[] => {
 export const COLLECTIONS = [
   {
     slug: 'the-origin-drop',
-    title: 'THE_ORIGIN_DROP',
-    subtitle: 'The full run — nine designs, one transmission',
+    title: 'The Origin Drop',
+    subtitle: 'The full run — all nine designs from the first drop.',
     count: PRODUCTS.length,
   },
   {
     slug: 'marked-down',
-    title: 'MARKED DOWN',
-    subtitle: 'Selected pieces at 15% off while units last',
+    title: 'Marked Down',
+    subtitle: 'Selected designs at 15% off while units last.',
     count: PRODUCTS.filter((p) => p.compareAt).length,
   },
   {
     slug: 'final-units',
-    title: 'FINAL UNITS',
-    subtitle: 'Last stock before the file closes for good',
+    title: 'Final Units',
+    subtitle: 'Last stock before a size sells through for good.',
     count: PRODUCTS.filter((p) => p.status === 'last-units').length,
   },
 ]

@@ -1,133 +1,37 @@
 .footer {
-  border-top: 1px solid var(--line);
   background: var(--ink);
   overflow: hidden;
 }
 
-/* signal capture */
-.signal {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-  gap: 1.5rem clamp(2rem, 6vw, 5rem);
-  align-items: end;
-  padding-block: clamp(3rem, 8vw, 5.5rem) 2.5rem;
-}
+/* ---------- top row: navigation and the one chromatic accent ---------- */
 
-.signalCopy {
-  grid-column: 1;
-}
-
-.signalKicker {
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  letter-spacing: 0.28em;
-  color: var(--gold);
-  margin-bottom: 0.8rem;
-}
-
-.signalKicker [aria-hidden] {
-  color: var(--accent);
-}
-
-.signalTitle {
-  font-size: var(--fs-h2);
-  text-transform: uppercase;
-  letter-spacing: -0.01em;
-  line-height: 0.95;
-}
-
-.signalText {
-  margin-top: 0.8rem;
-  color: var(--muted);
-  max-width: 30rem;
-}
-
-.form {
-  grid-column: 2;
-  display: flex;
-  gap: 0.7rem;
-  align-self: end;
-}
-
-.form input {
-  flex: 1;
-  min-width: 0;
-  padding: 0.9em 1em;
-  background: transparent;
-  border: 1px solid var(--line-strong);
-  border-radius: 0;
-  font-family: var(--font-mono);
-  font-size: var(--fs-small);
-  letter-spacing: 0.04em;
-  color: var(--text);
-  transition: border-color var(--speed) var(--ease);
-}
-
-.form input::placeholder {
-  color: var(--muted);
-}
-
-.form input:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-  border-color: var(--accent);
-}
-
-.signalNote {
-  grid-column: 2;
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  letter-spacing: 0.1em;
-  color: var(--muted);
-}
-
-/* oversized clipped wordmark */
-.markWrap {
-  border-block: 1px solid var(--line);
-}
-
-.mark {
-  font-weight: 700;
-  font-size: clamp(4.5rem, 18vw, 17rem);
-  line-height: 1.02;
-  letter-spacing: 0.06em;
-  text-align: center;
-  white-space: nowrap;
-  color: var(--text);
-  margin-block: -0.06em;
-}
-
-.markKanji {
-  color: var(--accent);
-  letter-spacing: 0;
-}
-
-/* bottom rows */
-.bottom {
+.top {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 0.8rem 2.5rem;
-  padding-block: 1.4rem;
-  border-top: 1px solid var(--line);
+  gap: 1.25rem 2.5rem;
+  padding-block: clamp(2rem, 5vw, 3.25rem);
+  border-bottom: 1px solid var(--line);
 }
 
 .routeLinks {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.4rem;
+  gap: 0.25rem clamp(1.1rem, 2.4vw, 2rem);
 }
 
 .routeLink {
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
   color: var(--muted);
   text-decoration: none;
-  padding: 0.5em 0;
   transition: color var(--speed) var(--ease);
 }
 
@@ -137,68 +41,126 @@
 
 .socials {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1.4rem;
+  align-items: center;
+  gap: 0.4rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .social {
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  color: var(--text);
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
   text-decoration: none;
-  padding: 0.5em 0;
-  transition: color var(--speed) var(--ease);
+  border-radius: 50%;
+  /* Full brand colour at rest with a faint self-glow — these marks are the one
+     chromatic accent on the page, so they are allowed to sing rather than
+     being dimmed to 62%. Hover/focus turns the glow up into a bloom. */
+  transition: transform var(--speed) var(--ease), filter var(--speed) var(--ease);
 }
 
-.social:hover {
-  color: var(--accent);
+/* per-mark bloom: each icon carries its own brand colour */
+.socials li:nth-child(1) .social {
+  filter: drop-shadow(0 0 5px rgba(214, 41, 118, 0.3));
 }
+
+.socials li:nth-child(2) .social {
+  filter: drop-shadow(0 0 5px rgba(37, 244, 238, 0.28));
+}
+
+.socials li:nth-child(3) .social {
+  filter: drop-shadow(0 0 5px rgba(24, 119, 242, 0.35));
+}
+
+.social:hover,
+.social:focus-visible {
+  transform: scale(1.08);
+}
+
+.socials li:nth-child(1) .social:hover,
+.socials li:nth-child(1) .social:focus-visible {
+  filter: drop-shadow(0 0 11px rgba(214, 41, 118, 0.6));
+}
+
+.socials li:nth-child(2) .social:hover,
+.socials li:nth-child(2) .social:focus-visible {
+  filter: drop-shadow(0 0 11px rgba(37, 244, 238, 0.55));
+}
+
+.socials li:nth-child(3) .social:hover,
+.socials li:nth-child(3) .social:focus-visible {
+  filter: drop-shadow(0 0 11px rgba(24, 119, 242, 0.65));
+}
+
+.social svg {
+  width: 1.375rem;
+  height: 1.375rem;
+}
+
+/* ---------- legal ---------- */
 
 .legal {
-  padding-block: 0 1.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 1.75rem;
+  padding-block: 1.35rem clamp(1.75rem, 4vw, 2.75rem);
 }
 
 .meta {
+  font-size: var(--fs-micro);
+  line-height: 1.6;
+  color: var(--faint);
+  max-width: 42rem;
+}
+
+.copyright {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  margin-left: auto;
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
+  color: var(--faint);
+}
+
+.copyrightMark {
+  font-family: var(--font-brand);
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
   color: var(--muted);
-  max-width: 44rem;
 }
 
-.topLink {
-  display: none;
+/* ---------- the signature ---------- */
+
+.markWrap {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 0.08em;
+  line-height: 0.8;
 }
 
-.topLink {
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  color: var(--text);
-  text-decoration: none;
-  padding: 0.55em 0;
-  transition: color var(--speed) var(--ease);
-}
-
-.topLink:hover {
-  color: var(--accent);
-}
-
-@media (max-width: 860px) {
-  .signal {
-    grid-template-columns: 1fr;
+@media (max-width: 720px) {
+  .top {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .signalCopy,
-  .form,
-  .signalNote {
-    grid-column: 1;
+  .copyright {
+    margin-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .social {
+    transition: none;
   }
 
-  .mark {
-    font-size: clamp(3.4rem, 19vw, 8rem);
+  .social:hover,
+  .social:focus-visible {
+    transform: none;
   }
 }

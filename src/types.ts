@@ -1,6 +1,7 @@
 export type Size = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL'
 
-export type ProductStatus = 'last-units' | 'selling-fast' | 'limited'
+/** Only stock states the brand can actually evidence. */
+export type ProductStatus = 'in-stock' | 'last-units'
 
 /** shot kinds mapped to files in public/products/<slug>-<n>.webp */
 export interface ProductImages {
@@ -50,8 +51,14 @@ export interface CartTotals {
   subtotal: number
   savings: number
   hasSaleItem: boolean
+  /** flat rate applied below the free-shipping threshold, else 0 */
+  shipping: number
+  /** subtotal + shipping */
+  total: number
 }
 
 export const FREE_SHIPPING_THRESHOLD = 100
+/** Verified AU domestic rate for orders under the free-shipping threshold. */
+export const FLAT_SHIPPING = 9.99
 export const MAX_QTY_PER_LINE = 9
 export const CURRENCY = 'AUD'

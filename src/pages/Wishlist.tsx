@@ -17,30 +17,34 @@ export default function Wishlist() {
     <section className={styles.page} aria-labelledby="wishlist-title">
       <div className="container">
         <Reveal>
-          <p className="eyebrow">The watch list // ウィッシュリスト</p>
-          <h1 id="wishlist-title" className={`display ${styles.title}`}>WISHLIST</h1>
+          <p className="eyebrow">Saved designs</p>
+          <h1 id="wishlist-title" className={`display ${styles.title}`}>
+            Wishlist
+          </h1>
           <p className={styles.lede}>
-            Saved designs live here — until the run closes. No restocks means no second chances.
+            Designs you have saved. This drop is not restocked, so it is worth deciding
+            early.
           </p>
         </Reveal>
 
         {saved.length === 0 ? (
           <div className={styles.empty}>
-            <p className={styles.emptyMark}>_NONE_SAVED</p>
             <p className={styles.emptyText}>
-              Nothing on the watch list yet. Tap the heart on any design to file it here.
+              Nothing saved yet. Use the heart on any design to keep it here.
             </p>
-            <Link to="/drop" className="btn btn--primary">Browse the drop →</Link>
+            <Link to="/drop" className="btn btn--primary">
+              Browse the drop
+            </Link>
           </div>
         ) : (
           <>
             <p className={styles.count} aria-live="polite">
-              {saved.length} DESIGN{saved.length === 1 ? '' : 'S'} SAVED
+              {saved.length} design{saved.length === 1 ? '' : 's'} saved
             </p>
             <div className={styles.grid}>
               {saved.map((p, i) => (
                 <Reveal key={p.id} delay={i * 0.05}>
-                  <ProductCard product={p} onQuickView={setQuickView} index={i} />
+                  <ProductCard product={p} onQuickView={setQuickView} />
                 </Reveal>
               ))}
             </div>

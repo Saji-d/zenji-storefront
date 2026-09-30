@@ -12,7 +12,10 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5.5rem;
+  scroll-padding-top: calc(var(--header-h) + 1.5rem);
+  /* `clip` (not `hidden`) contains the occasional full-bleed art without
+     creating a scroll container, so position:sticky keeps working. */
+  overflow-x: clip;
 }
 
 body {
@@ -20,9 +23,9 @@ body {
   color: var(--text);
   font-family: var(--font-display);
   font-size: var(--fs-body);
-  line-height: 1.55;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
 }
 
 img,
@@ -31,8 +34,15 @@ svg {
   max-width: 100%;
 }
 
+/* photography always fills its frame, never letterboxes */
+img {
+  height: auto;
+}
+
 button,
-input {
+input,
+textarea,
+select {
   font: inherit;
   color: inherit;
 }
@@ -43,71 +53,111 @@ a {
 
 ::selection {
   background: var(--accent);
-  color: var(--ink);
+  color: var(--accent-ink);
 }
 
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 1px;
 }
 
-/* ---------- primitives ---------- */
+/* ---------- layout ---------- */
 
 .container {
   width: min(100% - 2 * var(--gutter), var(--maxw));
   margin-inline: auto;
 }
 
+.container--narrow {
+  width: min(100% - 2 * var(--gutter), 64rem);
+  margin-inline: auto;
+}
+
+/* ---------- type primitives ---------- */
+
+/* Quiet factual label. Deliberately *not* prefixed with "//" — a repeated
+   decorative marker reads as template filler and appears on every surface. */
 .eyebrow {
+  display: block;
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
-  letter-spacing: 0.28em;
+  font-weight: 500;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--faint);
 }
 
-.eyebrow::before {
-  content: '// ';
-  color: var(--gold);
-}
-
-/* chest-print captions inside the SVG artwork */
-.tee-caption {
-  font-family: var(--font-mono);
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: 0.28em;
-  text-anchor: middle;
+/* Optional red tick used on at most one eyebrow per view */
+.eyebrow--accent {
+  color: var(--accent);
 }
 
 .display {
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
-  line-height: 0.95;
+  letter-spacing: -0.025em;
+  line-height: 0.98;
   /* underscore-joined headings like THE_ORIGIN_DROP are single unbreakable
      tokens; without this they overflow (and get clipped) on narrow phones */
   overflow-wrap: anywhere;
 }
+
+/* Anton. Reserved for the campaign register — hero, lookbook statements, the
+   brand signatures. Section headings stay in Space Grotesk so the whole site
+   does not read as one poster repeated six times. */
+.statement {
+  font-family: var(--font-brand);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.005em;
+  line-height: 0.9;
+}
+
+/* proportional display variant — used for the calmer editorial moments */
+.display--prose {
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: -0.015em;
+  line-height: 1.12;
+}
+
+.lede {
+  max-width: 34ch;
+  color: var(--muted);
+  font-size: var(--fs-body);
+  text-wrap: pretty;
+}
+
+.prose {
+  max-width: var(--maxw-prose);
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.prose p + p {
+  margin-top: 1.1em;
+}
+
+/* ---------- controls ---------- */
 
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.6em;
-  padding: 0.9em 1.7em;
-  font-family: var(--font-mono);
+  min-height: 3rem;
+  padding: 0.85em 1.75em;
+  font-family: var(--font-display);
   font-size: var(--fs-small);
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   text-decoration: none;
   border: 1px solid transparent;
   border-radius: var(--radius);
   cursor: pointer;
   transition: background var(--speed) var(--ease), color var(--speed) var(--ease),
-    border-color var(--speed) var(--ease), transform var(--speed) var(--ease);
+    border-color var(--speed) var(--ease);
 }
 
 .btn:active {
@@ -116,7 +166,7 @@ a {
 
 .btn--primary {
   background: var(--accent);
-  color: var(--ink);
+  color: var(--accent-ink);
 }
 
 .btn--primary:hover {
@@ -134,22 +184,69 @@ a {
   background: rgba(255, 255, 255, 0.04);
 }
 
-.btn--ghost:disabled,
-.btn--primary:disabled {
-  opacity: 0.45;
+.btn--quiet {
+  background: transparent;
+  color: var(--muted);
+  padding-inline: 0;
+  min-height: 2.25rem;
+  border: 0;
+}
+
+.btn--quiet:hover {
+  color: var(--text);
+}
+
+.btn--block {
+  width: 100%;
+}
+
+.btn--sm {
+  min-height: 2.5rem;
+  padding: 0.6em 1.15em;
+  font-size: var(--fs-micro);
+}
+
+.btn:disabled,
+.btn[aria-disabled='true'] {
+  opacity: 0.4;
   cursor: not-allowed;
   transform: none;
 }
 
+/* editorial text link with a growing underline */
+.link-line {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--muted);
+  background-image: linear-gradient(var(--line-strong), var(--line-strong));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  transition: color var(--speed) var(--ease), background-size var(--speed-slow) var(--ease);
+}
+
+.link-line:hover {
+  color: var(--text);
+  background-size: 100% 2px;
+}
+
+/* ---------- section furniture ---------- */
+
+/* Used sparingly — not every band carries the same ruled header. */
 .section-head {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
   gap: 0.8rem 2rem;
-  margin-bottom: clamp(2rem, 5vw, 3.2rem);
-  padding-bottom: 1.1rem;
-  border-bottom: 1px solid var(--line);
+  margin-bottom: clamp(1.75rem, 4vw, 3rem);
 }
 
 .section-head h2 {
@@ -173,24 +270,17 @@ a {
   border: 0;
 }
 
-/* route-change accent wipe */
-.route-veil {
-  position: fixed;
-  inset: 0;
-  z-index: 80;
-  background: var(--accent);
-  transform-origin: right;
-  pointer-events: none;
-}
-
 .skip-link {
   position: fixed;
   top: 0.75rem;
   left: 0.75rem;
   z-index: 200;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   padding: 0.7em 1.2em;
   background: var(--accent);
-  color: var(--ink);
+  color: var(--accent-ink);
   font-family: var(--font-mono);
   font-size: var(--fs-small);
   font-weight: 700;

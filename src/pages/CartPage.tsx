@@ -8,6 +8,7 @@ import { Reveal } from '../components/motion/Reveal'
 import styles from './CartPage.module.css'
 
 const EASE = [0.22, 1, 0.36, 1] as const
+const MAX_QTY = 9
 
 export default function CartPage() {
   const { items, totals, setQty, remove, clear } = useCart()
@@ -19,17 +20,22 @@ export default function CartPage() {
     <section className={styles.page} aria-labelledby="cart-title">
       <div className="container">
         <Reveal>
-          <p className="eyebrow">Your claim // 注文</p>
-          <h1 id="cart-title" className={`display ${styles.title}`}>CART</h1>
+          <p className="eyebrow">Your bag</p>
+          <h1 id="cart-title" className={`display ${styles.title}`}>
+            {items.length > 0 ? `${totals.count} item${totals.count === 1 ? '' : 's'}` : 'Bag'}
+          </h1>
         </Reveal>
 
         {items.length === 0 ? (
           <div className={styles.empty}>
-            <p className={styles.emptyMark}>_EMPTY</p>
+            <h2 className={styles.emptyTitle}>Your bag is empty</h2>
             <p className={styles.emptyText}>
-              Nothing claimed yet. Units move fast — don&apos;t sleep on the drop.
+              The Origin Drop is a limited run and pieces are not reprinted, so it does not
+              wait around.
             </p>
-            <Link to="/drop" className="btn btn--primary">Browse the drop →</Link>
+            <Link to="/drop" className="btn btn--primary">
+              Browse the drop
+            </Link>
           </div>
         ) : (
           <div className={styles.layout}>
@@ -48,18 +54,21 @@ export default function CartPage() {
                       exit={{ opacity: 0, x: 40, transition: { duration: 0.25 } }}
                       transition={{ duration: 0.35, ease: EASE }}
                     >
-                      <Link to={`/drop/${product.slug}`} className={styles.thumb}>
+                      <Link
+                        to={`/drop/${product.slug}`}
+                        className={styles.thumb}
+                        tabIndex={-1}
+                        aria-hidden="true"
+                      >
                         <SmartImage src={product.images.front} alt="" className={styles.thumbImg} />
                       </Link>
+
                       <div className={styles.lineInfo}>
-                        <p className={styles.lineIndex} aria-hidden="true">
-                          FILE_{String(item.productId.indexOf(product.slug) + 1).padStart(2, '0')}
-                        </p>
                         <Link to={`/drop/${product.slug}`} className={styles.lineName}>
                           {product.name}
                         </Link>
                         <p className={styles.lineMeta}>
-                          {product.colorway} <span aria-hidden="true">//</span> {item.size}
+                          {product.colorway} · Size {item.size}
                         </p>
                         <div className={styles.qty}>
                           <button
@@ -67,28 +76,32 @@ export default function CartPage() {
                             onClick={() => setQty(item.productId, item.size, item.qty - 1)}
                             aria-label={`Decrease quantity of ${product.name}, size ${item.size}`}
                           >
-                            −
+                            &minus;
                           </button>
                           <span aria-live="polite">{item.qty}</span>
                           <button
                             type="button"
                             onClick={() => setQty(item.productId, item.size, item.qty + 1)}
                             aria-label={`Increase quantity of ${product.name}, size ${item.size}`}
-                            disabled={item.qty >= 9}
+                            disabled={item.qty >= MAX_QTY}
                           >
                             +
                           </button>
                         </div>
                       </div>
+
                       <div className={styles.lineRight}>
                         <p className={styles.linePrice}>{formatPrice(product.price * item.qty)}</p>
                         <button
                           type="button"
                           className={styles.remove}
                           onClick={() => remove(item.productId, item.size)}
-                          aria-label={`Remove ${product.name}, size ${item.size} from cart`}
                         >
                           Remove
+                          <span className="sr-only">
+                            {' '}
+                            {product.name}, size {item.size}
+                          </span>
                         </button>
                       </div>
                     </motion.li>
@@ -102,10 +115,10 @@ export default function CartPage() {
                 <p className={styles.shipMsg}>
                   {remaining > 0 ? (
                     <>
-                      <strong>{formatPrice(remaining)}</strong> away from free Australia-wide shipping
+                      <strong>{formatPrice(remaining)}</strong> away from free shipping
                     </>
                   ) : (
-                    <>✦ Free Australia-wide shipping unlocked</>
+                    'Free Australia-wide shipping unlocked'
                   )}
                 </p>
                 <div
@@ -125,6 +138,10 @@ export default function CartPage() {
               </div>
 
               <dl className={styles.totals}>
+                <div className={styles.totalRow}>
+                  <dt>Subtotal</dt>
+                  <dd>{formatPrice(totals.subtotal)}</dd>
+                </div>
                 {totals.savings > 0 && (
                   <div className={styles.totalRow}>
                     <dt>You save</dt>
@@ -132,29 +149,31 @@ export default function CartPage() {
                   </div>
                 )}
                 <div className={styles.totalRow}>
-                  <dt>Subtotal</dt>
-                  <dd className={styles.subtotal}>{formatPrice(totals.subtotal)}</dd>
-                </div>
-                <div className={styles.totalRow}>
                   <dt>Shipping</dt>
-                  <dd className={styles.shipValue}>
-                    {remaining > 0 ? 'Calculated at checkout' : 'Free'}
-                  </dd>
+                  <dd>{totals.shipping === 0 ? 'Free' : formatPrice(totals.shipping)}</dd>
+                </div>
+                <div className={`${styles.totalRow} ${styles.grand}`}>
+                  <dt>Total</dt>
+                  <dd>{formatPrice(totals.total)}</dd>
                 </div>
               </dl>
 
-              <button type="button" className={`btn ${styles.demoBtn}`} disabled>
-                Demo mode // checkout disabled
+              <button type="button" className="btn btn--primary btn--block" disabled>
+                Checkout unavailable
               </button>
               <p className={styles.note}>
-                Demo cart — no real payments. Ships Australia-wide in 1–2 weeks.
+                This is a demonstration storefront, so no payment is taken. Real orders are
+                dispatched from Australia within 1–2 weeks.
               </p>
-              <button type="button" className={styles.clear} onClick={clear}>
-                Empty cart
-              </button>
-              <Link to="/drop" className={styles.continue}>
-                CONTINUE SHOPPING →
-              </Link>
+
+              <div className={styles.summaryFoot}>
+                <Link to="/drop" className="link-line">
+                  Continue shopping
+                </Link>
+                <button type="button" className={styles.clear} onClick={clear}>
+                  Empty bag
+                </button>
+              </div>
             </aside>
           </div>
         )}

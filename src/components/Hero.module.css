@@ -1,168 +1,170 @@
 .hero {
   position: relative;
-  min-height: min(94svh, 58rem);
+  /* Sits directly beneath the fixed navbar and owns the rest of the screen.
+     `svh` keeps the mobile browser chrome from cropping the campaign frame. */
+  min-height: calc(100svh - var(--header-h));
   display: flex;
   align-items: flex-end;
   overflow: hidden;
   isolation: isolate;
+  background: var(--ink);
 }
 
 .media {
   position: absolute;
-  inset: -8% 0;
-  z-index: -1;
+  inset: 0;
+  z-index: 0;
 }
 
 .shot {
   position: absolute;
   inset: 0;
-  background-size: cover;
-  background-position: center 20%;
-  will-change: opacity, transform;
-  animation: panA 34s ease-in-out infinite alternate;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: 50% 42%;
 }
 
-/* second shot pans the other way for a subtle two-camera feel */
-.shotAlt {
-  animation-name: panB;
-  animation-delay: -17s;
-}
-
-@keyframes panA {
-  from {
-    transform: scale(1.04) translateX(0.6%);
-  }
-  to {
-    transform: scale(1.16) translateX(-1.2%);
-  }
-}
-
-@keyframes panB {
-  from {
-    transform: scale(1.14) translateX(-1%);
-  }
-  to {
-    transform: scale(1.05) translateX(1%);
-  }
-}
-
+/* One veil, anchored to the corner the copy occupies. The photograph is left
+   untouched everywhere else — a full-frame scrim would flatten the whole image
+   into grey, which is what made the first pass look washed out. */
 .veil {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(10, 10, 11, 0.62) 0%, rgba(10, 10, 11, 0.28) 40%, rgba(10, 10, 11, 0.93) 100%),
-    linear-gradient(90deg, rgba(10, 10, 11, 0.42) 0%, transparent 45%);
-}
-
-.vignette {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 120% 90% at 50% 42%, transparent 55%, rgba(5, 5, 6, 0.55) 100%);
-}
-
-.scanlines {
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.02) 0 1px,
-    transparent 1px 3px
-  );
-  opacity: 0.5;
+    linear-gradient(
+      to top,
+      rgba(8, 8, 10, 0.9) 0%,
+      rgba(8, 8, 10, 0.55) 26%,
+      rgba(8, 8, 10, 0.08) 55%,
+      rgba(8, 8, 10, 0.22) 100%
+    ),
+    linear-gradient(to right, rgba(8, 8, 10, 0.62) 0%, rgba(8, 8, 10, 0) 62%);
 }
 
 .content {
   position: relative;
-  padding-block: clamp(6rem, 15vh, 11rem) clamp(3rem, 9vh, 6rem);
-}
-
-/* meta row with hairline leader */
-.metaRow {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.3rem;
-}
-
-.metaRule {
-  width: clamp(2rem, 6vw, 4.5rem);
-  height: 1px;
-  background: var(--accent);
-}
-
-.meta {
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  letter-spacing: 0.32em;
-  color: var(--gold);
-}
-
-/* editorial split headline */
-.title {
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  font-size: var(--fs-hero);
-  line-height: 0.92;
+  align-items: flex-start;
+  padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(3.25rem, 7vw, 5.5rem);
 }
 
-.titleKicker {
-  font-size: clamp(1.1rem, 2.6vw, 2rem);
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-  margin-bottom: 0.4rem;
+.eyebrow {
+  margin-bottom: 1rem;
+  color: #cfcac4;
 }
 
-.titleMain {
-  font-size: clamp(3.4rem, 11.5vw, 9.5rem);
-  letter-spacing: -0.015em;
-  text-shadow: 0 2px 44px rgba(0, 0, 0, 0.5);
-}
-
-.accent {
-  color: var(--accent);
+.title {
+  font-size: var(--fs-mega);
+  margin-bottom: 1.15rem;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.45);
 }
 
 .lede {
-  margin-top: 1.3rem;
-  max-width: 34rem;
-  font-size: 1.02rem;
-  color: #d6d6dd;
-  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.55);
+  max-width: 34ch;
+  color: #d6d1cb;
+  font-size: clamp(0.95rem, 0.4vw + 0.86rem, 1.075rem);
+  text-wrap: pretty;
+  margin-bottom: 1.85rem;
+  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.5);
 }
 
-.ctas {
+.actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.9rem;
-  margin-top: 1.8rem;
+  align-items: center;
+  gap: 0.75rem 1.75rem;
 }
 
-.dropMeta {
-  margin-top: 2rem;
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  letter-spacing: 0.26em;
-  color: var(--muted);
+/* Outlined-on-photo action. A solid ghost button over a photograph reads as a
+   floating chip, so this is an underlined text action instead. */
+.ctaGhost {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem;
+  padding-inline: 0.25em;
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  transition: background-size var(--speed-slow) var(--ease);
 }
 
-.dropMeta [aria-hidden] {
-  color: var(--accent);
+.ctaGhost:hover {
+  background-size: 100% 2px;
 }
 
-@media (max-width: 640px) {
-  .lede {
-    font-size: 0.95rem;
+/* film-progress hairline, pinned to the base of the frame */
+.progress {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 2;
+  display: flex;
+  gap: 4px;
+  padding-inline: var(--gutter);
+  padding-bottom: 0.85rem;
+}
+
+.progressSeg {
+  flex: 1;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.22);
+  overflow: hidden;
+}
+
+.progressSeg[data-state='current'] {
+  background: rgba(255, 255, 255, 0.22);
+  position: relative;
+}
+
+.progressSeg[data-state='current']::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--text);
+  transform-origin: left;
+  animation-name: progressFill;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+
+.progressSeg[data-state='past'] {
+  background: rgba(255, 255, 255, 0.62);
+}
+
+@keyframes progressFill {
+  from {
+    transform: scaleX(0);
   }
+  to {
+    transform: scaleX(1);
+  }
+}
 
-  .dropMeta {
-    letter-spacing: 0.18em;
-    line-height: 1.8;
+/* Above the fold the copy can spread wider, but the frame is a portrait slice
+   in landscape so the type still needs a firm left anchor. */
+@media (min-width: 1024px) {
+  .content {
+    padding-block: clamp(3rem, 7vw, 5rem) clamp(3.5rem, 7vw, 6rem);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .shot {
+  .progressSeg[data-state='current']::after {
     animation: none;
+    transform: scaleX(1);
+  }
+
+  .ctaGhost {
+    transition: none;
   }
 }

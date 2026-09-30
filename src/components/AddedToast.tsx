@@ -13,8 +13,8 @@ interface AddedToastProps {
 }
 
 /**
- * Spatial "added to cart" feedback: thumbnail + name slide in bottom-left,
- * with a direct path to the cart. Auto-dismisses after 3.2s.
+ * "Added to cart" feedback: thumbnail + name slide in bottom-left, with a
+ * direct path to the cart. Auto-dismisses via the caller's timer.
  */
 export function AddedToast({ lastAdded, onClose, onOpenCart }: AddedToastProps) {
   const { totals } = useCart()
@@ -26,20 +26,20 @@ export function AddedToast({ lastAdded, onClose, onOpenCart }: AddedToastProps) 
         <motion.div
           className={styles.toast}
           role="status"
-          initial={{ opacity: 0, y: 24, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 12, scale: 0.98 }}
-          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 8 }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className={styles.thumb}>
             <SmartImage src={product.images.front} alt="" className={styles.thumbImg} />
           </div>
           <div className={styles.copy}>
             <p className={styles.added}>
-              ADDED <span aria-hidden="true">//</span> {product.name} — {lastAdded.size}
+              Added &mdash; {product.name} ({lastAdded.size})
             </p>
             <p className={styles.count}>
-              {totals.count} item{totals.count === 1 ? '' : 's'} in cart
+              {totals.count} item{totals.count === 1 ? '' : 's'} in bag
             </p>
             <div className={styles.actions}>
               <button
@@ -50,15 +50,27 @@ export function AddedToast({ lastAdded, onClose, onOpenCart }: AddedToastProps) 
                   onOpenCart()
                 }}
               >
-                VIEW CART
+                View bag
               </button>
               <Link to="/cart" className={styles.toCart} onClick={onClose}>
-                CART PAGE →
+                Checkout
               </Link>
             </div>
           </div>
-          <button type="button" className={styles.close} onClick={onClose} aria-label="Dismiss notification">
-            ✕
+          <button
+            type="button"
+            className={styles.close}
+            onClick={onClose}
+            aria-label="Dismiss notification"
+          >
+            <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+              <path
+                d="M5 5l10 10M15 5L5 15"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.4"
+              />
+            </svg>
           </button>
         </motion.div>
       )}

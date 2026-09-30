@@ -9,6 +9,7 @@ import {
 } from 'react'
 import {
   CURRENCY,
+  FLAT_SHIPPING,
   FREE_SHIPPING_THRESHOLD,
   MAX_QTY_PER_LINE,
   type CartAction,
@@ -134,8 +135,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
         }
         return acc
       },
-      { count: 0, subtotal: 0, savings: 0, hasSaleItem: false },
+      { count: 0, subtotal: 0, savings: 0, hasSaleItem: false, shipping: 0, total: 0 },
     )
+
+    // Verified AU policy: free over A$100, otherwise a flat A$9.99.
+    totals.shipping =
+      totals.count === 0 || totals.subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : FLAT_SHIPPING
+    totals.total = totals.subtotal + totals.shipping
 
     return {
       items,
@@ -162,4 +168,4 @@ export function useCart(): CartContextValue {
   return ctx
 }
 
-export { FREE_SHIPPING_THRESHOLD }
+export { FREE_SHIPPING_THRESHOLD, FLAT_SHIPPING }

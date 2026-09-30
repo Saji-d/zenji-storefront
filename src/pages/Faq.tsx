@@ -35,9 +35,6 @@ export default function Faq() {
                     id={`faq-q-${i}`}
                     onClick={() => setOpen(isOpen ? null : i)}
                   >
-                    <span className={styles.qIndex} aria-hidden="true">
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
                     <span className={styles.qText}>{item.q}</span>
                     <span className={styles.qIcon} aria-hidden="true">{isOpen ? '−' : '+'}</span>
                   </button>
@@ -67,8 +64,8 @@ export default function Faq() {
           <div className={styles.more}>
             <p>Still need an answer?</p>
             <div className={styles.moreCtas}>
-              <Link to="/drop" className="btn btn--primary">Shop the drop →</Link>
-              <a href="mailto:support@zenji.shop" className="btn btn--ghost">Email support →</a>
+              <Link to="/drop" className="btn btn--primary">Shop the drop</Link>
+              <Link to="/story" className="btn btn--ghost">Read the story</Link>
             </div>
           </div>
         </Reveal>

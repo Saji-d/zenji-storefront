@@ -2,31 +2,31 @@
 export const FAQS: { q: string; a: string }[] = [
   {
     q: 'What are ZENJI tees made from?',
-    a: '100% heavyweight 240gsm cotton with screen-printed original artwork. Cut oversized, built to hold shape wash after wash.',
+    a: '100% heavyweight 240gsm cotton with screen-printed original artwork. Garment washed so it holds its shape and softens with wear.',
   },
   {
     q: 'What sizes do you offer?',
-    a: 'XS to XXL on most designs, in an oversized fit. If you are between sizes and want a boxier drape, size up.',
+    a: 'XS to XXL on most designs, in an oversized fit. If you want a closer fit, size down.',
   },
   {
     q: 'How much is shipping?',
-    a: 'Standard delivery across Australia is a flat rate and takes 1–2 weeks. Orders over A$100 ship free Australia-wide.',
+    a: 'Standard delivery across Australia is a flat A$9.99 and takes 1–2 weeks. Orders over A$100 ship free.',
   },
   {
     q: 'Do designs come back?',
-    a: 'No. Every drop is pressed once in a limited run and never reprinted — when it sells out, the file is closed for good.',
+    a: 'No. Every design is printed in a single run and never reprinted — when a size sells through, it is gone.',
   },
   {
     q: 'Can I return a tee?',
-    a: 'Returns are accepted within 14 days on unworn pieces. Sizing questions are answered by support before you buy — quote the design and size.',
+    a: 'Returns are accepted within 14 days on unworn pieces, in their original condition.',
   },
   {
     q: 'Where does ZENJI ship?',
     a: 'Every Australian state and territory, including Sydney, Melbourne, Brisbane, Perth and Adelaide.',
   },
   {
-    q: 'How do I get early access to the next drop?',
-    a: 'Join the signal — the mailing list gets drop dates, early access and a pre-drop discount before public launch.',
+    q: 'How do I hear about new drops?',
+    a: 'Join the mailing list at the bottom of the page. Drop dates go out there first, before anywhere else.',
   },
   {
     q: 'Is this the official ZENJI store?',

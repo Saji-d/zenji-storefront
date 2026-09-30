@@ -8,20 +8,7 @@ import { QuickView } from '../components/QuickView'
 import { Reveal } from '../components/motion/Reveal'
 import styles from './Shop.module.css'
 
-/**
- * Collection titles are single underscore-joined tokens (THE_ORIGIN_DROP).
- * Give the renderer a break opportunity after each underscore so the heading
- * wraps on the word boundary instead of mid-syllable on narrow screens.
- */
-function breakable(text: string) {
-  return text.split('_').map((part, i, arr) => (
-    <span key={part}>
-      {part}
-      {i < arr.length - 1 ? '_' : null}
-      {i < arr.length - 1 ? <wbr /> : null}
-    </span>
-  ))
-}
+const EASE = [0.22, 1, 0.36, 1] as const
 
 export default function CollectionDetail() {
   const { slug } = useParams()
@@ -45,10 +32,14 @@ export default function CollectionDetail() {
     return (
       <section className={styles.page}>
         <div className="container">
-          <p className="eyebrow">_ERROR</p>
-          <h1 className={`display ${styles.title}`}>FILE NOT FOUND</h1>
-          <p className={styles.lede}>That collection does not exist in the archive.</p>
-          <Link to="/collection" className="btn btn--primary">Back to collections →</Link>
+          <p className="eyebrow">404</p>
+          <h1 className={`display ${styles.title}`}>Collection not found</h1>
+          <p className={styles.lede}>
+            This collection is not part of the current drop.
+          </p>
+          <Link to="/collection" className="btn btn--primary">
+            Back to collections
+          </Link>
         </div>
       </section>
     )
@@ -59,17 +50,18 @@ export default function CollectionDetail() {
       <div className="container">
         <Reveal>
           <p className="eyebrow">
-            <Link to="/collection" className={styles.crumb}>COLLECTIONS</Link>{' '}
-            <span aria-hidden="true">//</span> {collection.slug}
+            <Link to="/collection" className={styles.crumb}>
+              Collections
+            </Link>
           </p>
           <h1 id="collection-title" className={`display ${styles.title}`}>
-            {breakable(collection.title)}
+            {collection.title}
           </h1>
           <p className={styles.lede}>{collection.subtitle}</p>
         </Reveal>
 
         <p className={styles.count} aria-live="polite">
-          {items.length} DESIGN{items.length === 1 ? '' : 'S'}
+          {items.length} design{items.length === 1 ? '' : 's'}
         </p>
 
         <motion.div layout className={styles.grid}>
@@ -78,12 +70,12 @@ export default function CollectionDetail() {
               <motion.div
                 key={p.id}
                 layout
-                initial={{ opacity: 0, y: 22 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.97 }}
-                transition={{ duration: 0.4, delay: i * 0.04, ease: [0.22, 1, 0.36, 1] }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35, delay: i * 0.03, ease: EASE }}
               >
-                <ProductCard product={p} onQuickView={setQuickView} priority={i < 3} index={i} />
+                <ProductCard product={p} onQuickView={setQuickView} priority={i < 3} />
               </motion.div>
             ))}
           </AnimatePresence>

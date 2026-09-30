@@ -5,11 +5,18 @@ interface SmartImageProps {
   loading?: 'lazy' | 'eager'
   fetchPriority?: 'high' | 'low' | 'auto'
   sizes?: string
+  /** intrinsic ratio, so the browser can reserve space before the bytes land */
+  width?: number
+  height?: number
 }
 
 /**
  * Thin wrapper over <img> enforcing lazy-loading, async decoding and
- * non-draggable media. Containers own aspect-ratio, so no CLS.
+ * non-draggable media.
+ *
+ * `sizes` is only useful when width/height are present too: without a real
+ * intrinsic size the browser cannot pick a source, so both are forwarded
+ * together and the CSS side owns the rendered box.
  */
 export function SmartImage({
   src,
@@ -17,7 +24,12 @@ export function SmartImage({
   className,
   loading = 'lazy',
   fetchPriority = 'auto',
+  sizes,
+  width,
+  height,
 }: SmartImageProps) {
+  const hasIntrinsic = typeof width === 'number' && typeof height === 'number'
+
   return (
     <img
       src={src}
@@ -27,6 +39,7 @@ export function SmartImage({
       decoding="async"
       fetchPriority={fetchPriority}
       draggable={false}
+      {...(hasIntrinsic ? { width, height, ...(sizes ? { sizes } : {}) } : {})}
     />
   )
 }

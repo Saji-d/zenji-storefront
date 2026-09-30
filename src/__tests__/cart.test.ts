@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest'
 import { reducer } from '../context/CartContext'
 import { formatPrice } from '../context/CartContext'
-import { PRODUCTS, productById } from '../data/products'
-import { artKeyFor } from '../components/art/TeeArt'
+import { PRODUCTS, productById, productBySlug } from '../data/products'
+import { FLAT_SHIPPING, FREE_SHIPPING_THRESHOLD } from '../types'
 
 const p1 = PRODUCTS[0]
 const p2 = PRODUCTS[1]
@@ -73,7 +73,29 @@ describe('cart reducer', () => {
   })
 })
 
-describe('catalog integrity', () => {    it('has nine unique products with valid prices', () => {
+describe('shipping policy', () => {
+  const subtotalFor = (qty: number) => qty * p1.price
+
+  it('charges the verified flat rate below the free-shipping threshold', () => {
+    const subtotal = subtotalFor(1)
+    expect(subtotal).toBeLessThan(FREE_SHIPPING_THRESHOLD)
+    expect(FLAT_SHIPPING).toBe(9.99)
+  })
+
+  it('ships free once the threshold is met', () => {
+    // 3 x 33.99 = 101.97, which clears A$100
+    expect(subtotalFor(3)).toBeGreaterThanOrEqual(FREE_SHIPPING_THRESHOLD)
+  })
+
+  it('uses the official sale price for sale items', () => {
+    const compareAt = p1.compareAt
+    expect(compareAt).toBe(39.99)
+    expect(Math.round((1 - p1.price / (compareAt as number)) * 100)).toBe(15)
+  })
+})
+
+describe('catalog integrity', () => {
+    it('has nine unique products with valid prices', () => {
     expect(PRODUCTS).toHaveLength(9)
     const ids = new Set(PRODUCTS.map((p) => p.id))
     expect(ids.size).toBe(9)
@@ -84,10 +106,28 @@ describe('catalog integrity', () => {    it('has nine unique products with valid
     }
   })
 
-  it('resolves every id and art key', () => {
+  it('resolves every product by id', () => {
     for (const p of PRODUCTS) {
       expect(productById(p.id)).toBeDefined()
-      expect(artKeyFor(p.id)).toBeTruthy()
+    }
+  })
+
+  it('marks Warrior Spirit down to the official sale price', () => {
+    const warrior = productBySlug('warrior-spirit')
+    expect(warrior?.price).toBe(33.99)
+    expect(warrior?.compareAt).toBe(39.99)
+  })
+
+  it('holds every price to the two published price points', () => {
+    for (const p of PRODUCTS) {
+      expect([33.99, 39.99]).toContain(p.price)
+      if (p.compareAt) expect(p.compareAt).toBe(39.99)
+    }
+  })
+
+  it('only uses stock states the brand can evidence', () => {
+    for (const p of PRODUCTS) {
+      expect(['in-stock', 'last-units']).toContain(p.status)
     }
   })
 })

@@ -1,295 +1,351 @@
-/* hero (campaign treatment) */
-.hero {
-  position: relative;
-  min-height: min(94svh, 58rem);
-  display: flex;
-  align-items: flex-end;
-  overflow: hidden;
-  isolation: isolate;
+/* ---------- 2. showcase: the clothing is the headline ---------- */
+
+.showcase {
+  padding-block: var(--space-wide);
+  background: var(--ink);
 }
 
-.media {
-  position: absolute;
-  inset: -8% 0;
-  z-index: -1;
-}
-
-.shot {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center 20%;
-  will-change: opacity, transform;
-  animation: panA 34s ease-in-out infinite alternate;
-}
-
-.shotAlt {
-  animation-name: panB;
-  animation-delay: -17s;
-}
-
-@keyframes panA {
-  from { transform: scale(1.04) translateX(0.6%); }
-  to { transform: scale(1.16) translateX(-1.2%); }
-}
-
-@keyframes panB {
-  from { transform: scale(1.14) translateX(-1%); }
-  to { transform: scale(1.05) translateX(1%); }
-}
-
-.veil {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(10, 10, 11, 0.62) 0%, rgba(10, 10, 11, 0.28) 40%, rgba(10, 10, 11, 0.93) 100%),
-    linear-gradient(90deg, rgba(10, 10, 11, 0.42) 0%, transparent 45%);
-}
-
-.vignette {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 120% 90% at 50% 42%, transparent 55%, rgba(5, 5, 6, 0.55) 100%);
-}
-
-.scanlines {
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 0 1px, transparent 1px 3px);
-  opacity: 0.5;
-}
-
-.content {
-  position: relative;
-  padding-block: clamp(6rem, 15vh, 11rem) clamp(3rem, 9vh, 6rem);
-}
-
-.metaRow {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.3rem;
-}
-
-.metaRule {
-  width: clamp(2rem, 6vw, 4.5rem);
-  height: 1px;
-  background: var(--accent);
-}
-
-.meta {
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  letter-spacing: 0.32em;
-  color: var(--gold);
-}
-
-.title {
-  display: flex;
-  flex-direction: column;
-  font-size: var(--fs-hero);
-  line-height: 0.92;
-}
-
-.titleKicker {
-  font-size: clamp(1.1rem, 2.6vw, 2rem);
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-  margin-bottom: 0.4rem;
-}
-
-.titleMain {
-  font-size: clamp(3.4rem, 11.5vw, 9.5rem);
-  letter-spacing: -0.015em;
-  text-shadow: 0 2px 44px rgba(0, 0, 0, 0.5);
-}
-
-.accent {
-  color: var(--accent);
-}
-
-.lede {
-  margin-top: 1.3rem;
-  max-width: 34rem;
-  font-size: 1.02rem;
-  color: #d6d6dd;
-  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.55);
-}
-
-.ctas {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.9rem;
-  margin-top: 1.8rem;
-}
-
-.dropMeta {
-  margin-top: 2rem;
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  letter-spacing: 0.26em;
-  color: var(--muted);
-}
-
-.dropMeta [aria-hidden] {
-  color: var(--accent);
-}
-
-/* sections */
-.section {
-  padding-block: var(--section-y);
-}
-
-.headLink {
-  font-family: var(--font-mono);
-  font-size: var(--fs-small);
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  color: var(--text);
-  text-decoration: none;
-  padding: 0.55em 0;
-  transition: color var(--speed) var(--ease);
-}
-
-.headLink:hover {
-  color: var(--accent);
-}
-
-.teaseGrid {
+.showcaseGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(1.2rem, 3vw, 2.2rem);
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  align-items: center;
+  gap: clamp(1.75rem, 4vw, 3.5rem);
 }
 
-/* full-bleed lookbook strip */
-.stripLink {
+.showcaseMedia {
+  min-width: 0;
+}
+
+.showcaseLink {
   display: block;
-  position: relative;
-  text-decoration: none;
-  color: var(--text);
   overflow: hidden;
 }
 
-.stripMedia {
-  position: absolute;
-  inset: 0;
-}
-
-.stripImg {
+/* Portrait source, near-native crop — the tee fills the frame rather than
+   sitting in it. */
+.showcaseImg {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
-  object-position: center 25%;
+  object-position: center 28%;
   transition: transform 900ms var(--ease);
 }
 
-.stripLink:hover .stripImg {
-  transform: scale(1.04);
+.showcaseLink:hover .showcaseImg {
+  transform: scale(1.03);
 }
 
-.stripShade {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(10, 10, 11, 0.9) 0%, rgba(10, 10, 11, 0.55) 55%, rgba(10, 10, 11, 0.3) 100%);
+.showcaseBody {
+  min-width: 0;
 }
 
-.stripContent {
-  position: relative;
-  padding-block: clamp(4.5rem, 12vw, 9rem);
-}
-
-.stripTitle {
-  font-size: clamp(1.9rem, 5vw, 3.6rem);
-  font-weight: 700;
-  text-transform: uppercase;
-  line-height: 1;
-  margin-block: 0.9rem 1.4rem;
-}
-
-.stripAccent {
-  color: transparent;
-  -webkit-text-stroke: 1px var(--muted);
-}
-
-.stripCta {
-  font-family: var(--font-mono);
-  font-size: var(--fs-small);
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  color: var(--accent);
-}
-
-/* story teaser */
-.storyTease {
-  padding-block: var(--section-y);
-  border-top: 1px solid var(--line);
-}
-
-.storyTeaseInner {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-  gap: clamp(2rem, 6vw, 5rem);
-  align-items: center;
-}
-
-.storyTeaseTitle {
+.showcaseTitle {
   font-size: var(--fs-h2);
-  margin-block: 0.8rem 1.1rem;
+  margin-block: 0.7rem 0.5rem;
 }
 
-.storyTeaseText {
+.showcasePrice {
+  font-family: var(--font-mono);
+  font-size: var(--fs-body);
+  letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+}
+
+.compare {
+  margin-left: 0.7rem;
+  color: var(--faint);
+  text-decoration: line-through;
+}
+
+.showcaseText {
   color: var(--muted);
   max-width: 30rem;
+  margin-bottom: 1rem;
+  text-wrap: pretty;
+}
+
+.showcaseMeta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
   margin-bottom: 1.6rem;
 }
 
-.storyTeaseImg {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  object-position: center 22%;
-  border: 1px solid var(--line-strong);
-}
-
-/* signal */
-.signal {
-  padding-block: var(--section-y);
-  border-top: 1px solid var(--line);
-  background: var(--panel);
-}
-
-.signalTitle {
-  font-size: var(--fs-h2);
-  margin-block: 0.8rem 1.6rem;
-}
-
-.signalCtas {
+.showcaseActions {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 0.9rem;
+  gap: 0.75rem 1.75rem;
+}
+
+/* ---------- 3. product discovery ---------- */
+
+.drop {
+  padding-block: var(--space-calm) var(--space-wide);
+  border-top: 1px solid var(--line);
+  background: var(--ink-raised);
+}
+
+.dropHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  margin-bottom: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.dropHeading {
+  font-size: var(--fs-h2);
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.6vw, 1.25rem);
+}
+
+/* ---------- 4. why: statement and evidence, not three equal columns ---------- */
+
+.why {
+  padding-block: var(--space-wide);
+}
+
+.whyGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: start;
+  gap: clamp(2rem, 5vw, 4.5rem);
+}
+
+.whyLead {
+  min-width: 0;
+}
+
+.whyStatement {
+  font-size: clamp(1.3rem, 2.4vw, 2rem);
+  max-width: 26ch;
+  margin-block: 0.9rem 1.5rem;
+  color: var(--text);
+  text-wrap: pretty;
+}
+
+.whyCta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text);
+  background-image: linear-gradient(var(--line-strong), var(--line-strong));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  transition: background-size var(--speed-slow) var(--ease), color var(--speed) var(--ease);
+}
+
+.whyCta:hover {
+  background-size: 100% 2px;
+  color: var(--accent);
+}
+
+.whyList {
+  display: grid;
+  gap: 1.4rem;
+  min-width: 0;
+  padding-top: 0.25rem;
+}
+
+.whyItem {
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line-strong);
+}
+
+.whyKey {
+  font-size: var(--fs-body);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  margin-bottom: 0.35rem;
+}
+
+.whyText {
+  color: var(--muted);
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+/* ---------- 5. editorial lookbook moment ---------- */
+
+/* Given its own viewport rather than the ~0.6 it inherited from padding
+   alone — this is the frame that has to sell the photography. */
+.editorial {
+  position: relative;
+  min-height: min(74svh, 42rem);
+  display: flex;
+  align-items: center;
+}
+
+.editorialLink {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  color: var(--text);
+  overflow: hidden;
+}
+
+.editorialMedia {
+  position: absolute;
+  inset: 0;
+}
+
+.editorialImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 26%;
+  transition: transform 1400ms var(--ease);
+}
+
+.editorialLink:hover .editorialImg {
+  transform: scale(1.03);
+}
+
+.editorialShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(8, 8, 10, 0.9) 0%,
+    rgba(8, 8, 10, 0.62) 40%,
+    rgba(8, 8, 10, 0.22) 100%
+  );
+}
+
+.editorialContent {
+  position: relative;
+  width: 100%;
+  padding-block: clamp(3.5rem, 9vw, 7rem);
+}
+
+.editorialTitle {
+  font-size: var(--fs-hero);
+  margin-bottom: 1rem;
+}
+
+.editorialText {
+  max-width: 26rem;
+  color: #cfcac4;
+  margin-bottom: 1.5rem;
+  text-wrap: pretty;
+}
+
+.editorialCta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 2px;
+  transition: color var(--speed) var(--ease);
+}
+
+.editorialLink:hover .editorialCta {
+  color: var(--accent);
+}
+
+/* ---------- 6. closing CTA ---------- */
+
+/* The old version of this block ran on --space-vast and held only a heading,
+   two lines and two links — roughly a full screen of ink for a fraction of a
+   screen of content. It is now capped just above half a viewport and centred. */
+.lore {
+  display: flex;
+  align-items: center;
+  min-height: min(58svh, 34rem);
+  padding-block: var(--space-calm);
+  border-top: 1px solid var(--line);
+  background: var(--ink-raised);
+  text-align: center;
+}
+
+.loreInner {
+  max-width: 42rem;
+  margin-inline: auto;
+}
+
+.loreTitle {
+  font-size: clamp(2.1rem, 5.5vw, 3.75rem);
+  margin-bottom: 1rem;
+}
+
+.loreText {
+  color: var(--muted);
+  max-width: 36ch;
+  margin: 0 auto 1.85rem;
+  text-wrap: pretty;
+}
+
+.loreActions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.75rem;
 }
 
 @media (max-width: 900px) {
-  .teaseGrid {
+  .showcaseGrid,
+  .whyGrid {
     grid-template-columns: 1fr;
   }
 
-  .storyTeaseInner {
+  /* Both grids stack image-first / statement-first because the media column is
+     earlier in the DOM. */
+  .whyGrid {
+    gap: 2rem;
+  }
+
+  .cardGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .cardGrid {
     grid-template-columns: 1fr;
   }
 
-  .stripContent {
-    padding-block: 4rem;
+  .editorialShade {
+    background: linear-gradient(
+      to top,
+      rgba(8, 8, 10, 0.9) 0%,
+      rgba(8, 8, 10, 0.55) 45%,
+      rgba(8, 8, 10, 0.3) 100%
+    );
+  }
+
+  .lore {
+    min-height: auto;
+    padding-block: var(--space-wide);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .shot {
-    animation: none;
-  }
-
-  .stripImg {
+  .showcaseImg,
+  .editorialImg {
     transition: none;
   }
 }
