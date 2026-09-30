@@ -103,53 +103,6 @@
   background-size: 100% 2px;
 }
 
-/* film-progress hairline, pinned to the base of the frame */
-.progress {
-  position: absolute;
-  inset: auto 0 0;
-  z-index: 2;
-  display: flex;
-  gap: 4px;
-  padding-inline: var(--gutter);
-  padding-bottom: 0.85rem;
-}
-
-.progressSeg {
-  flex: 1;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.22);
-  overflow: hidden;
-}
-
-.progressSeg[data-state='current'] {
-  background: rgba(255, 255, 255, 0.22);
-  position: relative;
-}
-
-.progressSeg[data-state='current']::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--text);
-  transform-origin: left;
-  animation-name: progressFill;
-  animation-timing-function: linear;
-  animation-fill-mode: both;
-}
-
-.progressSeg[data-state='past'] {
-  background: rgba(255, 255, 255, 0.62);
-}
-
-@keyframes progressFill {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-
 /* Above the fold the copy can spread wider, but the frame is a portrait slice
    in landscape so the type still needs a firm left anchor. */
 @media (min-width: 1024px) {
@@ -159,11 +112,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .progressSeg[data-state='current']::after {
-    animation: none;
-    transform: scaleX(1);
-  }
-
   .ctaGhost {
     transition: none;
   }

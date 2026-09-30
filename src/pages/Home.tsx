@@ -11,8 +11,11 @@ import { Reveal } from '../components/motion/Reveal'
 import { SmartImage } from '../components/SmartImage'
 import styles from './Home.module.css'
 
-/** One of each. The wall IS the drop. */
-const DROP = PRODUCTS
+/** The wall shows eight; the full ten live in the shop. Blood and Sun lead
+    the chapters below, so the wall stays a clean two rows of four. */
+const DROP = PRODUCTS.filter(
+  (p) => p.slug !== 'demon-blood' && p.slug !== 'will-of-the-sun',
+)
 
 /** Design names, kept to the mythic register the brand actually uses. */
 const CHAPTERS = [
@@ -74,21 +77,11 @@ export default function Home() {
     <>
       <Hero />
 
-      {/* ---------- 1. tickertape stack: red / ghost / white ---------- */}
+      {/* ---------- 1. tickertape: the rules of the label ---------- */}
       <Marquee
-        phrase="No restocks. Ever. ◆ Limited runs only ◆ Wear your story ◆ "
-        tone="accent"
-      />
-      <Marquee
-        phrase="The Origin Drop ◆ Ten designs ◆ One run ◆ Drawn for the story ◆ "
+        phrase="No restocks. Ever. ◆ Limited runs only ◆ Wear your story ◆ 240gsm heavyweight cotton ◆ "
         tone="ghost"
         duration={34}
-      />
-      <Marquee
-        phrase="240gsm heavyweight cotton ◆ Oversized fit ◆ XS–XXL ◆ Shot in Australia ◆ "
-        tone="light"
-        duration={38}
-        reverse
       />
 
       {/* ---------- 2. the drop wall: every tee, one screen ---------- */}
@@ -114,6 +107,11 @@ export default function Home() {
                 <ProductCard product={p} onQuickView={setQuickView} priority={i < 2} />
               </Reveal>
             ))}
+          </div>
+          <div className={styles.dropFoot}>
+            <Link to="/drop" className="btn btn--primary">
+              Shop all ten in the drop
+            </Link>
           </div>
         </div>
       </section>

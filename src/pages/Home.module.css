@@ -28,12 +28,11 @@
   gap: clamp(0.75rem, 1.5vw, 1.25rem);
 }
 
-/* the last row is designed rather than leftover: cards 9 and 10 each span
-   two columns, so the wall closes on a deliberate asymmetric pair instead of
-   one awkward stretched card */
-.dropGrid > :nth-child(9),
-.dropGrid > :nth-child(10) {
-  grid-column: span 2;
+/* the wall closes on a centred CTA into the full shop */
+.dropFoot {
+  display: flex;
+  justify-content: center;
+  padding-top: clamp(1.75rem, 4vw, 2.75rem);
 }
 
 /* ---------- 3. kinetic statement ---------- */
@@ -339,11 +338,6 @@
 @media (max-width: 1080px) {
   .dropGrid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .dropGrid > :nth-child(9),
-  .dropGrid > :nth-child(10) {
-    grid-column: auto;
   }
 }
 

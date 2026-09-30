@@ -5,8 +5,9 @@ import styles from './Hero.module.css'
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
-/** How long a shot is held before the crossfade begins. */
-const HOLD_MS = 6000
+/** How long a shot is held before the crossfade begins. Short holds keep the
+ *  reel feeling alive; the first frame is what most visitors ever see. */
+const HOLD_MS = 4200
 /** Crossfade duration — slow enough to read as a dissolve, not a slideshow. */
 const FADE_S = 1.1
 
@@ -138,7 +139,6 @@ export function Hero() {
         >
           The Origin Drop
         </motion.p>
-
         <motion.h1
           id="hero-title"
           className={`statement ${styles.title}`}
@@ -176,24 +176,6 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Slide position as a hairline rather than a row of dots — it reads as a
-          film progress bar, and it is the only chrome on the frame. */}
-      {!reduce && (
-        <div className={styles.progress} aria-hidden="true">
-          {SHOTS.map((shot, i) => (
-            <span
-              key={shot.src}
-              className={styles.progressSeg}
-              data-state={i < index ? 'past' : i === index ? 'current' : 'ahead'}
-              style={
-                i === index
-                  ? { animationDuration: `${HOLD_MS}ms`, animationPlayState: paused ? 'paused' : 'running' }
-                  : undefined
-              }
-            />
-          ))}
-        </div>
-      )}
     </section>
   )
 }

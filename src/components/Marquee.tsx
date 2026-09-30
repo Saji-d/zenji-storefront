@@ -4,8 +4,8 @@ import styles from './Marquee.module.css'
 interface MarqueeProps {
   /** The repeating phrase. Split on '◆' into beats. */
   phrase: string
-  /** accent = red band, ghost = outlined on ink, light = white band */
-  tone?: 'accent' | 'ghost' | 'light'
+  /** ghost = black band, white type, red 禅 */
+  tone?: 'ghost'
   /** seconds for one full loop */
   duration?: number
   /** reverse = travel right-to-left */
@@ -13,17 +13,21 @@ interface MarqueeProps {
   className?: string
 }
 
-/** Split the phrase into beats so every seam lands exactly like a loop point. */
+/** Split the phrase into beats; empties are dropped so a trailing separator
+    can never render a lone second 禅. */
 function beats(phrase: string): string[] {
-  return phrase.split('◆').map((s) => s.trim())
+  return phrase
+    .split('◆')
+    .map((s) => s.trim())
+    .filter(Boolean)
 }
 
 /**
- * Tickertape marquee, one row of the brand stack.
+ * Tickertape marquee.
  *
  * The separator is the 禅 mark itself: the band spells the label's rules and
- * every beat is closed with the glyph from the logotype, so the strip reads as
- * branded punctuation rather than as a generic divider.
+ * every beat is closed with the glyph from the logotype, set with equal space
+ * on both sides so the rhythm reads as structured rather than accidental.
  *
  * The track holds three copies of the phrase so the loop seam never shows at
  * any viewport width. The whole strip is presentational, so it is aria-hidden:
@@ -31,19 +35,18 @@ function beats(phrase: string): string[] {
  */
 export function Marquee({
   phrase,
-  tone = 'accent',
+  /* the single tone is baked into the module css; the prop stays for callers */
+  tone: _tone = 'ghost',
   duration = 28,
   reverse = false,
   className,
 }: MarqueeProps) {
   const reduce = useReducedMotion()
   const items = beats(phrase)
-  const toneClass =
-    tone === 'ghost' ? styles.ghost : tone === 'light' ? styles.light : styles.accent
 
   return (
     <div
-      className={[styles.tape, toneClass, className ?? ''].join(' ')}
+      className={[styles.tape, styles.ghost, className ?? ''].join(' ')}
       aria-hidden="true"
       style={{ '--tape-duration': `${duration}s` } as React.CSSProperties}
       data-static={reduce || undefined}

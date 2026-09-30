@@ -1,0 +1,15 @@
+.wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  overflow: visible;
+}
+
+.canvas {
+  display: block;
+  /* the JS sets proportional negative margins so most of the physics bleed
+     stays out of the layout; these values are the no-JS fallback */
+  margin-block: calc(-1 * clamp(1.5rem, 4vw, 3.5rem)) calc(-1 * clamp(0.75rem, 2vw, 1.75rem));
+  touch-action: pan-y;
+  user-select: none;
+}

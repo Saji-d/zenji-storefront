@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Wordmark } from './Wordmark'
+import { FooterSignature } from './FooterSignature'
 import styles from './Footer.module.css'
 
 /**
@@ -146,11 +146,10 @@ export function Footer() {
         </p>
       </div>
 
-      {/* The signature. Last thing on the page, and the same logotype the
-          navbar opens with. */}
-      <div className={styles.markWrap}>
-        <Wordmark large />
-      </div>
+      {/* The signature. Last thing on the page: the wordmark as a particle
+          field, repelled by the cursor, settled from a marble-scatter on first
+          reveal. */}
+      <FooterSignature />
     </footer>
   )
 }
