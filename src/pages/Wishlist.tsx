@@ -14,7 +14,7 @@ export default function Wishlist() {
   const saved = PRODUCTS.filter((p) => ids.has(p.id))
 
   return (
-    <section className={styles.page} aria-labelledby="wishlist-title">
+    <section className={`${styles.page} ${styles.centeredPage}`} aria-labelledby="wishlist-title">
       <div className="container">
         <Reveal>
           <p className="eyebrow">Saved designs</p>

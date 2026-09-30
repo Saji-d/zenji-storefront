@@ -93,7 +93,7 @@ export default function Lookbook() {
       <div className="container">
         <Reveal>
           <div className={styles.pageHead}>
-            <p className="eyebrow">The Origin Drop campaign // 姿</p>
+            <p className="eyebrow">The Origin Drop campaign</p>
             <h1 id="lookbook-title" className={`statement ${styles.pageTitle}`}>
               Lookbook
             </h1>
@@ -140,7 +140,9 @@ export default function Lookbook() {
                 key={look.src}
                 className={styles.tile}
                 style={{
-                  gridColumn: col(slot),
+                  /* placement travels as a custom property so the mobile
+                     media query can override grid-column cleanly */
+                  '--gc': col(slot),
                   '--ratio': slot.ratio,
                   '--m': slot.m,
                 } as CSSProperties}
@@ -169,7 +171,7 @@ export default function Lookbook() {
           <Reveal
             className={styles.tile}
             style={{
-              gridColumn: col(TAIL),
+              '--gc': col(TAIL),
               '--ratio': TAIL.ratio,
               '--m': TAIL.m,
             } as CSSProperties}

@@ -5,6 +5,7 @@
 
 .pageHead {
   margin-bottom: clamp(1.5rem, 3.5vw, 2.5rem);
+  text-align: center;
 }
 
 .pageTitle {
@@ -15,6 +16,7 @@
 .pageLede {
   color: var(--muted);
   max-width: 34rem;
+  margin-inline: auto;
   text-wrap: pretty;
 }
 
@@ -77,9 +79,16 @@
 }
 
 .tile {
-  grid-column: span var(--c);
+  grid-column: var(--gc, auto);
   margin-top: var(--m);
   min-width: 0;
+}
+
+/* the staircase compresses on narrower desktops so it never eats the fold */
+@media (max-width: 1200px) {
+  .tile {
+    margin-top: calc(var(--m) * 0.5);
+  }
 }
 
 .frameInner {

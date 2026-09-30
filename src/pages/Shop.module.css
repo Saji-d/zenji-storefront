@@ -74,8 +74,13 @@
   cursor: pointer;
 }
 
-.sort:hover {
+/* One hover/focus indicator only: the border goes red and the global focus
+   outline is suppressed, so the select never shows two rings at once. */
+.sort:hover,
+.sort:focus-visible,
+.sort:focus {
   border-color: var(--accent);
+  outline: none;
 }
 
 .sort option,
@@ -117,6 +122,23 @@
 .emptyText {
   color: var(--muted);
   text-wrap: pretty;
+}
+
+/* Centre-aligned page variant (wishlist): the header and the empty state sit
+   mid-axis so the page does not read as a left column lost in black space. */
+.centeredPage {
+  text-align: center;
+}
+
+.centeredPage .lede,
+.centeredPage .count {
+  margin-inline: auto;
+}
+
+.centeredPage .empty {
+  align-items: center;
+  text-align: center;
+  margin-inline: auto;
 }
 
 .grid {

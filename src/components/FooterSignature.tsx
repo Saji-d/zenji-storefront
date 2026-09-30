@@ -72,7 +72,6 @@ export function FooterSignature() {
     let pointerX = -9999
     let pointerY = -9999
     let mouseDown = false
-    let currentRadius = 0
     let raf = 0
     let lastDraw = 0
     let running = false
@@ -96,18 +95,20 @@ export function FooterSignature() {
         'sans-serif'
       const sampleCtx = document.createElement('canvas').getContext('2d')!
       let fontSize = MAX_FONT_PX
-      while (fontSize > 24 && sampleCtx.measureText(TEXT).width > width * 0.96) {
-        sampleCtx.font = `400 ${fontSize}px ${fontFamily.trim()}`
-        fontSize -= 4
-      }
+      // set the font BEFORE the first measure, then re-set on every step, or
+      // the loop measures the canvas default 10px font and never shrinks
       sampleCtx.font = `400 ${fontSize}px ${fontFamily.trim()}`
+      while (fontSize > 24 && sampleCtx.measureText(TEXT).width > width * 0.96) {
+        fontSize -= 4
+        sampleCtx.font = `400 ${fontSize}px ${fontFamily.trim()}`
+      }
 
       const sizeScale = Math.min(2.3, Math.max(1, fontSize / REFERENCE_FONT_PX))
       dotSizePx = DOT_SIZE * Math.min(1.9, Math.max(1, sizeScale * 0.9))
-      // a tighter influence radius: the field reads as a strong magnet close
-      // to the cursor rather than a wide slow push
-      baseRadius = Math.max(30, Math.min(110, fontSize * 0.45))
-      baseForce = Math.max(4, Math.min(24, fontSize * 0.11))
+      // a deliberately small influence radius: dots react close to the
+      // cursor itself rather than across a wide field
+      baseRadius = Math.max(24, Math.min(80, fontSize * 0.32))
+      baseForce = Math.max(3, Math.min(14, fontSize * 0.07))
       colorNorm = Math.max(90, Math.min(420, fontSize * 2.4))
 
       const textHeight = fontSize * 1.1
@@ -173,27 +174,8 @@ export function FooterSignature() {
         ctx.fillRect(d.x - dotSizePx / 2, d.y - dotSizePx / 2, dotSizePx, dotSizePx)
       }
 
-      if (interactive && pointerX > 0 && pointerX < width && pointerY > 0 && pointerY < height) {
-        const glowR = currentRadius * 0.35
-        const glow = ctx.createRadialGradient(pointerX, pointerY, 0, pointerX, pointerY, glowR)
-        glow.addColorStop(0, 'rgba(255,61,61,0.07)')
-        glow.addColorStop(1, 'rgba(255,61,61,0)')
-        ctx.fillStyle = glow
-        ctx.beginPath()
-        ctx.arc(pointerX, pointerY, glowR, 0, Math.PI * 2)
-        ctx.fill()
-
-        ctx.strokeStyle = `rgba(255,61,61,${mouseDown ? 0.45 : 0.2})`
-        ctx.lineWidth = 1
-        ctx.beginPath()
-        ctx.arc(pointerX, pointerY, currentRadius * 0.15, 0, Math.PI * 2)
-        ctx.stroke()
-
-        ctx.fillStyle = 'rgba(255,61,61,0.8)'
-        ctx.beginPath()
-        ctx.arc(pointerX, pointerY, 2, 0, Math.PI * 2)
-        ctx.fill()
-      }
+      // no cursor overlay: the dots react around the pointer itself, so the
+      // native cursor stays the only indicator on the field
     }
 
     /** First reveal: scatter the dots, then let the spring settle them home. */
@@ -213,7 +195,6 @@ export function FooterSignature() {
     function tick() {
       const radius = baseRadius
       const strength = baseForce * (mouseDown ? HOLD_BOOST : 1)
-      currentRadius = radius
 
       let returnSpeed = RETURN_SPEED
       if (introFramesLeft > 0) {

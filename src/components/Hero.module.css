@@ -78,13 +78,14 @@
   gap: 0.75rem 1.75rem;
 }
 
-/* Outlined-on-photo action. A solid ghost button over a photograph reads as a
-   floating chip, so this is an underlined text action instead. */
+/* Outlined sibling of the primary button: same shape, same type, quiet fill.
+   The solid red primary stays the loudest of the pair; this one matches its
+   footprint so the two read as one system instead of two different species. */
 .ctaGhost {
   display: inline-flex;
   align-items: center;
   min-height: 3rem;
-  padding-inline: 0.25em;
+  padding: 0.85em 1.75em;
   font-family: var(--font-display);
   font-size: var(--fs-small);
   font-weight: 600;
@@ -92,15 +93,17 @@
   text-transform: uppercase;
   text-decoration: none;
   color: var(--text);
-  background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6));
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 100% 1px;
-  transition: background-size var(--speed-slow) var(--ease);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: rgba(8, 8, 10, 0.25);
+  backdrop-filter: blur(4px);
+  transition: background var(--speed) var(--ease), border-color var(--speed) var(--ease),
+    color var(--speed) var(--ease);
 }
 
 .ctaGhost:hover {
-  background-size: 100% 2px;
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--ink);
 }
 
 /* Above the fold the copy can spread wider, but the frame is a portrait slice

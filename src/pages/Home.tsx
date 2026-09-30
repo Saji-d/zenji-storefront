@@ -90,7 +90,7 @@ export default function Home() {
           <Reveal>
             <div className={styles.dropHead}>
               <div>
-                <p className={`eyebrow ${styles.dropEyebrow}`}>The Origin Drop // 全十柄</p>
+                <p className={`eyebrow ${styles.dropEyebrow}`}>The Origin Drop</p>
                 <h2 id="drop-title" className={`display ${styles.dropTitle}`}>
                   Ten designs. One run.
                 </h2>
@@ -154,7 +154,7 @@ export default function Home() {
       <section className={styles.chapters} aria-labelledby="chapters-title">
         <div className="container">
           <Reveal>
-            <p className={`eyebrow ${styles.dropEyebrow}`}>The lore // 伝説</p>
+            <p className={`eyebrow ${styles.dropEyebrow}`}>The lore</p>
             <h2 id="chapters-title" className={`display ${styles.chaptersTitle}`}>
               Wear the arc
             </h2>
