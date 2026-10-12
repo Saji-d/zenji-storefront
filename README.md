@@ -1,170 +1,246 @@
 <div align="center">
 
-# 禅 ZENJI
+<img src="assets/banner.svg" alt="ZENJI storefront banner" width="100%">
 
-### Anime streetwear storefront · React 19 + TypeScript + Vite
+<p><code>Anime streetwear storefront built as a frontend assessment: React 19, TypeScript and Vite</code></p>
 
-**A limited-drop shopping experience — browse, quick-view, size up, cart — wrapped in an editorial campaign aesthetic.**
-Built as a frontend hiring assessment: no backend, no payments, pure frontend craft.
+<p>
+<a href="https://zenji-webstore.vercel.app"><img src="https://img.shields.io/badge/LIVE%20DEMO-zenji--webstore.vercel.app-fb7185?style=for-the-badge&labelColor=0B0E1A" alt="Live demo"></a>
+<a href="https://github.com/Saji-d/zenji-storefront"><img src="https://img.shields.io/badge/SOURCE-GitHub-8B7CF6?style=for-the-badge&logo=github&logoColor=C084FC&labelColor=0B0E1A" alt="Source"></a>
+<img src="https://img.shields.io/badge/STATUS-Frontend%20assessment-6366F1?style=for-the-badge&labelColor=0B0E1A" alt="Status: frontend assessment">
+</p>
 
-[![Live Demo](https://img.shields.io/badge/live_demo-zenji--webstore.vercel.app-ff3d3d?style=for-the-badge&labelColor=0a0a0b)](https://zenji-webstore.vercel.app)
-[![Source](https://img.shields.io/badge/source-GitHub-f6f5f3?style=for-the-badge&logo=github&labelColor=0a0a0b)](https://github.com/Saji-d/zenji-storefront)
+<p>
+<img src="https://img.shields.io/badge/React%2019-0B0E1A?style=flat-square&logo=react&logoColor=8B7CF6" alt="React 19">
+<img src="https://img.shields.io/badge/TypeScript-0B0E1A?style=flat-square&logo=typescript&logoColor=8B7CF6" alt="TypeScript">
+<img src="https://img.shields.io/badge/Vite%207-0B0E1A?style=flat-square&logo=vite&logoColor=8B7CF6" alt="Vite 7">
+<img src="https://img.shields.io/badge/React%20Router%207-0B0E1A?style=flat-square&logo=reactrouter&logoColor=8B7CF6" alt="React Router 7">
+<img src="https://img.shields.io/badge/Framer%20Motion-0B0E1A?style=flat-square&logo=framer&logoColor=8B7CF6" alt="Framer Motion">
+<img src="https://img.shields.io/badge/Vitest-0B0E1A?style=flat-square&logo=vitest&logoColor=8B7CF6" alt="Vitest">
+<img src="https://img.shields.io/badge/axe--core-0B0E1A?style=flat-square&logo=deque&logoColor=8B7CF6" alt="axe-core">
+<img src="https://img.shields.io/badge/Vercel-0B0E1A?style=flat-square&logo=vercel&logoColor=8B7CF6" alt="Vercel">
+</p>
 
-![React 19](https://img.shields.io/badge/React_19-20232a?style=flat-square&logo=react&logoColor=61dafb)
-![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6?style=flat-square&logo=typescript&logoColor=white)
-![Vite 7](https://img.shields.io/badge/Vite_7-646cff?style=flat-square&logo=vite&logoColor=white)
-![Framer Motion](https://img.shields.io/badge/Framer_Motion-black?style=flat-square&logo=framer&logoColor=white)
-![Vitest](https://img.shields.io/badge/Vitest-27_tests-729b1b?style=flat-square&logo=vitest&logoColor=white)
-![axe-core](https://img.shields.io/badge/axe--core_WCAG_AA-4a154b?style=flat-square&logo=deque&logoColor=white)
+<p>
+<a href="#-overview">Overview</a> · <a href="#-highlights">Highlights</a> · <a href="#-preview">Preview</a> · <a href="#-architecture">Architecture</a> · <a href="#-tech-stack">Tech Stack</a> · <a href="#-getting-started">Getting Started</a> · <a href="#-project-structure">Structure</a> · <a href="#-roadmap">Roadmap</a> · <a href="#-author">Author</a>
+</p>
 
 </div>
 
----
+<img src="assets/divider.svg" width="100%" alt="">
 
-## ⚡ At a glance
+## ◈ Overview
 
-| | | | |
-|---|---|---|---|
-| **Framework** React 19 | **Language** TypeScript (strict) | **Build** Vite 7 | **Routing** React Router 7 |
-| **Styling** CSS Modules + tokens | **Motion** Framer Motion | **State** Context + `useReducer` | **Persistence** `localStorage` |
-| **Tests** 27 · 3 suites | **A11y** axe-core scanned | **Fonts** self-hosted Fontsource | **Hosting** Vercel |
+ZENJI is a limited-drop anime streetwear storefront: a campaign homepage, a shop, product pages, a lookbook, a cart and a wishlist. I built it as a frontend hiring assessment, so the goal was craft and polish rather than a real commerce backend.
 
----
+> **Honest scope.** This is a frontend-only demo. There are no payments, accounts, orders or server. The cart and wishlist live in `localStorage`; the catalog is a small typed data file. Nothing leaves the browser.
 
-## ✦ What makes this interesting
+The design, copy voice and art direction are an original interpretation of the identity of [zenji.shop](https://zenji.shop), an Australian anime streetwear label. It is a study of how a drop-based brand could feel on the web and is not affiliated with or endorsed by ZENJI.
 
-> A shop that *feels* like a drop, not a spreadsheet. Every section below is implemented — nothing is mocked up.
+<img src="assets/divider.svg" width="100%" alt="">
 
-<table>
-<tr><td width="50%">
+## ◈ Highlights
 
-### 🛒 The full shopping flow
+<table width="100%">
+<tr>
+<td width="33%" valign="top">
 
-Ten designs, real commerce logic, zero backend.
+**Quick view**<br/>
+Open any product from its card in a bottom sheet on mobile or a split panel on desktop, with the size picker inside.
 
-- **Quick view** from any card — size picker inside
-- **Product pages** with gallery + related designs
-- **Cart drawer + cart page** — quantities, removal, subtotal, sale maths
-- **Free-shipping meter** at the A$100 threshold
-- **Wishlist** persisted across reloads
+</td>
+<td width="33%" valign="top">
 
-</td><td width="50%">
+**Cart drawer and page**<br/>
+Quantity steppers, removal, sale pricing, subtotal and savings. The drawer is a focus-trapped dialog.
 
-### 🎬 An editorial homepage
+</td>
+<td width="33%" valign="top">
 
-Campaign first, catalogue second.
+**Free-shipping meter**<br/>
+A progress bar toward the A$100 threshold. Orders under it use a flat A$9.99 shipping figure.
 
-- Full-bleed **hero reel** — first frame LCP-preloaded, the rest idle-mounted
-- Black **tickertape marquee** closing every phrase with the 禅 mark
-- **Ten-design drop wall** with sale / last-units chips
-- Kinetic **word-by-word brand statement**
-- **Chapter cards** — each tee washed in its own accent colour
+</td>
+</tr>
+<tr>
+<td width="33%" valign="top">
 
-</td></tr>
-<tr><td width="50%">
+**Wishlist**<br/>
+Heart toggles on cards and product pages, a header badge count and persistence across reloads.
 
-### 🫧 A footer that plays back
+</td>
+<td width="33%" valign="top">
 
-The wordmark is a **canvas particle field**:
+**Editorial homepage**<br/>
+Hero reel with a preloaded first frame, ticker marquee, drop wall, kinetic brand statement and chapter cards.
 
-- Dots sampled from an offscreen text render
-- Spring-return physics — scatter like marbles on first reveal
-- Repels around the cursor; click-and-hold amplifies
-- `aria-hidden`, frozen under reduced motion
+</td>
+<td width="33%" valign="top">
 
-</td><td width="50%">
+**Particle footer**<br/>
+The wordmark is a canvas particle field that scatters and repels around the cursor. It is hidden from assistive tech and frozen under reduced motion.
 
-### 🔍 Verified, not assumed
+</td>
+</tr>
+<tr>
+<td width="33%" valign="top">
 
-Beyond the unit suite, headless QA scripts:
+**Accessibility**<br/>
+Skip link, focus rings, focus traps with restoration, a keyboard-driven radio-group size picker and reduced-motion support.
 
-- Screenshot **every route × six viewports** (320 → 1920px)
-- Probe for **horizontal overflow**
-- Run **axe-core** against WCAG 2.1 AA on key pages
-- Verify product images actually decode
+</td>
+<td width="33%" valign="top">
 
-</td></tr>
+**Tested**<br/>
+27 Vitest tests across 3 suites covering cart logic, the app shell and the root.
+
+</td>
+<td width="33%" valign="top">
+
+**Audited**<br/>
+Headless QA scripts screenshot every route across viewports, probe overflow and run axe-core.
+
+</td>
+</tr>
 </table>
 
----
+<details>
+<summary><strong>Routes</strong></summary>
 
-## 🗺 Routes
+| Route | Page |
+|---|---|
+| `/` | Campaign homepage |
+| `/drop` | The shop with availability filters and sorting |
+| `/drop/:slug` | Product detail with gallery, size picker and related designs |
+| `/collection` and `/collection/:slug` | Collection index and filtered grids |
+| `/lookbook` | Editorial gallery |
+| `/story` | Brand story |
+| `/faq` | FAQ accordion |
+| `/wishlist` | Saved designs |
+| `/cart` | Full-page bag, mirroring the drawer |
+| `*` | Branded 404 |
 
-| Route | Page | Signature detail |
+</details>
+
+<img src="assets/divider.svg" width="100%" alt="">
+
+## ◈ Preview
+
+<div align="center">
+<img src="docs/preview.webp" alt="ZENJI storefront preview" width="100%">
+</div>
+
+<br/>
+
+<table width="100%">
+<tr>
+<td width="50%" align="center"><img src="docs/screenshots/home-hero.webp" alt="Homepage hero"><br/><sub>Campaign hero</sub></td>
+<td width="50%" align="center"><img src="docs/screenshots/shop.webp" alt="Shop page"><br/><sub>The drop (shop)</sub></td>
+</tr>
+<tr>
+<td width="50%" align="center"><img src="docs/screenshots/product.webp" alt="Product page"><br/><sub>Product page with size picker</sub></td>
+<td width="50%" align="center"><img src="docs/screenshots/lookbook.webp" alt="Lookbook"><br/><sub>Lookbook</sub></td>
+</tr>
+</table>
+
+<div align="center">
+<img src="docs/screenshots/mobile-home.webp" alt="Mobile homepage" width="260"><br/><sub>Mobile (375px)</sub>
+</div>
+
+<img src="assets/divider.svg" width="100%" alt="">
+
+## ◈ Architecture
+
+State is plain React: two context providers own the cart (a `useReducer` store) and the wishlist, both mirrored to `localStorage`. Pages read from a typed catalog and the router wraps every page in a transition.
+
+```mermaid
+flowchart LR
+  subgraph Shell["App shell (App.tsx)"]
+    R[React Router 7] --> PT[PageTransition]
+    H[Header] --- CD[CartDrawer]
+    AT[AddedToast]
+  end
+  PT --> Pages["Pages: Home, Shop, Product, Collections, Lookbook, Story, FAQ, Wishlist, Cart"]
+  Pages --> Cards[ProductCard] --> QV[QuickView + SizePicker]
+  Data[("data/products.ts<br/>typed catalog")] --> Pages
+  QV -- add --> Cart[(CartContext<br/>useReducer)]
+  Cards -- toggle --> Wish[(WishlistContext)]
+  Cart --> CD
+  Cart <--> LS[("localStorage")]
+  Wish <--> LS
+  Hooks["hooks: useModalFocus, useLockBody, useRadioGroupKeys, useSectionSpy"] -.-> QV
+  Hooks -.-> CD
+```
+
+<img src="assets/divider.svg" width="100%" alt="">
+
+## ◈ Tech Stack
+
+| Layer | Technologies | Purpose |
 |---|---|---|
-| `/` | Campaign homepage | Hero reel · marquee · drop wall · kinetic type |
-| `/drop` | The shop | Availability filters + sorting, animated re-layout |
-| `/drop/:slug` | Product detail | Gallery · size picker · related designs |
-| `/collection` | Collection index | Full run / marked down / final units |
-| `/collection/:slug` | Filtered grid | — |
-| `/lookbook` | Editorial gallery | Parallax lead · zigzag mosaic |
-| `/story` | Brand story | The label's rules, in its voice |
-| `/faq` | FAQ accordion | Grounded in the brand's real material |
-| `/wishlist` | Saved designs | Persisted, badge count in header |
-| `/cart` | Full-page bag | Mirror of the slide-over drawer |
-| `*` | 404 | A way back, in brand |
+| UI | React 19, TypeScript (strict) | Components and type safety |
+| Build | Vite 7 | Dev server and production bundle |
+| Routing | React Router 7 | Eleven routes including a 404 |
+| Motion | Framer Motion | Page transitions, reveals, animated grid re-flow |
+| Styling | CSS Modules and custom-property tokens | Hand-written styles, no UI framework |
+| Fonts | Fontsource: Anton, Space Grotesk, JetBrains Mono | Self-hosted, no runtime font requests |
+| Testing | Vitest, Testing Library, jsdom | Unit and integration tests |
+| QA | playwright-core, axe-core | Screenshots, overflow probe, WCAG scans |
+| Hosting | Vercel | Static SPA deployment |
 
----
+<img src="assets/divider.svg" width="100%" alt="">
 
-## 🧭 UX & interaction
+## ◈ Getting Started
 
-| Interaction | Detail |
-|---|---|
-| 🛍 **Cart drawer** | Focus-trapped dialog · ESC / overlay close · steppers · savings total |
-| ⚡ **Quick view** | Bottom sheet on mobile · split panel on desktop |
-| ❤️ **Wishlist** | Heart toggles everywhere · header badge · persists |
-| 🔔 **Toasts** | Auto-dismissing "added" confirmation with jump-to-cart |
-| 🎚 **Filters** | On sale / last units · spring-animated grid re-flow |
-| 🎞 **Scroll choreography** | Scroll reveals · page transitions · scroll-aware header |
-| ⌨️ **Keyboard** | Skip link · focus rings · traps + restoration · radio-group size picker |
-| 🚫 **Reduced motion** | Reel, marquees, reveals, particles — all collapse to static |
+Requires Node.js 18 or newer. No environment variables are needed.
 
----
+```bash
+git clone https://github.com/Saji-d/zenji-storefront.git
+cd zenji-storefront
+npm install
+npm run dev        # http://localhost:5173
+```
 
-## 📐 Responsive & performance
-
-- **Mobile-first CSS** — audited at 320 / 375 / 390 / 430 / 768 / 1024 / 1440 / 1920px, zero horizontal overflow
-- **LCP discipline** — one preloaded hero frame, the rest of the reel mounted after first paint in an idle callback
-- **Lazy imagery** — below-the-fold images with async decoding
-- **Self-hosted fonts** — Anton · Space Grotesk · JetBrains Mono, no runtime font requests
-- **No UI framework** — the entire look is CSS Modules over a small custom-property token set
-
----
-
-## 🧰 Tech stack
-
-| Layer | Choice |
-|---|---|
-| Framework | [React 19](https://react.dev) + [TypeScript](https://www.typescriptlang.org) |
-| Build | [Vite 7](https://vite.dev) |
-| Routing | [React Router 7](https://reactrouter.com) |
-| Motion | [Framer Motion](https://motion.dev) |
-| Styling | CSS Modules · design tokens |
-| Fonts | `@fontsource/anton` · `@fontsource/space-grotesk` · `@fontsource/jetbrains-mono` |
-| Testing | [Vitest](https://vitest.dev) + [Testing Library](https://testing-library.com) + jsdom |
-| QA tooling | `playwright-core` + `axe-core` |
+```bash
+npm run typecheck  # tsc -b
+npm test           # vitest run
+npm run build      # typecheck + production bundle in dist/
+npm run preview    # serve the production build
+```
 
 <details>
-<summary><strong>📁 Project structure</strong></summary>
+<summary><strong>Headless QA scripts (optional)</strong></summary>
 
+The scripts in `scripts/` use `playwright-core` with your installed Chrome. They need the app to be running.
+
+```bash
+node scripts/visual-qa.mjs    # screenshots, axe-core and overflow probe
+node scripts/routes-qa.mjs    # every route across several viewports
 ```
-├── docs/                    # design brief and planning notes
-├── public/
-│   ├── hero/                # campaign hero frames
-│   ├── lookbook/            # lookbook photography
-│   └── products/            # product shots (front / back / gallery)
-├── scripts/                 # asset pipeline + headless QA scripts
+
+</details>
+
+<img src="assets/divider.svg" width="100%" alt="">
+
+## ◈ Project Structure
+
+<details>
+<summary><strong>Show the tree</strong></summary>
+
+```text
+.
+├── docs/                 # design brief and planning notes
+├── public/               # hero frames, lookbook and product images
+├── scripts/              # asset pipeline and headless QA scripts
 ├── src/
-│   ├── components/          # Header · Footer · Hero · Marquee · ProductCard
-│   │   │                    # QuickView · CartDrawer · FooterSignature · …
-│   │   └── motion/          # Reveal · PageTransition
-│   ├── context/             # CartContext · WishlistContext
-│   ├── data/                # product catalog · FAQ content
-│   ├── hooks/               # useModalFocus · useCartDrawer · useRadioGroupKeys · …
-│   ├── pages/               # one module per route
-│   ├── styles/              # tokens.css · global.css
-│   ├── __tests__/           # vitest suites
-│   ├── App.tsx              # routes + shell (drawer, toast, transitions)
+│   ├── components/       # Header, Footer, Hero, ProductCard, QuickView, CartDrawer, ...
+│   │   └── motion/       # Reveal, PageTransition
+│   ├── context/          # CartContext, WishlistContext
+│   ├── data/             # product catalog and FAQ content
+│   ├── hooks/            # useModalFocus, useCartDrawer, useRadioGroupKeys, ...
+│   ├── pages/            # one module per route
+│   ├── __tests__/        # Vitest suites
+│   ├── App.tsx           # routes and shell
 │   └── main.tsx
 ├── index.html
 └── package.json
@@ -172,72 +248,29 @@ Beyond the unit suite, headless QA scripts:
 
 </details>
 
----
+<img src="assets/divider.svg" width="100%" alt="">
 
-## 🚀 Getting started
+## ◈ Roadmap
 
-Requires **Node 18+**.
+- [x] Quick view, cart drawer, wishlist and free-shipping meter
+- [x] Unit tests and automated accessibility scans
+- [ ] Back the catalog with a real API or CMS
+- [ ] Real checkout, accounts and order flow
+- [ ] End-to-end browser tests in CI
 
-```bash
-git clone https://github.com/Saji-d/zenji-storefront
-cd zenji-storefront
-npm install
-npm run dev        # → http://localhost:5173
-```
+> Photography belongs to the referenced brand and serves as placeholder material only. The source code is published for evaluation and portfolio review and has no open-source licence, so all rights are reserved.
 
-### Quality checks
+<img src="assets/divider.svg" width="100%" alt="">
 
-```bash
-npm run typecheck  # strict TS project build (tsc -b)
-npm test           # 27 unit / integration tests
-npm run build      # typecheck + production bundle → dist/
-npm run preview    # serve the production build locally
-```
+## ◈ Author
 
-<details>
-<summary><strong>Headless QA (optional)</strong></summary>
+**Sajidur Rahman Sajid**: Full-Stack Developer and AI engineer from Dhaka.
 
-Uses your installed Chrome channel:
+<p>
+<a href="https://www.sajidur.me"><img src="https://img.shields.io/badge/Portfolio-0B0E1A?style=for-the-badge&logo=googlechrome&logoColor=9B8CFA" alt="Portfolio"></a>
+<a href="https://www.linkedin.com/in/sajidur-rahman-sajid/"><img src="https://img.shields.io/badge/LinkedIn-0B0E1A?style=for-the-badge&logo=linkedin&logoColor=8B7CF6" alt="LinkedIn"></a>
+<a href="https://github.com/Saji-d"><img src="https://img.shields.io/badge/GitHub-0B0E1A?style=for-the-badge&logo=github&logoColor=EEF0FA" alt="GitHub"></a>
+<a href="mailto:sajidsajidurrahman99@gmail.com"><img src="https://img.shields.io/badge/Email-0B0E1A?style=for-the-badge&logo=gmail&logoColor=9B8CFA" alt="Email"></a>
+</p>
 
-```bash
-node scripts/visual-qa.mjs    # screenshots + axe-core + overflow probe
-node scripts/routes-qa.mjs    # every route × every viewport, JSON report
-```
-
-</details>
-
----
-
-## ☁️ Deployment
-
-Static Vite SPA on **Vercel** — `npm run build` emits `dist/`, SPA fallbacks via Vercel's framework preset. Runs anywhere static hosting exists.
-
----
-
-## ⚠️ Limitations
-
-> This is a **demo storefront**, deliberately scoped to frontend craft.
-
-- No real payments, accounts or orders — the cart is client-side only
-- Add-to-cart, wishlist and newsletter are demonstrations; nothing leaves your browser except `localStorage`
-- Product data is a small typed catalog, not a CMS
-- Photography belongs to the referenced brand and serves as placeholder material only
-
----
-
-## 💠 Credits & inspiration
-
-Design, copy voice and art direction are an **original interpretation** of the identity of [zenji.shop](https://zenji.shop) — an anime streetwear label out of Australia — built as a respectful study of how a drop-based streetwear brand could feel on the web. Not affiliated with or endorsed by ZENJI.
-
----
-
-<div align="center">
-
-**Built by [Saji-d](https://github.com/Saji-d)**
-
-[Live demo](https://zenji-webstore.vercel.app) · [Source](https://github.com/Saji-d/zenji-storefront) · [zenji.shop](https://zenji.shop)
-
-*Demo storefront concept for ZENJI · Original design & code · No real payments, accounts or orders.*
-*Inspired by zenji.shop — not affiliated. Built as a frontend portfolio piece.*
-
-</div>
+<sub>Built with care as a frontend portfolio piece.</sub>
