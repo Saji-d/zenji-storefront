@@ -21,8 +21,10 @@
 <img src="https://img.shields.io/badge/Vercel-0B0E1A?style=flat-square&logo=vercel&logoColor=8B7CF6" alt="Vercel">
 </p>
 
+<p><sub>Built as a technical assessment. Independent implementation, not affiliated with or endorsed by any company.</sub></p>
+
 <p>
-<a href="#-overview">Overview</a> · <a href="#-highlights">Highlights</a> · <a href="#-preview">Preview</a> · <a href="#-architecture">Architecture</a> · <a href="#-tech-stack">Tech Stack</a> · <a href="#-getting-started">Getting Started</a> · <a href="#-project-structure">Structure</a> · <a href="#-roadmap">Roadmap</a> · <a href="#-author">Author</a>
+<a href="#-overview">Overview</a> · <a href="#-highlights">Highlights</a> · <a href="#-preview">Preview</a> · <a href="#-architecture">Architecture</a> · <a href="#-tech-stack">Tech Stack</a> · <a href="#-getting-started">Getting Started</a> · <a href="#-project-structure">Structure</a> · <a href="#-author">Author</a>
 </p>
 
 </div>
@@ -31,7 +33,7 @@
 
 ## ◈ Overview
 
-ZENJI is a limited-drop anime streetwear storefront: a campaign homepage, a shop, product pages, a lookbook, a cart and a wishlist. I built it as a frontend hiring assessment, so the goal was craft and polish rather than a real commerce backend.
+ZENJI is a limited-drop anime streetwear storefront: a campaign homepage, a shop, product pages, a lookbook, a cart and a wishlist. I built it as a frontend assessment, so the goal was craft and polish rather than a real commerce backend. It is a demo, not a live shop.
 
 > **Honest scope.** This is a frontend-only demo. There are no payments, accounts, orders or server. The cart and wishlist live in `localStorage`; the catalog is a small typed data file. Nothing leaves the browser.
 
@@ -224,8 +226,10 @@ node scripts/routes-qa.mjs    # every route across several viewports
 
 ## ◈ Project Structure
 
+Source lives in `src/` (components, context, data, hooks, pages and tests), with static images in `public/` and the asset and QA tooling in `scripts/`.
+
 <details>
-<summary><strong>Show the tree</strong></summary>
+<summary>Open the folder map</summary>
 
 ```text
 .
@@ -248,29 +252,20 @@ node scripts/routes-qa.mjs    # every route across several viewports
 
 </details>
 
-<img src="assets/divider.svg" width="100%" alt="">
-
-## ◈ Roadmap
-
-- [x] Quick view, cart drawer, wishlist and free-shipping meter
-- [x] Unit tests and automated accessibility scans
-- [ ] Back the catalog with a real API or CMS
-- [ ] Real checkout, accounts and order flow
-- [ ] End-to-end browser tests in CI
-
 > Photography belongs to the referenced brand and serves as placeholder material only. The source code is published for evaluation and portfolio review and has no open-source licence, so all rights are reserved.
 
 <img src="assets/divider.svg" width="100%" alt="">
 
 ## ◈ Author
 
-**Sajidur Rahman Sajid**: Full-Stack Developer and AI engineer from Dhaka.
+**Sajidur Rahman Sajid**: Full-Stack Developer and AI engineer from Dhaka.<br>
+BSc in CSE at American International University-Bangladesh (AIUB).
 
 <p>
-<a href="https://www.sajidur.me"><img src="https://img.shields.io/badge/Portfolio-0B0E1A?style=for-the-badge&logo=googlechrome&logoColor=9B8CFA" alt="Portfolio"></a>
-<a href="https://www.linkedin.com/in/sajidur-rahman-sajid/"><img src="https://img.shields.io/badge/LinkedIn-0B0E1A?style=for-the-badge&logo=linkedin&logoColor=8B7CF6" alt="LinkedIn"></a>
-<a href="https://github.com/Saji-d"><img src="https://img.shields.io/badge/GitHub-0B0E1A?style=for-the-badge&logo=github&logoColor=EEF0FA" alt="GitHub"></a>
-<a href="mailto:sajidsajidurrahman99@gmail.com"><img src="https://img.shields.io/badge/Email-0B0E1A?style=for-the-badge&logo=gmail&logoColor=9B8CFA" alt="Email"></a>
+  <a href="https://www.sajidur.me"><img src="https://img.shields.io/badge/Portfolio-0B0E1A?style=flat-square&logo=googlechrome&logoColor=9B8CFA" alt="Portfolio"></a>
+  <a href="https://www.linkedin.com/in/sajidur-rahman-sajid/"><img src="https://img.shields.io/badge/LinkedIn-0B0E1A?style=flat-square&logo=linkedin&logoColor=8B7CF6" alt="LinkedIn"></a>
+  <a href="https://github.com/Saji-d"><img src="https://img.shields.io/badge/GitHub-0B0E1A?style=flat-square&logo=github&logoColor=EEF0FA" alt="GitHub"></a>
+  <a href="mailto:sajidsajidurrahman99@gmail.com"><img src="https://img.shields.io/badge/Email-0B0E1A?style=flat-square&logo=gmail&logoColor=9B8CFA" alt="Email"></a>
 </p>
 
-<sub>Built with care as a frontend portfolio piece.</sub>
+<div align="center"><sub>Built with care as a frontend portfolio piece.</sub></div>
